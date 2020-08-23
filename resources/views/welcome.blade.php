@@ -14,7 +14,6 @@
                 @auth
                     <a href="{{ url('logout') }}" class="btn btn-primary">Logout</a>
                     <a href="{{ url('calendar') }}" class="btn btn-success">Go To Calendar</a>
-
                 @else
                     <a href="{{ url('login') }}" class="btn btn-primary">Login</a>
                 @endauth
