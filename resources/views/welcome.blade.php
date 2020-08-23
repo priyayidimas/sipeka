@@ -25,7 +25,7 @@
   <link href="assets/vendor-utama/aos/aos.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/style.cs" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Serenity - v2.1.0
