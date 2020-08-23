@@ -220,6 +220,9 @@ input[type=number] {
 .radio.selected {
     box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
 }
+.select2 {
+    width:100%!important;
+    }
 
 .fit-image {
     width: 100%;
