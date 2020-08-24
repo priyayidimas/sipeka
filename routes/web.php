@@ -50,6 +50,10 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
 
 });
 
+Route::get('list-kelas', function () {
+    return view('allclass');
+});
+
 Route::get('debug', function () {
     return view('debug');
 });
