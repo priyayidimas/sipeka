@@ -18,12 +18,15 @@ class MahasiswaMiddleware
     public function handle($request, Closure $next)
     {
         $user = User::find(Auth::id());
-        if(session('akses') == 'dosen')
-            return redirect('dosen');
-        if($user->mahasiswa()->count() == 0)
-            return redirect('mhs/pelengkapan-data');
+
         if($user->dosen()->count() > 0)
             return redirect('dosen');
+        if($user->mahasiswa()->count() == 0){
+            if(session('akses') == 'dosen')
+                return redirect('dosen');
+            return redirect('mhs/pelengkapan-data');
+        }
+
 
         return $next($request);
     }
