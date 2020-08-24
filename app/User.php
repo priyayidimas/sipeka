@@ -53,25 +53,34 @@ class User extends Authenticatable
         return $this->hasMany('App\Model\Kelas','dosen_id');
     }
 
-    // Grand Children
+    // Many To Many Child
+    public function join()
+    {
+        return $this->belongsToMany('App\Model\Kelas')->using('App\Model\KelasJoin');
+    }
+    public function kolab()
+    {
+        return $this->belongsToMany('App\Model\Kelas')->using('App\Model\KelasKolab');
+    }
 
+    // Grand Children
     public function materi()
     {
         return $this->hasManyThrough(
-            'App\Model\Materi',     // Grand Child
-            'App\Model\Kelas',    // Child
-            'dosen_id', // Foreign key on Child table
-            'id_kelas', // Foreign key on Grand Child Table
+            'App\Model\Materi',         // Grand Child
+            'App\Model\Kelas',          // Child
+            'dosen_id',                 // Foreign key on Child table
+            'id_kelas',                 // Foreign key on Grand Child Table
         );
     }
 
     public function event()
     {
         return $this->hasManyThrough(
-            'App\Model\Event',     // Grand Child
-            'App\Model\Kelas',    // Child
-            'dosen_id', // Foreign key on Child table
-            'id_kelas', // Foreign key on Grand Child Table
+            'App\Model\Event',          // Grand Child
+            'App\Model\Kelas',          // Child
+            'dosen_id',                 // Foreign key on Child table
+            'id_kelas',                 // Foreign key on Grand Child Table
         );
     }
 }

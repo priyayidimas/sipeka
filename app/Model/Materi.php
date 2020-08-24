@@ -19,4 +19,10 @@ class Materi extends Model
     {
         return $this->belongsTo('App\Kelas','id_kelas');
     }
+
+    //Many Many Child
+    public function jawaban()
+    {
+        return $this->belongsToMany('App\Model\KelasJoin')->using('App\Model\Jawaban');
+    }
 }

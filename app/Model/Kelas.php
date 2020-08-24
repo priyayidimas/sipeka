@@ -41,4 +41,14 @@ class Kelas extends Model
     {
         return $this->hasMany('App\Model\Event','id_kelas');
     }
+
+    // Many To Many Child
+    public function join()
+    {
+        return $this->belongsToMany('App\User')->using('App\Model\KelasJoin');
+    }
+    public function kolab()
+    {
+        return $this->belongsToMany('App\User')->using('App\Model\KelasKolab');
+    }
 }
