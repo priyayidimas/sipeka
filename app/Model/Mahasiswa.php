@@ -8,13 +8,13 @@ class Mahasiswa extends Model
 {
     protected $table = 'mhs_biodata';
 
-    protected $fillable = ['nim', 'nohp', 'prodi'];
+    protected $fillable = ['nim', 'nohp', 'prodi','univ'];
 
     public function peminatan($arrPeminatan)
     {
-        $this->peminatan1 = $arrPeminatan[0];
-        $this->peminatan2 = $arrPeminatan[1];
-        $this->peminatan3 = $arrPeminatan[2];
+        $this->id_peminatan1 = $arrPeminatan[0];
+        $this->id_peminatan2 = $arrPeminatan[1];
+        $this->id_peminatan3 = $arrPeminatan[2];
     }
 
     //Parent

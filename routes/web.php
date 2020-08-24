@@ -28,7 +28,7 @@ Route::get('people', 'CalendarController@getPeople');
 
 Route::get('meet', 'CalendarController@createEventConference');
 
-Route::group(['prefix' => 'dosen', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
     Route::get('pelengkapan-data', function (){ return view('dosen.biodata'); });
     Route::post('pelengkapan-data', 'DosenController@isiBiodata');
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => 'auth'], function () {
 
 });
 
-Route::group(['prefix' => 'mhs', 'middleware' => 'auth', 'mahasiswa'], function () {
+Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
 
     Route::get('pelengkapan-data', function (){ return view('mhs.biodata'); });
     Route::post('pelengkapan-data', 'MahasiswaController@isiBiodata');
@@ -51,7 +51,8 @@ Route::group(['prefix' => 'mhs', 'middleware' => 'auth', 'mahasiswa'], function 
 });
 
 Route::get('debug', function () {
-
-    dd(\App\User::find(4)->dosen()->count());
-
+    return view('debug');
 });
+Route::post('debug/kategori', 'KategoriController@insertKategori');
+Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');
+

@@ -56,7 +56,7 @@ class UserController extends Controller
         $cond = Auth::user()->dosen()->count() > 0 ||
                 Auth::user()->mahasiswa()->count() > 0;
         if ($cond){
-            return redirect('/');
+            return redirect($akses);
         }
         return redirect($akses.'/pelengkapan-data');
 
