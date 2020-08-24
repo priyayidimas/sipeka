@@ -19,7 +19,7 @@ class DosenMiddleware
     {
         $user = User::find(Auth::id());
         if(session('akses') == 'mhs')
-            return redirect('dosen/pelengkapan-data');
+            return redirect('mhs');
         if($user->dosen()->count() == 0)
             return redirect('dosen/pelengkapan-data');
         if($user->mahasiswa()->count() > 0)
