@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Serenity Bootstrap Template - Index</title>
+  <title>SiPeka - Sistem Pembelajaran Merdeka</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
 
@@ -136,7 +136,7 @@
             </div>
             <div class="col-md-6 col-sm-6 fituritem">
               <img src="assets/img/users.png" alt="">
-              <h4 class="text-white"><b>Diskusi Kelompok</b></h4>
+              <h4 class="text-white"><b>Mentoring dan Diskusi Kelompok</b></h4>
               <p class="text-white">Berdiskusi dengan mahasiswa lain di kelas yang sama</p>
             </div>
             <div class="col-md-6 col-sm-6 fituritem">
@@ -146,8 +146,8 @@
             </div>
             <div class="col-md-6 col-sm-6 fituritem">
               <img src="assets/img/user-check.png" alt="">
-              <h4 class="text-white"><b>Mentoring dan Evaluasi</b></h4>
-              <p class="text-white">Menjadi lebih baik dengan mentoring dan evaluasi di kelas yang diambil</p>
+              <h4 class="text-white"><b>Monitoring dan Evaluasi</b></h4>
+              <p class="text-white">Menjadi lebih baik dengan monitoring dan evaluasi di kelas yang diambil</p>
             </div>
           </div>
         </div>
