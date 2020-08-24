@@ -24,21 +24,41 @@ class UserController extends Controller
         dd($data);
     }
 
-    public function redirectToProvider()
+    public function redirectToProvider($akses)
     {
+        // Cek Orang Iseng
+        $session = ($akses == 'dosen') ? 'dosen' : 'mhs';
+        session(['akses' => $session]);
+
+        //Driver
         return Socialite::driver('google')
-            ->scopes(['openid', 'profile', 'email', \Google_Service_PeopleService::CONTACTS_READONLY ,\Google_Service_Calendar::CALENDAR])
+            ->scopes([
+                'openid', 'profile', 'email',
+                \Google_Service_PeopleService::CONTACTS_READONLY ,
+                \Google_Service_Calendar::CALENDAR])
             // ->with(["access_type" => "offline", "prompt" => "consent select_account"])
             ->redirect();
     }
 
     public function handleProviderCallback()
     {
+        //Google
         $user = Socialite::driver('google')->user();
 
+        //Auth
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
-        return redirect('/');
+
+        //Get Akses
+        $akses = session('akses');
+
+        //Redirect To Pelengkapan Data if Not Exists
+        $cond = Auth::user()->dosen()->count() > 0 ||
+                Auth::user()->mahasiswa()->count() > 0;
+        if ($cond){
+            return redirect('/');
+        }
+        return redirect($akses.'/pelengkapan-data');
 
     }
 
