@@ -30,6 +30,7 @@ Route::get('meet', 'CalendarController@createEventConference');
 Route::group(['prefix' => 'dosen'], function () {
     Route::get('/', function (){ return view('dosen.home'); });
     Route::get('pelengkapan-data', function (){ return view('dosen.biodata'); });
+    Route::post('pelengkapan-data', 'UserController@profile');
 });
 
 Route::group(['prefix' => 'mhs'], function () {

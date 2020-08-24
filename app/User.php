@@ -36,4 +36,42 @@ class User extends Authenticatable
     protected $casts = [
         'created_at' => 'datetime',
     ];
+
+    //Child
+    public function dosen()
+    {
+        return $this->hasOne('App\Model\Dosen','id_user');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne('App\Model\Mahasiswa','id_user');
+    }
+
+    public function kelas()
+    {
+        return $this->hasMany('App\Model\Kelas','dosen_id');
+    }
+
+    // Grand Children
+
+    public function materi()
+    {
+        return $this->hasManyThrough(
+            'App\Model\Materi',     // Grand Child
+            'App\Model\Kelas',    // Child
+            'dosen_id', // Foreign key on Child table
+            'id_kelas', // Foreign key on Grand Child Table
+        );
+    }
+
+    public function event()
+    {
+        return $this->hasManyThrough(
+            'App\Model\Event',     // Grand Child
+            'App\Model\Kelas',    // Child
+            'dosen_id', // Foreign key on Child table
+            'id_kelas', // Foreign key on Grand Child Table
+        );
+    }
 }
