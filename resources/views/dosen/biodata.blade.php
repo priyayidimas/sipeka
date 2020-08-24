@@ -9,7 +9,7 @@
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="/assets/css/biodatadsn.css">
             <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-            
+
             <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
             <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
             <script type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
@@ -30,7 +30,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mx-0">
-                                    <form id="msform">
+                                    <form id="msform" action="{{url('dosen/pelengkapan-data')}}" method="POST">
+                                        @csrf
                                         <!-- progressbar -->
                                         <ul id="progressbar">
                                             <li class="active" id="account"><strong>Biodata</strong></li>
@@ -42,13 +43,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Nama Dosen</label>
-                                                            <input type="text" name="namadsn" class="form-control" placeholder="Nama Mahasiswa"/>
+                                                            <input type="text" name="namadsn" class="form-control" disabled value="{{Auth::user()->fullname}}"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Nomor Handphone</label>
-                                                            <input type="number" name="nomorhp" class="form-control" placeholder="62"/>
+                                                            <input type="number" name="nohp" class="form-control" placeholder="62"/>
                                                             <i style="font-size:12px;color:grey;">Contoh : 628123xxx</i>
                                                         </div>
                                                     </div>
@@ -62,9 +63,9 @@
                                                         <div class="form-group">
                                                             <label for="">Perguruan Tinggi</label>
                                                             <select name="univ" id="" class="form-control js-example-basic-single">
-                                                                <option value="">Pilih Perguruan Tinggi</option>
-                                                                <option value="">Universitas Pendidikan Indonesia</option>
-                                                                <option value="">Institut Teknologi Bandung</option>
+                                                                <option disabled value="">Pilih Perguruan Tinggi</option>
+                                                                <option>Universitas Pendidikan Indonesia</option>
+                                                                <option>Institut Teknologi Bandung</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -86,7 +87,7 @@
                                                 </div> <br><br>
                                                 <div class="row justify-content-center">
                                                     <div class="col-7 text-center">
-                                                        <h5>Anda telah mengisi seluruh pelengkapan data Mahasiswa</h5>
+                                                        <h5>Anda telah mengisi seluruh pelengkapan data Dosen</h5>
                                                     </div>
                                                 </div>
                                             </div>

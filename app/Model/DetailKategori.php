@@ -8,7 +8,7 @@ class DetailKategori extends Model
 {
     protected $table = 'dkategori';
 
-    protected $fillable = ['dkat_nama'];
+    protected $fillable = ['dkat_nama','kat_id'];
 
     //Parent
     public function kategori()

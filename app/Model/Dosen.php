@@ -8,7 +8,7 @@ class Dosen extends Model
 {
     protected $table = 'dsn_biodata';
 
-    protected $fillable = ['nidn', 'prodi', 'univ'];
+    protected $fillable = ['nidn', 'prodi', 'univ','nohp'];
 
     //Parent
     public function user()

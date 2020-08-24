@@ -1,3 +1,7 @@
+@php
+    $kategori = App\Model\Kategori::all();
+    $n = 1;
+@endphp
 <!doctype html>
     <html>
         <head>
@@ -8,7 +12,7 @@
             <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="/assets/css/biodata.css">
-            
+
             <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
             <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
             <script type='text/javascript' src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
@@ -29,7 +33,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mx-0">
-                                    <form id="msform">
+                                    <form id="msform" method="POST" action="{{url('mhs/pelengkapan-data')}}">
+                                        @csrf
                                         <!-- progressbar -->
                                         <ul id="progressbar">
                                             <li class="active" id="account"><strong>Biodata</strong></li>
@@ -42,29 +47,29 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Nama Mahasiswa</label>
-                                                            <input type="text" name="namamhs" class="form-control" placeholder="Nama Mahasiswa"/>
+                                                            <input type="text" name="namamhs" class="form-control" disabled value="{{Auth::user()->fullname}}" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Nomor Handphone</label>
-                                                            <input type="number" name="nomorhp" class="form-control" placeholder="62"/>
+                                                            <input type="number" name="nohp" class="form-control" placeholder="62"/>
                                                             <i style="font-size:12px;color:grey;">Contoh : 628123xxx</i>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Nomor Induk Mahasiswa</label>
-                                                            <input type="text" name="NIM" class="form-control" placeholder="Nomor Induk Mahasiswa ..."/>
+                                                            <input type="text" name="nim" class="form-control" placeholder="Nomor Induk Mahasiswa ..."/>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="">Perguruan Tinggi</label>
                                                             <select name="univ" id="" class="form-control js-example-basic-single">
-                                                                <option value="">Pilih Perguruan Tinggi</option>
-                                                                <option value="">Universitas Pendidikan Indonesia</option>
-                                                                <option value="">Institut Teknologi Bandung</option>
+                                                                <option disabled value="">Pilih Perguruan Tinggi</option>
+                                                                <option>Universitas Pendidikan Indonesia</option>
+                                                                <option>Institut Teknologi Bandung</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -84,157 +89,41 @@
                                                 <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
                                                     <!-- Accordion card -->
+                                                    @foreach ($kategori as $kat)
                                                     <div class="card peminatan">
-                                                
+
                                                         <!-- Card header -->
-                                                        <div class="card-header" role="tab" id="headingOne1">
-                                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-                                                            aria-controls="collapseOne1">
+                                                        <div class="card-header" role="tab" id="heading{{$n}}">
+                                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapse{{$n}}" aria-expanded="true"
+                                                            aria-controls="collapse{{$n}}">
                                                             <div class="row">
-                                                                <div class="col-md-8">Hukum</div>
+                                                                <div class="col-md-8">{{$kat->kat_nama}}</div>
                                                                 <div class="col-md-4"><i style="float: right;" class="fa fa-angle-down rotate-icon"></i></div>
                                                             </div>
                                                             </a>
                                                         </div>
-                                                    
+
                                                         <!-- Card body -->
-                                                        <div id="collapseOne1" class="collapse show minat" role="tabpanel" aria-labelledby="headingOne1"
+                                                        <div id="collapse{{$n}}" class="collapse show minat" role="tabpanel" aria-labelledby="heading{{$n}}"
                                                             data-parent="#accordionEx">
                                                             <div class="card-body">
                                                                 <div class="row">
+                                                                    @foreach ($kat->detail_kategori as $dkat)
                                                                     <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
+                                                                        <input type="checkbox" name="peminatan[]" id="" value="{{$dkat->id}}">
+                                                                        <label for="">{{$dkat->dkat_nama}}</label>
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                
+
                                                     </div>
-                                                    <!-- Accordion card -->
                                                     <br>
+                                                    <?php $n++; ?>
+                                                    @endforeach
                                                     <!-- Accordion card -->
-                                                    <div class="card peminatan">
-                                                
-                                                        <!-- Card header -->
-                                                        <div class="card-header" role="tab" id="headingOne1">
-                                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne2" aria-expanded="true"
-                                                            aria-controls="collapseOne2">
-                                                            <div class="row">
-                                                                <div class="col-md-8">Teknologi</div>
-                                                                <div class="col-md-4"><i style="float: right;" class="fa fa-angle-down rotate-icon"></i></div>
-                                                            </div>
-                                                            </a>
-                                                        </div>
-                                                    
-                                                        <!-- Card body -->
-                                                        <div id="collapseOne2" class="collapse minat" role="tabpanel" aria-labelledby="headingOne1"
-                                                            data-parent="#accordionEx">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                
-                                                    </div>
-                                                    <!-- Accordion card -->
-                                                    <br>
-                                                    <!-- Accordion card -->
-                                                    <div class="card peminatan">
-                                                
-                                                        <!-- Card header -->
-                                                        <div class="card-header" role="tab" id="headingOne1">
-                                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne3" aria-expanded="true"
-                                                            aria-controls="collapseOne3">
-                                                            <div class="row">
-                                                                <div class="col-md-8">Teknologi</div>
-                                                                <div class="col-md-4"><i style="float: right;" class="fa fa-angle-down rotate-icon"></i></div>
-                                                            </div>
-                                                            </a>
-                                                        </div>
-                                                    
-                                                        <!-- Card body -->
-                                                        <div id="collapseOne3" class="collapse minat" role="tabpanel" aria-labelledby="headingOne1"
-                                                            data-parent="#accordionEx">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                
-                                                    </div>
-                                                    <!-- Accordion card -->
-                                                    <br>
-                                                    <!-- Accordion card -->
-                                                    <div class="card peminatan">
-                                                
-                                                        <!-- Card header -->
-                                                        <div class="card-header" role="tab" id="headingOne1">
-                                                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne4" aria-expanded="true"
-                                                            aria-controls="collapseOne4">
-                                                            <div class="row">
-                                                                <div class="col-md-8">Teknologi</div>
-                                                                <div class="col-md-4"><i style="float: right;" class="fa fa-angle-down rotate-icon"></i></div>
-                                                            </div>
-                                                            </a>
-                                                        </div>
-                                                    
-                                                        <!-- Card body -->
-                                                        <div id="collapseOne4" class="collapse minat" role="tabpanel" aria-labelledby="headingOne1"
-                                                            data-parent="#accordionEx">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <input type="checkbox" name="minat" id="">
-                                                                        <label for="">Nama Peminatan</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                
-                                                    </div>
-                                                    <!-- Accordion card -->
-                                                
+
                                                 </div>
                                                 <!-- Accordion wrapper -->
                                             </div>
