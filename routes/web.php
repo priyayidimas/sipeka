@@ -30,8 +30,8 @@ Route::get('meet', 'CalendarController@createEventConference');
 
 Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
-    Route::get('pelengkapan-data', function (){ return view('dosen.biodata'); });
-    Route::post('pelengkapan-data', 'DosenController@isiBiodata');
+    Route::get('pelengkapan-data', 'DosenController@biodataAwal');
+    Route::post('pelengkapan-data', 'DosenController@insertBiodataAwal');
 
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
@@ -41,8 +41,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
 Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
 
-    Route::get('pelengkapan-data', function (){ return view('mhs.biodata'); });
-    Route::post('pelengkapan-data', 'MahasiswaController@isiBiodata');
+    Route::get('pelengkapan-data', 'MahasiswaController@biodataAwal');
+    Route::post('pelengkapan-data', 'MahasiswaController@insertBiodataAwal');
 
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');

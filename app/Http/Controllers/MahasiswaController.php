@@ -12,7 +12,15 @@ class MahasiswaController extends Controller
     {
         return view('dosen.home');
     }
-    public function isiBiodata(Request $req)
+
+    public function biodataAwal()
+    {
+        if(Auth::user()->level == 1)
+            return redirect('dosen/pelengkapan-data');
+        return view('mhs.biodata');
+    }
+
+    public function insertBiodataAwal(Request $req)
     {
        $mhs = new Mahasiswa;
        $mhs->fill($req->all());
