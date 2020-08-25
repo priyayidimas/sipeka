@@ -112,13 +112,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<<<<<<< HEAD
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->fullname}}</span>
-                <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}">
-=======
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->fullname }}</span>
                 <img class="img-profile rounded-circle" src="{!! $user->avatar !!}">
->>>>>>> 40aa5e2dcf6e4ca4559152746f6370a3f6f1193c
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
