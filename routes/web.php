@@ -23,6 +23,7 @@ Route::get('glogin', 'UserController@handleProviderCallback');
 
 Route::get('logout', 'UserController@logout');
 
+Route::get('calendar', 'CalendarController@calendar');
 Route::get('events', 'CalendarController@getEvents');
 Route::get('people', 'CalendarController@getPeople');
 
@@ -30,8 +31,8 @@ Route::get('meet', 'CalendarController@createEventConference');
 
 Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
-    Route::get('pelengkapan-data', function (){ return view('dosen.biodata'); });
-    Route::post('pelengkapan-data', 'DosenController@isiBiodata');
+    Route::get('pelengkapan-data', 'DosenController@biodataAwal');
+    Route::post('pelengkapan-data', 'DosenController@insertBiodataAwal');
 
     // Kelas
     Route::get('kelas', 'DosenController@indexKelas');
@@ -46,13 +47,22 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
 Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
 
-    Route::get('pelengkapan-data', function (){ return view('mhs.biodata'); });
-    Route::post('pelengkapan-data', 'MahasiswaController@isiBiodata');
+    Route::get('pelengkapan-data', 'MahasiswaController@biodataAwal');
+    Route::post('pelengkapan-data', 'MahasiswaController@insertBiodataAwal');
 
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');
     });
 
+});
+
+Route::group(['prefix' => 'admin' ,'middleware' => ['auth','admin']], function () {
+    Route::get('/', 'AdminController@index');
+
+    Route::group(['prefix' => 'kategori'], function () {
+        Route::get('/', 'AdminController@kategori');
+        Route::post('/', 'KategoriController@insertKategori');
+    });
 });
 
 Route::get('list-kelas', function () {

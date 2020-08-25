@@ -1,6 +1,5 @@
 @php
     $user = Auth::user();
-    $bio = ($user->level == 0) ? $user->mahasiswa : $user->dosen;
 @endphp
 
 <!DOCTYPE html>
@@ -36,19 +35,11 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon" style="margin-top: 50px;">
-<<<<<<< HEAD
-          <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}" width="60" height="60">
-        </div>
-      </a>
-      <div style="margin-top: 30px;" class="text-center prfl"><b>{{Auth::user()->fullname}}</b></div>
-      <div class="text-center prfl">Nama Perguruan Tinggi</div>
-=======
           <img class="img-profile rounded-circle" src="{!! $user->avatar !!}" width="60" height="60">
         </div>
       </a>
       <div style="margin-top: 30px;" class="text-center prfl"><b>{{ $user->fullname }}</b></div>
-      <div class="text-center prfl">{{ $bio->univ }}</div>
->>>>>>> 40aa5e2dcf6e4ca4559152746f6370a3f6f1193c
+      <div class="text-center prfl">Administrator</div>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
@@ -64,18 +55,18 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <div class="c">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Kelas</span>
-            </div>
-          </a>
+            <a class="nav-link" href="{{url('admin/kategori')}}">
+              <div class="c">
+                <i class="fas fa-fw fa-list-alt"></i>
+                <span>Kategori</span>
+              </div>
+            </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.html">
             <div class="c">
-              <i class="fas fa-fw fa-book"></i>
-              <span>Perpustakaan</span>
+              <i class="fas fa-fw fa-users"></i>
+              <span>Kelas</span>
             </div>
           </a>
         </li>
@@ -112,13 +103,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<<<<<<< HEAD
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->fullname}}</span>
-                <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}">
-=======
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->fullname }}</span>
                 <img class="img-profile rounded-circle" src="{!! $user->avatar !!}">
->>>>>>> 40aa5e2dcf6e4ca4559152746f6370a3f6f1193c
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -214,7 +200,7 @@
     </script>
 
   <!-- Custom scripts for all pages-->
-  <script src="/assets/js/sb-admin-2.js"></script>
+  <script src="/assets/js/sb-admin-2.min.js"></script>
 
 </body>
 

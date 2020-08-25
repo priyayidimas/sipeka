@@ -18,13 +18,14 @@ class DosenMiddleware
     public function handle($request, Closure $next)
     {
         $user = User::find(Auth::id());
-        if($user->mahasiswa()->count() > 0)
+        if($user->level == 0)
             return redirect('mhs');
-        if($user->dosen()->count() == 0){
-            if(session('akses') == 'mhs')
-                return redirect('mhs');
+
+        if($user->dosen()->count() == 0 && $user->level == 0)
+            return redirect('mhs/pelengkapan-data');
+
+        if($user->dosen()->count() == 0)
             return redirect('dosen/pelengkapan-data');
-        }
 
         return $next($request);
     }

@@ -1,4 +1,4 @@
-@extends('layouts.utama')
+@extends('layouts.admin')
 
 @section('css')
 <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css">
@@ -14,10 +14,7 @@
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker({
-                  format: 'DD MMMM YY @ HH:mm'
-                });
-                $('#datetimepicker2').datetimepicker({
-                  format: 'DD MMMM YY @ HH:mm'
+                  format: 'YYYY-MM-DD H:mm:ss'
                 });
                 $('.js-example-basic-single').select2();
 
@@ -49,9 +46,16 @@
 @endsection
 
 @section('content')
-@if(Session::get('msg'))
-    <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
-    {!! Session::get('msg') !!}
+@if(Session::get('message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {!! Session::get('message') !!}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+@elseif(Session::get('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {!! Session::get('error') !!}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -229,12 +233,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="">Tanggal dan Waktu Acara -> Mulai</label>
-                <input type='text' class="form-control" id='datetimepicker1' name="waktu_mulai" placeholder="Tanggal dan Waktu Acara" />
-            </div>
-            <div class="form-group">
-                <label for="">Tanggal dan Waktu Acara -> Selesai</label>
-                <input type='text' class="form-control" id='datetimepicker2' name="waktu_selesai" placeholder="Tanggal dan Waktu Acara" />
+                <label for="">Tanggal dan Waktu Acara</label>
+                <input type='text' class="form-control" id='datetimepicker1' name="waktu" placeholder="Tanggal dan Waktu Acara" />
             </div>
         </form>
         </div>

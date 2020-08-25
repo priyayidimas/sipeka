@@ -11,7 +11,8 @@ class Event extends Model
     protected $fillable = ['desc', 'waktu'];
 
     protected $casts = [
-        'waktu' => 'datetime',
+        'waktu_mulai' => 'datetime',
+        'waktu_selesai' => 'datetime',
     ];
 
     //Parent

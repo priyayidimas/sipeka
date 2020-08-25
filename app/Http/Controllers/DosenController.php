@@ -18,7 +18,15 @@ class DosenController extends Controller
     {
         return view('dosen.home');
     }
-    public function isiBiodata(Request $req)
+
+    public function biodataAwal()
+    {
+        if(Auth::user()->level == 0)
+            return redirect('mhs/pelengkapan-data');
+        return view('dosen.biodata');
+    }
+
+    public function insertBiodataAwal(Request $req)
     {
        $dosen = new Dosen;
        $dosen->fill($req->all());

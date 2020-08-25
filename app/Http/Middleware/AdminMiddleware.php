@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\User;
 
-class MahasiswaMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,16 +16,12 @@ class MahasiswaMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $user = User::find(Auth::id());
+        $user = Auth::user();
+        if ($user->level == 0)
+            return redirect('mhs');
 
-        if($user->level == 1)
+        if ($user->level == 1)
             return redirect('dosen');
-
-        if($user->mahasiswa()->count() == 0 && $user->level == 1)
-            return redirect('dosen/pelengkapan-data');
-
-        if($user->mahasiswa()->count() == 0)
-            return redirect('mhs/pelengkapan-data');
 
         return $next($request);
     }

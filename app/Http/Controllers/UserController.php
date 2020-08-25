@@ -74,6 +74,7 @@ class UserController extends Controller
             $data->email = !empty($user->email) ? $user->email : '';
             $data->google_id = $user->id;
             $data->avatar = $user->avatar;
+            $data->level = (session('akses') == 'dosen') ? '1' : '0';
         }
 
         $google_client_token = [
@@ -88,10 +89,12 @@ class UserController extends Controller
         return $data;
     }
 
-    public function logout()
+    public function logout(Request $req)
     {
         if (Auth::check()) {
             Auth::logout();
+            $req->session()->flush();
+            $req->session()->regenerate();
         }
         $msg = "Logged Out";
         $color = "green";
