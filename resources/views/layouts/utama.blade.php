@@ -36,19 +36,11 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon" style="margin-top: 50px;">
-<<<<<<< HEAD
-          <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}" width="60" height="60">
-        </div>
-      </a>
-      <div style="margin-top: 30px;" class="text-center prfl"><b>{{Auth::user()->fullname}}</b></div>
-      <div class="text-center prfl">Nama Perguruan Tinggi</div>
-=======
           <img class="img-profile rounded-circle" src="{!! $user->avatar !!}" width="60" height="60">
         </div>
       </a>
       <div style="margin-top: 30px;" class="text-center prfl"><b>{{ $user->fullname }}</b></div>
       <div class="text-center prfl">{{ $bio->univ }}</div>
->>>>>>> 40aa5e2dcf6e4ca4559152746f6370a3f6f1193c
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
