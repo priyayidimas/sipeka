@@ -8,7 +8,7 @@ class Kelas extends Model
 {
     protected $table = 'kelas';
 
-    protected $fillable = ['kelas_nama', 'desc'];
+    protected $fillable = ['kelas_nama', 'desc', 'dkat_id', 'link_tel'];
 
     public function generateCode() {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -18,6 +18,7 @@ class Kelas extends Model
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         $this->kelas_kode = $randomString;
+        return $this->kelas_kode;
     }
 
     //Parent

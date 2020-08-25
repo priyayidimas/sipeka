@@ -33,6 +33,11 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
     Route::get('pelengkapan-data', function (){ return view('dosen.biodata'); });
     Route::post('pelengkapan-data', 'DosenController@isiBiodata');
 
+    // Kelas
+    Route::get('kelas', 'DosenController@indexKelas');
+    Route::get('kelas/tambah', 'DosenController@tambahKelas');
+    Route::post('kelas/store', 'DosenController@storeKelas')->name('storekelas');
+
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
     });

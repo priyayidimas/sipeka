@@ -31,10 +31,10 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon" style="margin-top: 50px;">
-          <img class="img-profile rounded-circle" src="https://scontent.fbdo5-1.fna.fbcdn.net/v/t1.0-1/p200x200/64805950_1478206532335014_3335558124189777920_o.jpg?_nc_cat=105&_nc_sid=7206a8&_nc_eui2=AeHhEJNV2VKl-pahHRVNFd7G8yiouIvpMI_zKKi4i-kwjzAshv0es2Ob_0PwXpv5YXnZedAxayd02eBOdc3FZ1Wd&_nc_ohc=yQmniz3OlKUAX-L6s22&_nc_ht=scontent.fbdo5-1.fna&_nc_tp=6&oh=344c625ef1da02ca7797a4a5d566fd4b&oe=5F5C6785" width="60" height="60">
+          <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}" width="60" height="60">
         </div>
       </a>
-      <div style="margin-top: 30px;" class="text-center prfl"><b>Nama User</b></div>
+      <div style="margin-top: 30px;" class="text-center prfl"><b>{{Auth::user()->fullname}}</b></div>
       <div class="text-center prfl">Nama Perguruan Tinggi</div>
 
       <!-- Divider -->
@@ -99,8 +99,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nama User</span>
-                <img class="img-profile rounded-circle" src="https://scontent.fbdo5-1.fna.fbcdn.net/v/t1.0-1/p200x200/64805950_1478206532335014_3335558124189777920_o.jpg?_nc_cat=105&_nc_sid=7206a8&_nc_eui2=AeHhEJNV2VKl-pahHRVNFd7G8yiouIvpMI_zKKi4i-kwjzAshv0es2Ob_0PwXpv5YXnZedAxayd02eBOdc3FZ1Wd&_nc_ohc=yQmniz3OlKUAX-L6s22&_nc_ht=scontent.fbdo5-1.fna&_nc_tp=6&oh=344c625ef1da02ca7797a4a5d566fd4b&oe=5F5C6785">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->fullname}}</span>
+                <img class="img-profile rounded-circle" src="{{Auth::user()->avatar}}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -196,7 +196,7 @@
     </script>
 
   <!-- Custom scripts for all pages-->
-  <script src="/assets/js/sb-admin-2.min.js"></script>
+  <script src="/assets/js/sb-admin-2.js"></script>
 
 </body>
 
