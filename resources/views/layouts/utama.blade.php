@@ -1,6 +1,6 @@
 @php
     $user = Auth::user();
-    $bio = ($user->level == 1) ? $user->dosen : $user->mahasiswa;
+    $bio = ($user->level == 0) ? $user->mahasiswa : $user->dosen;
 @endphp
 
 <!DOCTYPE html>

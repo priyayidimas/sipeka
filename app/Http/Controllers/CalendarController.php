@@ -6,6 +6,7 @@ use Google_Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Carbon\Carbon;
 
 class CalendarController extends Controller
 {
@@ -61,9 +62,11 @@ class CalendarController extends Controller
 
     }
     
-    public function createEvent()
+    public function calendar()
     {
-
+        $date = Carbon::createFromFormat('d F Y @ H:i','25 January 2000 @ 05:50')
+                ->format('Y-m-d H:i:s');
+        dd($date);
     }
 
     public function createEventConference()
@@ -76,11 +79,11 @@ class CalendarController extends Controller
             'location' => 'Indonesia',
             'description' => 'Hello world',
             'start' => array(
-                'dateTime' => \Carbon\Carbon::now()->format('c'),
+                'dateTime' => Carbon::now()->format('c'),
                 'timeZone' => 'Asia/Jakarta',
             ),
             'end' => array(
-                'dateTime' => \Carbon\Carbon::now()->addMinutes(90)->format('c'),
+                'dateTime' => Carbon::now()->addMinutes(90)->format('c'),
                 'timeZone' => 'Asia/Jakarta',
             )
         )); 

@@ -14,7 +14,10 @@
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker({
-                  format: 'YYYY-MM-DD H:mm:ss'
+                  format: 'DD MMMM YY @ HH:mm'
+                });
+                $('#datetimepicker2').datetimepicker({
+                  format: 'DD MMMM YY @ HH:mm'
                 });
                 $('.js-example-basic-single').select2();
 
@@ -121,7 +124,7 @@
 
           <!-- Content Row -->
 
-        
+
 
           <div class="row">
 
@@ -233,8 +236,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="">Tanggal dan Waktu Acara</label>
-                <input type='text' class="form-control" id='datetimepicker1' name="waktu" placeholder="Tanggal dan Waktu Acara" />
+                <label for="">Tanggal dan Waktu Acara -> Mulai</label>
+                <input type='text' class="form-control" id='datetimepicker1' name="waktu_mulai" placeholder="Tanggal dan Waktu Acara" />
+            </div>
+            <div class="form-group">
+                <label for="">Tanggal dan Waktu Acara -> Selesai</label>
+                <input type='text' class="form-control" id='datetimepicker2' name="waktu_selesai" placeholder="Tanggal dan Waktu Acara" />
             </div>
         </form>
         </div>

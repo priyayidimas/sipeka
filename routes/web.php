@@ -23,6 +23,7 @@ Route::get('glogin', 'UserController@handleProviderCallback');
 
 Route::get('logout', 'UserController@logout');
 
+Route::get('calendar', 'CalendarController@calendar');
 Route::get('events', 'CalendarController@getEvents');
 Route::get('people', 'CalendarController@getPeople');
 
