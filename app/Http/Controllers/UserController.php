@@ -88,10 +88,12 @@ class UserController extends Controller
         return $data;
     }
 
-    public function logout()
+    public function logout(Request $req)
     {
         if (Auth::check()) {
             Auth::logout();
+            $req->session()->flush();
+            $req->session()->regenerate();
         }
         $msg = "Logged Out";
         $color = "green";
