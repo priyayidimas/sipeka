@@ -1,6 +1,5 @@
 @php
     $user = Auth::user();
-    $bio = ($user->level == 1) ? $user->dosen : $user->mahasiswa;
 @endphp
 
 <!DOCTYPE html>
@@ -40,7 +39,7 @@
         </div>
       </a>
       <div style="margin-top: 30px;" class="text-center prfl"><b>{{ $user->fullname }}</b></div>
-      <div class="text-center prfl">{{ $bio->univ }}</div>
+      <div class="text-center prfl">Administrator</div>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
@@ -56,18 +55,18 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <div class="c">
-              <i class="fas fa-fw fa-users"></i>
-              <span>Kelas</span>
-            </div>
-          </a>
+            <a class="nav-link" href="{{url('admin/kategori')}}">
+              <div class="c">
+                <i class="fas fa-fw fa-list-alt"></i>
+                <span>Kategori</span>
+              </div>
+            </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.html">
             <div class="c">
-              <i class="fas fa-fw fa-book"></i>
-              <span>Perpustakaan</span>
+              <i class="fas fa-fw fa-users"></i>
+              <span>Kelas</span>
             </div>
           </a>
         </li>

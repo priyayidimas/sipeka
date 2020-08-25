@@ -50,6 +50,15 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
 
 });
 
+Route::group(['prefix' => 'admin' ,'middleware' => ['auth','admin']], function () {
+    Route::get('/', 'AdminController@index');
+
+    Route::group(['prefix' => 'kategori'], function () {
+        Route::get('/', 'AdminController@kategori');
+        Route::post('/', 'KategoriController@insertKategori');
+    });
+});
+
 Route::get('list-kelas', function () {
     return view('allclass');
 });
