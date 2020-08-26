@@ -47,9 +47,9 @@
 
           <li><a href="">Tentang</a></li>
           <li><a href="">Fitur</a></li>
-          @auth
+          @if (Auth::check())
           <li><a href={{url(session('akses'))}}>{{Auth::user()->fullname}}</a></li>
-          @endauth
+          @endif
         </ul>
       </nav><!-- .nav-menu -->
 

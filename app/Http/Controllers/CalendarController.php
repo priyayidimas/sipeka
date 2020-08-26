@@ -19,45 +19,88 @@ class CalendarController extends Controller
         $this->client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
     }
 
+    public function bentrokHandler($minDate, $maxDate){
+        $this->client->setAccessToken(Auth::user()->token);
+        $service = new \Google_Service_Calendar($this->client);
+        
+        $calendars = $service->calendarList->listCalendarList()->items;
+        $items = [];
+        foreach($calendars as $calendar){
+            $item = new \Google_Service_Calendar_FreeBusyRequestItem;
+            $item->setId($calendar['id']);
+            array_push($items, $item);
+        }
+        $request = new \Google_Service_Calendar_FreeBusyRequest;
+        $request->setItems($items);
+        $request->setTimeMin($minDate->format('c'));
+        $request->setTimeMax($maxDate->format('c'));
+        $request->setTimeZone('Asia/Jakarta');
+        
+        $freebusy = $service->freebusy->query($request);
+
+        $count = 0;
+        foreach($freebusy['calendars'] as $calendar){
+            $count = $count + count($calendar['busy']);
+        }
+
+        $cek = ($count == 0) ? true : false;
+        return $cek;
+    }
+
     public function storeEvent(Request $req){
+        // Init
         $this->client->setAccessToken(Auth::user()->token);
         $service = new \Google_Service_Calendar($this->client);
 
-        $mulai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_mulai);
-        $selesai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_selesai);
+        // Create Date From Formatted String
+        $mulai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_mulai, 'Asia/Jakarta');
+        $selesai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_selesai, 'Asia/Jakarta');
 
+        // Bentrok Handler
+        $cek = $this->bentrokHandler($mulai, $selesai);
+        if(!$cek) return "Bentrok";
+
+        // Init Event
         $event = new \Google_Service_Calendar_Event(array(
             'summary' => $req->title,
-            'location' => 'Indonesia',
+            'location' => 'SiPeka',
             'description' => $req->desc,
             'start' => array(
                 'dateTime' => $mulai->format('c'),
-                'timeZone' => 'Asia/Jakarta',
+                'timeZone' => 'Asia/Jakarta'
             ),
             'end' => array(
                 'dateTime' => $selesai->format('c'),
-                'timeZone' => 'Asia/Jakarta',
+                'timeZone' => 'Asia/Jakarta'
             ),
-            'sendUpdates' => 'all'
         ));
+
+        // Invite Others
         $event->setAttendees([
             ['email' => 'priyayidimas@gmail.com'],
         ]);
+
+        // Select Calendar Id
         $calendarId = Auth::user()->calendar_id;
-        $event = $service->events->insert($calendarId, $event);
+
+        // Insert Event
+        $event = $service->events->insert($calendarId, $event, ['sendUpdates' => 'all']);
 
         printf('Event created: %s', $event->htmlLink);
 
+        // Conference Data
         $conference = new \Google_Service_Calendar_ConferenceData();
         $conferenceRequest = new \Google_Service_Calendar_CreateConferenceRequest();
         $conferenceRequest->setRequestId('IniMeeting');
         $conference->setCreateRequest($conferenceRequest);
         $event->setConferenceData($conference);
 
+        // Update Again
         $event = $service->events->patch($calendarId, $event->id, $event, ['conferenceDataVersion' => 1]);
 
         printf('<br>Conference created: %s', $event->hangoutLink);
 
+        // Store To Sipeka DB
         $dbEvent = new Event;
         $dbEvent->fill($req->all());
         $dbEvent->waktu_mulai = $mulai->format('Y-m-d H:i:s');
@@ -134,9 +177,36 @@ class CalendarController extends Controller
 
     public function calendar()
     {
-        $date = Carbon::createFromFormat('d F Y @ H:i','25 January 2000 @ 05:50')
-                ->format('Y-m-d H:i:s');
-        dd($date);
+        // Playground to convert string to date
+        $dateMin = Carbon::createFromFormat('d F Y @ H:i','28 August 2020 @ 18:00','Asia/Jakarta')
+                ->format('c');
+        $dateMax = Carbon::createFromFormat('d F Y @ H:i','28 August 2020 @ 20:00','Asia/Jakarta')
+                ->format('c');
+
+        //Playground for bentrok handler
+        $this->client->setAccessToken(Auth::user()->token);
+        $service = new \Google_Service_Calendar($this->client);
+
+        $calendars = $service->calendarList->listCalendarList()->items;
+        $items = [];
+        foreach($calendars as $calendar){
+            $item = new \Google_Service_Calendar_FreeBusyRequestItem;
+            $item->setId($calendar['id']);
+            array_push($items, $item);
+        }
+        $request = new \Google_Service_Calendar_FreeBusyRequest;
+        $request->setItems($items);
+        $request->setTimeMin($dateMin);
+        $request->setTimeMax($dateMax);
+        $request->setTimeZone('Asia/Jakarta');
+        
+        $freebusy = $service->freebusy->query($request);
+
+        $count = 0;
+        foreach($freebusy['calendars'] as $calendar){
+            $count = $count + count($calendar['busy']);
+        }
+        dd($count);
     }
 
     public function createEventConference()
