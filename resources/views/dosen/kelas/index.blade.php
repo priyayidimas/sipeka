@@ -1,14 +1,6 @@
 @extends('layouts.utama')
 
 @section('content')
-@if(Session::get('msg'))
-    <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
-    {!! Session::get('msg') !!}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-@endif
 <div class="row">
   <div class="col-sm-12">
     <div class="card text-white kelasheader">
@@ -27,7 +19,7 @@
                 <!-- search form -->
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="" class="btn btn-tambahkelas">Tambah Kelas</a><br><br>
+                        <a href="{{url('dosen/kelas/tambah')}}" class="btn btn-tambahkelas">Tambah Kelas</a><br><br>
                     </div>
                     <div class="col-md-6">
                         <form class="">
@@ -69,8 +61,10 @@
                                     <i class="fa fa-users"></i> 3.000
                                 </p>
                                 <br>
-                                <a href="" class="btn btn-warning" style="margin-left:5px;">Kelola</a>
-                                <a href="#" class="btn btn-danger" style="margin-left:5px;">Delete</a>
+                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-warning" style="margin-left:5px;">Kelola</a>
+                                <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
+                                    Delete
+                                </button>
                                 <a href="#" class="btn btn-primary" style="margin-left:5px;">Lihat Kelas</a>
                             </div>
                         </div>
@@ -81,4 +75,39 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="deleteKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Materi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <h4 class="text-center">Anda yakin ingin menghapus kelas ini?</h4>
+            <form action="{{route('hapuskelas')}}" method="post" class="form-group" id="d-kelas" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="idkelas" id="idm">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" onclick="event.preventDefault(); document.getElementById('d-kelas').submit();" class="btn btn-danger">Hapus</button>
+        </div>
+    </div>
+  </div>
+</div>
+@endsection
+
+@section('js')
+<script>
+    $('#deleteKelas').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var idkelas = button.data('idkelas');
+
+        var modal = $(this);
+        modal.find('.modal-body #idm').val(idkelas);
+    });
+</script>
 @endsection

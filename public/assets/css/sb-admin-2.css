@@ -11989,6 +11989,14 @@ body.sidebar-toggled footer.sticky-footer {
 .btn-tambahkelas:hover{
   color:white;
 }
+.itemmateri{
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.itemmateri .card-title{
+  color:black;
+  font-weight: 700;
+}
+
 .itemkelas{
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -12020,3 +12028,80 @@ body.sidebar-toggled footer.sticky-footer {
   border-radius: 5px;
   padding: 2px;
 }
+
+.menu-kelola{
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding:10px;
+  height: 160px;
+}
+
+.menu-kelola .nav-item{
+  max-width: 100%;
+}
+
+.menu-kelola .nav-item a{
+  color:black;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.menu-kelola .nav-item .nav-link.active{
+  background: #284B63;
+  border: 1px solid #3C6E71;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.menu-kelola-content{
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.menu-kelola-content .tab-content{
+  margin-top: 20px;
+  color:black;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 992px) {
+  .menu-kelola-content{
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .menu-kelola-content{
+    margin-left: 20px;
+  }
+}
+
+.panel-heading {
+  padding: 0;
+    border:0;
+}
+.panel-title>a, .panel-title>a:active{
+    display:block;
+    padding:15px;
+  color:#555;
+  font-size:14px;
+  font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing:1px;
+  word-spacing:3px;
+    text-decoration:none;
+}
+.fa-angle-down{
+  float: right;
+  transition: all 0.5s;
+}
+.panel-heading.active .fa-angle-down{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    transform: rotate(180deg);
+} 

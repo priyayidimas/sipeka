@@ -38,6 +38,14 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
     Route::get('kelas', 'DosenController@indexKelas');
     Route::get('kelas/tambah', 'DosenController@tambahKelas');
     Route::post('kelas/store', 'DosenController@storeKelas')->name('storekelas');
+    Route::get('kelas/kelola/{id}', 'DosenController@editKelas')->name('editkelas');
+    Route::put('kelas/update/{id}', 'DosenController@updateKelas')->name('updatekelas');
+    Route::post('kelas/delete', 'DosenController@deleteKelas')->name('hapuskelas');
+    
+    // Materi
+    Route::post('materi/store/{id}', 'DosenController@storeMateri')->name('storemat');
+    Route::put('materi/update/{id}', 'DosenController@updateMateri')->name('updatemat');
+    Route::post('materi/delete/{id}', 'DosenController@deleteMateri')->name('deletemat');
 
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');

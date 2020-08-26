@@ -47,17 +47,17 @@
 
       <!-- Nav Item - Dashboard -->
       <div class="group-nav-item">
-        <li class="nav-item active">
+        <li class="nav-item {{ (request()->is('dosen') || request()->is('mhs')) ? 'active' : '' }}">
           <a class="nav-link" href="index.html">
-            <div class="c c-active">
+            <div class="c{{ (request()->is('dosen') || request()->is('mhs')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </div>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'active' : '' }}">
           <a class="nav-link" href="index.html">
-            <div class="c">
+            <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-users"></i>
               <span>Kelas</span>
             </div>
@@ -139,7 +139,14 @@
 
           <!-- Page Heading -->
           @yield('heading')
-
+          @if(Session::get('msg'))
+              <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
+              {!! Session::get('msg') !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+          @endif
           @yield('content')
 
         </div>
