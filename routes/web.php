@@ -34,13 +34,19 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
     Route::get('pelengkapan-data', 'DosenController@biodataAwal');
     Route::post('pelengkapan-data', 'DosenController@insertBiodataAwal');
 
-    // Kelas
-    Route::get('kelas', 'DosenController@indexKelas');
-    Route::get('kelas/tambah', 'DosenController@tambahKelas');
-    Route::post('kelas/store', 'DosenController@storeKelas')->name('storekelas');
-
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
+
+        // Kelas
+        Route::group(['prefix' => 'kelas'], function () {
+            Route::get('/', 'DosenController@indexKelas');
+            Route::get('tambah', 'DosenController@tambahKelas');
+            Route::post('store', 'DosenController@storeKelas')->name('storekelas');
+        });
+
+        Route::group(['prefix' => 'events'], function () {
+            Route::post('store', 'CalendarController@storeEvent');
+        });
     });
 
 });

@@ -14,10 +14,10 @@
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker({
-                  format: 'DD MMMM YY @ HH:mm'
+                  format: 'DD MMMM YYYY @ HH:mm'
                 });
                 $('#datetimepicker2').datetimepicker({
-                  format: 'DD MMMM YY @ HH:mm'
+                  format: 'DD MMMM YYYY @ HH:mm'
                 });
                 $('.js-example-basic-single').select2();
 
@@ -213,28 +213,30 @@
         </button>
       </div>
       <div class="modal-body">
-          <form action="" class="form-group" id="tambahevent">
+          <form method="POST" action="{{url('dosen/events/store')}}" class="form-group" id="tambahevent">
+            @csrf
+            {{-- <input type="hidden" name="id_kelas" value="1"> --}}
             <div class="form-group">
                 <label for="">Nama Acara</label>
-                <input type='text' class="form-control" name="namacara" placeholder="Masukkan Nama Acara"/>
+                <input type='text' class="form-control" name="title" placeholder="Masukkan Nama Acara"/>
             </div>
             <div class="form-group">
                 <label for="">Deskripsi Acara</label>
-                <input type='text' class="form-control" name="desacara" placeholder="Masukkan Deskripsi Acara"/>
+                <input type='text' class="form-control" name="desc" placeholder="Masukkan Deskripsi Acara"/>
             </div>
             <div class="form-group">
                 <label for="">Kelas</label>
-                <select name="" class="form-control js-example-basic-single">
-                    <option value="">Nama Kelas</option>
+                <select name="id_kelas" class="form-control js-example-basic-single">
+                    <option value="1">Nama Kelas</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="">Tanggal dan Waktu Acara -> Mulai</label>
-                <input type='text' class="form-control" id='datetimepicker1' name="waktu_mulai" placeholder="Tanggal dan Waktu Acara" />
+                <input type='text' class="form-control" id='datetimepicker1' name="waktu_mulai" placeholder="Tanggal dan Waktu Mulai Acara" />
             </div>
             <div class="form-group">
                 <label for="">Tanggal dan Waktu Acara -> Selesai</label>
-                <input type='text' class="form-control" id='datetimepicker2' name="waktu_selesai" placeholder="Tanggal dan Waktu Acara" />
+                <input type='text' class="form-control" id='datetimepicker2' name="waktu_selesai" placeholder="Tanggal dan Waktu Selesai Acara" />
             </div>
         </form>
         </div>

@@ -8,7 +8,7 @@ class Event extends Model
 {
     protected $table = 'kelas_event';
 
-    protected $fillable = ['desc', 'waktu'];
+    protected $fillable = ['title','desc'];
 
     protected $casts = [
         'waktu_mulai' => 'datetime',

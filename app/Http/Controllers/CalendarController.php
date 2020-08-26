@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Carbon\Carbon;
+use App\Model\Event;
 
 class CalendarController extends Controller
 {
@@ -16,6 +17,55 @@ class CalendarController extends Controller
         $this->client = new Google_Client();
         $this->client->setApplicationName(env('APP_TITLE'));
         $this->client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
+    }
+
+    public function storeEvent(Request $req){
+        $this->client->setAccessToken(Auth::user()->token);
+        $service = new \Google_Service_Calendar($this->client);
+
+        $mulai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_mulai);
+        $selesai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_selesai);
+
+        $event = new \Google_Service_Calendar_Event(array(
+            'summary' => $req->title,
+            'location' => 'Indonesia',
+            'description' => $req->desc,
+            'start' => array(
+                'dateTime' => $mulai->format('c'),
+                'timeZone' => 'Asia/Jakarta',
+            ),
+            'end' => array(
+                'dateTime' => $selesai->format('c'),
+                'timeZone' => 'Asia/Jakarta',
+            ),
+            'sendUpdates' => 'all'
+        ));
+        $event->setAttendees([
+            ['email' => 'priyayidimas@gmail.com'],
+        ]);
+        $calendarId = Auth::user()->calendar_id;
+        $event = $service->events->insert($calendarId, $event);
+
+        printf('Event created: %s', $event->htmlLink);
+
+        $conference = new \Google_Service_Calendar_ConferenceData();
+        $conferenceRequest = new \Google_Service_Calendar_CreateConferenceRequest();
+        $conferenceRequest->setRequestId('IniMeeting');
+        $conference->setCreateRequest($conferenceRequest);
+        $event->setConferenceData($conference);
+
+        $event = $service->events->patch($calendarId, $event->id, $event, ['conferenceDataVersion' => 1]);
+
+        printf('<br>Conference created: %s', $event->hangoutLink);
+
+        $dbEvent = new Event;
+        $dbEvent->fill($req->all());
+        $dbEvent->waktu_mulai = $mulai->format('Y-m-d H:i:s');
+        $dbEvent->waktu_selesai = $selesai->format('Y-m-d H:i:s');
+        $dbEvent->id_kelas = $req->id_kelas;
+        $dbEvent->link = $event->hangoutLink;
+        $dbEvent->save();
+        printf("DB Event Stored");
     }
 
     public function calendars(){
