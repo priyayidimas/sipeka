@@ -23,7 +23,7 @@ Route::get('glogin', 'UserController@handleProviderCallback');
 
 Route::get('logout', 'UserController@logout');
 
-Route::get('calendar', 'CalendarController@calendar');
+Route::get('calendar', 'CalendarController@createCalendar');
 Route::get('events', 'CalendarController@getEvents');
 Route::get('people', 'CalendarController@getPeople');
 
@@ -74,4 +74,6 @@ Route::get('debug', function () {
 });
 Route::post('debug/kategori', 'KategoriController@insertKategori');
 Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');
+
+Route::get('calendars', 'CalendarController@calendars');
 

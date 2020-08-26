@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Google_Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
@@ -62,9 +63,58 @@ class UserController extends Controller
 
     }
 
+    public function findOrCreateCalendar($access_token){
+        // Google Client Init
+        $client = new Google_Client();
+        $client->setApplicationName(env('APP_TITLE'));
+        $client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
+
+        // Feed Access Token
+        $client->setAccessToken($access_token);
+
+        // Init Service
+        $service = new \Google_Service_Calendar($client);
+
+        // Let's see whether there is sipeka calendar or not
+        $results = $service->calendarList->listCalendarList()->items;
+        $sipekaCalendar = null;
+        foreach($results as $result){
+            if($result['summary'] == '[SiPeka]'){
+                $sipekaCalendar = $result;
+                break;
+            }
+        }
+
+        if($sipekaCalendar){
+            // Sipeka Calendar is Exist
+            return $sipekaCalendar['id'];
+        }else{
+            // Create New Calendar
+            $meet = new \Google_Service_Calendar_ConferenceProperties;
+            $meet->setAllowedConferenceSolutionTypes(['hangoutsMeet']);
+    
+            $calendar = new \Google_Service_Calendar_Calendar();
+            $calendar->setSummary('[SiPeka]');
+            $calendar->setTimeZone('Asia/Jakarta');
+            $calendar->setConferenceProperties($meet);
+            $calendar->setDescription("Kalender Otomatis Yang Dibuat Oleh SiPeka");
+    
+            $createdCalendar = $service->calendars->insert($calendar);
+    
+            return $createdCalendar->getId();
+        }
+    }
+
     public function findOrCreateUser($user)
     {
         $cek = User::where('google_id', $user->id)->count();
+
+        $google_client_token = [
+            'access_token' => $user->token,
+            'refresh_token' => $user->refreshToken,
+            'expires_in' => $user->expiresIn,
+        ];
+
 
         if ($cek > 0) {
             $data = User::where('google_id', $user->id)->first();
@@ -77,13 +127,9 @@ class UserController extends Controller
             $data->level = (session('akses') == 'dosen') ? '1' : '0';
         }
 
-        $google_client_token = [
-            'access_token' => $user->token,
-            'refresh_token' => $user->refreshToken,
-            'expires_in' => $user->expiresIn,
-        ];
 
         $data->token = json_encode($google_client_token);
+        $data->calendar_id = $this->findOrCreateCalendar($google_client_token);
         $data->save();
 
         return $data;

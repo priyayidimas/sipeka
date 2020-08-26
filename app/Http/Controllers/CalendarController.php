@@ -18,6 +18,26 @@ class CalendarController extends Controller
         $this->client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
     }
 
+    public function calendars(){
+        $this->client->setAccessToken(Auth::user()->token);
+
+        $service = new \Google_Service_Calendar($this->client);
+
+        $results = $service->calendarList->listCalendarList()->items;
+        $sipekaCalendar = null;
+        foreach($results as $result){
+            if($result['summary'] == '[SiPeka]'){
+                $sipekaCalendar = $result;
+                break;
+            }
+        }
+        if($sipekaCalendar){
+            dd($sipekaCalendar);
+        }else{
+            echo "GAK ADA WOY";
+        }
+    }
+
     public function getEvents()
     {
         $this->client->setAccessToken(Auth::user()->token);
@@ -37,7 +57,7 @@ class CalendarController extends Controller
         );
         $results = $service->events->listEvents(Auth::user()->calendar_id, $optParams);
         $events = $results->getItems();
-        
+
         return view('events', compact('events'));
     }
 
@@ -61,7 +81,7 @@ class CalendarController extends Controller
         return $createdCalendar->getId();
 
     }
-    
+
     public function calendar()
     {
         $date = Carbon::createFromFormat('d F Y @ H:i','25 January 2000 @ 05:50')
@@ -86,24 +106,24 @@ class CalendarController extends Controller
                 'dateTime' => Carbon::now()->addMinutes(90)->format('c'),
                 'timeZone' => 'Asia/Jakarta',
             )
-        )); 
+        ));
         $event->setAttendees([
             ['email' => 'priyayidimas@gmail.com'],
             ['email' => 'mendozadante05@gmail.com']
         ]);
         $calendarId = Auth::user()->calendar_id;
         $event = $service->events->insert($calendarId, $event);
-        
+
         printf('Event created: %s', $event->htmlLink);
-        
+
         $conference = new \Google_Service_Calendar_ConferenceData();
         $conferenceRequest = new \Google_Service_Calendar_CreateConferenceRequest();
         $conferenceRequest->setRequestId('IniMeeting');
         $conference->setCreateRequest($conferenceRequest);
         $event->setConferenceData($conference);
-        
+
         $event = $service->events->patch($calendarId, $event->id, $event, ['conferenceDataVersion' => 1]);
-        
+
         printf('<br>Conference created: %s', $event->hangoutLink);
     }
 
