@@ -92,12 +92,12 @@ Route::get('detail-list-dosen', function () {
 });
 
 Route::get('debug', function () {
-    return view('debug');
+    return view('emails.template2');
 });
 Route::post('debug/kategori', 'KategoriController@insertKategori');
 Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');
 
 Route::get('calendars', 'CalendarController@calendars');
 Route::get('joinkelas', 'MahasiswaController@joinkelas');
-
+Route::get('mail', 'UserController@mail');
 
