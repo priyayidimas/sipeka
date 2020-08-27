@@ -42,7 +42,6 @@ class CalendarController extends Controller
         foreach($freebusy['calendars'] as $calendar){
             $count = $count + count($calendar['busy']);
         }
-
         $cek = ($count == 0) ? true : false;
         return $cek;
     }

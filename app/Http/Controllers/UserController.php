@@ -48,7 +48,7 @@ class UserController extends Controller
 
         //Auth
         $authUser = $this->findOrCreateUser($user);
-        Auth::login($authUser, true);
+        Auth::login($authUser);
 
         //Get Akses
         $akses = session('akses');
@@ -92,15 +92,15 @@ class UserController extends Controller
             // Create New Calendar
             $meet = new \Google_Service_Calendar_ConferenceProperties;
             $meet->setAllowedConferenceSolutionTypes(['hangoutsMeet']);
-    
+
             $calendar = new \Google_Service_Calendar_Calendar();
             $calendar->setSummary('[SiPeka]');
             $calendar->setTimeZone('Asia/Jakarta');
             $calendar->setConferenceProperties($meet);
             $calendar->setDescription("Kalender Otomatis Yang Dibuat Oleh SiPeka");
-    
+
             $createdCalendar = $service->calendars->insert($calendar);
-    
+
             return $createdCalendar->getId();
         }
     }
