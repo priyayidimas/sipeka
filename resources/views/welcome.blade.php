@@ -47,6 +47,7 @@
 
           <li><a href="">Tentang</a></li>
           <li><a href="">Fitur</a></li>
+          <li><a href="">Daftar Kelas</a></li>
           @if (Auth::check())
           <li><a href={{url(session('akses'))}}>{{Auth::user()->fullname}}</a></li>
           @endif
