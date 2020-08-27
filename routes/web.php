@@ -84,6 +84,13 @@ Route::get('list-kelas', function () {
     return view('allclass');
 });
 
+Route::get('list-dosen', function () {
+    return view('alldosen');
+});
+Route::get('detail-list-dosen', function () {
+    return view('detaildosenpub');
+});
+
 Route::get('debug', function () {
     return view('debug');
 });

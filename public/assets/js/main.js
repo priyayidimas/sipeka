@@ -57,7 +57,7 @@
 $(document).ready(function(){
   $(window).scroll(function(){
   	var scroll = $(window).scrollTop();
-	  if (scroll > 500) {
+	  if (scroll > 300) {
 	    $("#header").css("background" , "#284B63");
 	  }
 	  else{

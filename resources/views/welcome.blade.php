@@ -47,9 +47,12 @@
 
           <li><a href="">Tentang</a></li>
           <li><a href="">Fitur</a></li>
+          <li><a href="">Daftar Kelas</a></li>
+          @if (Auth::check())
           @auth
           <li><a href={{url(session('akses'))}}>{{Auth::user()->fullname}}</a></li>
           @endauth
+          @endif
         </ul>
       </nav><!-- .nav-menu -->
 
