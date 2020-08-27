@@ -7,7 +7,7 @@
       <div class="card-body">
         <h3 class="card-title" style="font-weight:700;">Daftar Kelas yang Diikuti</h3>
         <p class="card-text">Di bawah ini kelas-kelas yang sedang anda ikut. Ingin gabung kelas lain?</p>
-        <a href="#" class="btn btn-join">Gabung Sekarang</a>
+        <a href="{{url('mhs/kelas/daftar-kelas')}}" class="btn btn-join">Gabung Sekarang</a>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@
                 <!-- end search -->
                 
                 <div class="row" style="margin-top:20px;">
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="card itemkelas">
                             <div class="card-body">
                                 <p class="kelas-detailkategori">Web Programming</p>
@@ -55,17 +55,19 @@
                                 <br><a href="#" class="btn" style="margin-left:10px;">Lihat Kelas</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    @foreach($kls->join as $k)
                     <div class="col-md-4">
                         <div class="card itemkelas">
                             <div class="card-body">
-                                <p class="kelas-detailkategori">Web Programming</p>
+                                <p class="kelas-detailkategori"></p>
                                 <h5 class="card-title">Website Apotik dengan CodeIgniter</h5>
                                 <p class="card-text"><i class="fa fa-clipboard"></i> 30 Materi &nbsp;&nbsp;<i class="fa fa-chart-bar"></i> 100% | <span class="statustuntas">Tuntas</span></p>
-                                <br><a href="#" class="btn" style="margin-left:10px;">Lihat Kelas</a><a href="#" class="btn"><i class="fa fa-download"></i> Sertifikat</a>
+                                <br><a href="#" class="btn btn-primary" style="margin-left:10px;">Lihat Kelas</a><a href="#" class="btn btn-success"><i class="fa fa-download"></i> Sertifikat</a>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>

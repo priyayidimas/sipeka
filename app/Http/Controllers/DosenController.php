@@ -41,7 +41,7 @@ class DosenController extends Controller
 
     public function indexKelas()
     {
-        $kelas = Kelas::all();
+        $kelas = Kelas::where('dosen_id',Auth::user()->id)->get();
         return view('dosen.kelas.index',compact('kelas'));
     }
 

@@ -1,17 +1,6 @@
 @extends('layouts.utama')
 
 @section('content')
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card text-white kelasheader">
-      <div class="card-body">
-        <h3 class="card-title" style="font-weight:700;">Daftar Kelas yang Diikuti</h3>
-        <p class="card-text">Di bawah ini kelas-kelas yang sedang anda ikut. Ingin gabung kelas lain?</p>
-        <a href="#" class="btn btn-join">Gabung Sekarang</a>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="row" style="margin-top:30px;">
     <div class="col-md-12">
         <div class="card">

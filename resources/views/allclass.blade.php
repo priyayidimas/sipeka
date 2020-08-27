@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="assets/css/listkelas.css">
+    <link rel="stylesheet" href="/assets/css/listkelas.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -58,6 +58,15 @@
                     <li class="breadcrumb-item active"><a>Daftar Kelas</a></li>
                 </ol>
             </nav>
+
+            @if(Session::get('msg'))
+              <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
+              {!! Session::get('msg') !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+          @endif
 
             <div class="row">
                 <div class="col-sm-12">
@@ -134,61 +143,29 @@
                     </div>
                   </div>
                   <div class="row allclass">
-                    <div class="col-md-6 card-kelas k001">
+                    @foreach($kls as $k)
+                    <div class="col-md-6 card-kelas">
                       <div class="card">
                         <div class="card-body cekcik">
-                          <h6 class="card-subtitle mb-2 text-muted kat">Pengelolaan Pendidikan</h6>
-                          <h6 class="card-title">K001</h6>
-                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;5 Materi</p>
-                          <p class="desckelas">Pelajari konsep dalam manajemen lembaga pendidikan yang sangat dibutuhkan untuk kelangsungan pendidikan saat ini. Mulai dari perancanaan, pengorganisasian, dan lain-lain.</p>
-                          <div class="text-right"><a href="" class="btndaftar">Daftar Kelas</a></div>
+                          <h6 class="card-subtitle mb-2 text-muted kat">{{$k->detail_kategori->dkat_nama}}</h6>
+                          <h6 class="card-title">{{$k->kelas_nama}}</h6>
+                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;{{$k->materi()->count()}} Materi</p>
+                          <p class="desckelas">{{$k->desc}}</p>
+                          <form action="{{route('jkelas')}}" method="post" class="form-group" id="j-kelas">
+                              @csrf
+                              <input type="hidden" name="idkelas" value="{{$k->id}}">
+                          </form>
+                          <div class="text-right">
+                          @if($k->pivot)
+                            <a href="" onclick="event.preventDefault(); document.getElementById('j-kelas').submit();" class="btndaftar">Daftar Kelas</a>
+                          @else
+                            Sudah Bergabung
+                          @endif
+                        </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 card-kelas k002">
-                      <div class="card">
-                        <div class="card-body">
-                          <h6 class="card-subtitle mb-2 text-muted kat">Pengelolaan Pendidikan</h6>
-                          <h6 class="card-title">K002</h6>
-                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;5 Materi</p>
-                          <p class="desckelas">Pelajari konsep dalam manajemen lembaga pendidikan yang sangat dibutuhkan untuk kelangsungan pendidikan saat ini. Mulai dari perancanaan, pengorganisasian, dan lain-lain.</p>
-                          <div class="text-right"><a href="" class="btndaftar">Daftar Kelas</a></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 card-kelas k001">
-                      <div class="card">
-                        <div class="card-body">
-                          <h6 class="card-subtitle mb-2 text-muted kat">Pengelolaan Pendidikan</h6>
-                          <h6 class="card-title">K001 - 1</h6>
-                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;5 Materi</p>
-                          <p class="desckelas">Pelajari konsep dalam manajemen lembaga pendidikan yang sangat dibutuhkan untuk kelangsungan pendidikan saat ini. Mulai dari perancanaan, pengorganisasian, dan lain-lain.</p>
-                          <div class="text-right"><a href="" class="btndaftar">Daftar Kelas</a></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 card-kelas k002">
-                      <div class="card">
-                        <div class="card-body">
-                          <h6 class="card-subtitle mb-2 text-muted kat">Pengelolaan Pendidikan</h6>
-                          <h6 class="card-title">Cikk ah</h6>
-                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;5 Materi</p>
-                          <p class="desckelas">Pelajari konsep dalam manajemen lembaga pendidikan yang sangat dibutuhkan untuk kelangsungan pendidikan saat ini. Mulai dari perancanaan, pengorganisasian, dan lain-lain.</p>
-                          <div class="text-right"><a href="" class="btndaftar">Daftar Kelas</a></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 card-kelas k003">
-                      <div class="card">
-                        <div class="card-body">
-                          <h6 class="card-subtitle mb-2 text-muted kat">Pengelolaan Pendidikan</h6>
-                          <h6 class="card-title">K003</h6>
-                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;5 Materi</p>
-                          <p class="desckelas">Pelajari konsep dalam manajemen lembaga pendidikan yang sangat dibutuhkan untuk kelangsungan pendidikan saat ini. Mulai dari perancanaan, pengorganisasian, dan lain-lain.</p>
-                          <div class="text-right"><a href="" class="btndaftar">Daftar Kelas</a></div>
-                        </div>
-                      </div>
-                    </div>
+                    @endforeach
                   </div>
                 </div>
             </div>

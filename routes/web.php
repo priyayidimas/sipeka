@@ -65,6 +65,12 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
     Route::get('pelengkapan-data', 'MahasiswaController@biodataAwal');
     Route::post('pelengkapan-data', 'MahasiswaController@insertBiodataAwal');
 
+    Route::group(['prefix' => 'kelas'], function () {
+        Route::get('/', 'MahasiswaController@indexKelas');
+        Route::get('daftar-kelas', 'MahasiswaController@semuaKelas')->name('ikelas');
+        Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
+    });
+
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');
     });
@@ -78,10 +84,6 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['auth','admin']], function (
         Route::get('/', 'AdminController@kategori');
         Route::post('/', 'KategoriController@insertKategori');
     });
-});
-
-Route::get('list-kelas', function () {
-    return view('allclass');
 });
 
 Route::get('list-dosen', function () {

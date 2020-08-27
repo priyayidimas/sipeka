@@ -48,16 +48,16 @@
       <!-- Nav Item - Dashboard -->
       <div class="group-nav-item">
         <li class="nav-item {{ (request()->is('dosen') || request()->is('mhs')) ? 'active' : '' }}">
-          <a class="nav-link" href="index.html">
-            <div class="c{{ (request()->is('dosen') || request()->is('mhs')) ? 'c-active' : '' }}">
+          <a class="nav-link" href="{{ ($user->level == 0) ? '/mhs' : '/dosen'}}">
+            <div class="c {{ (request()->is('dosen') || request()->is('mhs')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </div>
           </a>
         </li>
-        <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'active' : '' }}">
-          <a class="nav-link" href="index.html">
-            <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'c-active' : '' }}">
+        <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs/kelas*')) ? 'active' : '' }}">
+          <a class="nav-link" href="{{ ($user->level == 0) ? '/mhs/kelas' : '/dosen/kelas'}}">
+            <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs/kelas*')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-users"></i>
               <span>Kelas</span>
             </div>
