@@ -92,7 +92,7 @@ Route::get('detail-list-dosen', function () {
 });
 
 Route::get('debug', function () {
-    return view('emails.template2');
+    return view('layouts.sertifikat');
 });
 Route::post('debug/kategori', 'KategoriController@insertKategori');
 Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');
