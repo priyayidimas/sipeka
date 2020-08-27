@@ -51,10 +51,24 @@ class Kelas extends Model
     // Many To Many Child
     public function join()
     {
-        return $this->belongsToMany('App\User')->using('App\Model\KelasJoin');
+        $pivot = ['id','progress','created_at','updated_at'];
+        return $this->belongsToMany(
+            'App\User',          // Model Target
+            'kelas_join',               // Table Inter name
+            'id_kelas',                  // Foreign Key -> Current Model
+            'id_user')                 // Foreitn Key -> Target Model
+            ->using('App\Model\KelasJoin')
+            ->withPivot($pivot);
     }
     public function kolab()
     {
-        return $this->belongsToMany('App\User')->using('App\Model\KelasKolab');
+        $pivot = ['id', 'status', 'akses','created_at','updated_at'];
+        return $this->belongsToMany(
+            'App\User',          // Model Target
+            'kelas_join',               // Table Inter name
+            'id_kelas',                  // Foreign Key -> Current Model
+            'id_user')                 // Foreitn Key -> Target Model
+            ->using('App\Model\KelasKolab')
+            ->withPivot($pivot);
     }
 }

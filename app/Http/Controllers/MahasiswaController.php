@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Model\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
 use App\Model\KelasJoin;
 use App\Model\Kelas;
 use App\User;
+=======
+use App\Model\Kelas;
+>>>>>>> a079b4faf3fd21a6bf1697280aec02e828e95360
 
 class MahasiswaController extends Controller
 {
@@ -34,6 +38,7 @@ class MahasiswaController extends Controller
        return redirect('/mhs')->with(['msg' => 'Selamat Datang!', 'color' => 'success']);
     }
 
+<<<<<<< HEAD
     public function indexKelas()
     {
         $kls = User::find(Auth::user()->id);
@@ -56,6 +61,13 @@ class MahasiswaController extends Controller
             return redirect()->route('ikelas')->with(['msg' => 'Berhasil bergabung ke kelas!', 'color' => 'success']);
         }else{
             return redirect()->back()->with(['msg' => 'Login sebelum bergabung ke kelas!', 'color' => 'danger']);;
+=======
+    public function joinkelas()
+    {
+        $userJoin = Auth::user()->join;
+        foreach ($userJoin as $join) {
+            dd($join);
+>>>>>>> a079b4faf3fd21a6bf1697280aec02e828e95360
         }
     }
 }

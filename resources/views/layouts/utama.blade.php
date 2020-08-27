@@ -48,23 +48,34 @@
       <!-- Nav Item - Dashboard -->
       <div class="group-nav-item">
         <li class="nav-item {{ (request()->is('dosen') || request()->is('mhs')) ? 'active' : '' }}">
+<<<<<<< HEAD
           <a class="nav-link" href="{{ ($user->level == 0) ? '/mhs' : '/dosen'}}">
             <div class="c {{ (request()->is('dosen') || request()->is('mhs')) ? 'c-active' : '' }}">
+=======
+          <a class="nav-link" href="{{url(''.session('akses'))}}">
+            <div class="c{{ (request()->is('dosen/') || request()->is('mhs')) ? 'c-active' : '' }}">
+>>>>>>> a079b4faf3fd21a6bf1697280aec02e828e95360
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </div>
           </a>
         </li>
+<<<<<<< HEAD
         <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs/kelas*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{ ($user->level == 0) ? '/mhs/kelas' : '/dosen/kelas'}}">
             <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs/kelas*')) ? 'c-active' : '' }}">
+=======
+        <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'active' : '' }}">
+          <a class="nav-link" href="{{url(''.session('akses').'/kelas')}}">
+            <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'c-active' : '' }}">
+>>>>>>> a079b4faf3fd21a6bf1697280aec02e828e95360
               <i class="fas fa-fw fa-users"></i>
               <span>Kelas</span>
             </div>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="{{url(''.session('akses').'/perpustakaan')}}">
             <div class="c">
               <i class="fas fa-fw fa-book"></i>
               <span>Perpustakaan</span>
@@ -139,7 +150,7 @@
 
           <!-- Page Heading -->
           @yield('heading')
-          @if(Session::get('msg'))
+          @if(Session::has('msg'))
               <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
               {!! Session::get('msg') !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">

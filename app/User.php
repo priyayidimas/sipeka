@@ -56,11 +56,25 @@ class User extends Authenticatable
     // Many To Many Child
     public function join()
     {
-        return $this->belongsToMany('App\Model\Kelas')->using('App\Model\KelasJoin');
+        $pivot = ['id','progress','created_at','updated_at'];
+        return $this->belongsToMany(
+            'App\Model\Kelas',          // Model Target
+            'kelas_join',               // Table Inter name
+            'id_user',                  // Foreign Key -> Current Model
+            'id_kelas')                 // Foreitn Key -> Target Model
+            ->using('App\Model\KelasJoin')
+            ->withPivot($pivot);
     }
     public function kolab()
     {
-        return $this->belongsToMany('App\Model\Kelas')->using('App\Model\KelasKolab');
+        $pivot = ['id', 'status', 'akses','created_at','updated_at'];
+        return $this->belongsToMany(
+            'App\Model\Kelas',          // Model Target
+            'kelas_join',               // Table Inter name
+            'id_user',                  // Foreign Key -> Current Model
+            'id_kelas')                 // Foreitn Key -> Target Model
+            ->using('App\Model\KelasKolab')
+            ->withPivot($pivot);
     }
 
     // Grand Children

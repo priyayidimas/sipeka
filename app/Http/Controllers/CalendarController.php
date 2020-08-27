@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Carbon\Carbon;
 use App\Model\Event;
+use App\Model\Kelas;
+
 
 class CalendarController extends Controller
 {
@@ -22,7 +24,7 @@ class CalendarController extends Controller
     public function bentrokHandler($minDate, $maxDate){
         $this->client->setAccessToken(Auth::user()->token);
         $service = new \Google_Service_Calendar($this->client);
-        
+
         $calendars = $service->calendarList->listCalendarList()->items;
         $items = [];
         foreach($calendars as $calendar){
@@ -35,7 +37,7 @@ class CalendarController extends Controller
         $request->setTimeMin($minDate->format('c'));
         $request->setTimeMax($maxDate->format('c'));
         $request->setTimeZone('Asia/Jakarta');
-        
+
         $freebusy = $service->freebusy->query($request);
 
         $count = 0;
@@ -75,6 +77,7 @@ class CalendarController extends Controller
         ));
 
         // Invite Others
+
         $event->setAttendees([
             ['email' => 'priyayidimas@gmail.com'],
         ]);
@@ -110,6 +113,7 @@ class CalendarController extends Controller
         printf("DB Event Stored");
     }
 
+    // DEBUG
     public function calendars(){
         $this->client->setAccessToken(Auth::user()->token);
 
@@ -130,17 +134,49 @@ class CalendarController extends Controller
         }
     }
 
-    public function getEvents()
+    public function getEvents(){
+        $mulai = Carbon::parse('2020-09-01 07:00:00')->addMinutes(-30);
+        $akhir = Carbon::parse('2020-09-01 07:00:00')->addHour()->addMinutes(30);
+
+        $mulai_data = Carbon::parse('2020-09-01 08:00:00');
+        $akhir_data = Carbon::parse('2020-09-01 09:00:00');
+
+        $kelasEvent = [];
+        $kelas = Auth::user()->join;
+        foreach($kelas as $kel){
+            $event = $kel->event()
+            ->whereBetween('waktu_mulai',[$mulai, $mulai_data])
+            ->orWhereBetween('waktu_selesai', [$mulai_data,$akhir_data])
+            ->get();
+            array_push($kelasEvent, $event);
+        }
+        $count = [];
+        foreach($kelasEvent as $events){
+            foreach($events as $event){
+                $joinEvent = $event->joinEvent;
+                array_push($count, count($joinEvent));
+            }
+        }
+
+        $cek = (array_sum($count) == 0) ? true : false;
+        return $cek;
+    }
+
+    public function getEventsB(){
+        $mulai = Carbon::parse('2020-09-01 07:00:00')->addMinutes(-30);
+        $akhir = Carbon::parse('2020-09-01 07:00:00')->addHour()->addMinutes(30);
+
+        $kelas = Kelas::find(1);
+        $events = $kelas->event()->whereBetween('waktu_mulai',[$mulai, $akhir])->get();
+        dd($mulai,$akhir,$events);
+    }
+
+    public function getEventsCalendar()
     {
         $this->client->setAccessToken(Auth::user()->token);
 
         $service = new \Google_Service_Calendar($this->client);
 
-        if (Auth::user()->calendar_id == '') {
-            $data = User::find(Auth::id());
-            $data->calendar_id = $this->createCalendar();
-            $data->save();
-        }
         $optParams = array(
             'maxResults' => 10,
             'orderBy' => 'startTime',
@@ -152,7 +188,6 @@ class CalendarController extends Controller
 
         return view('events', compact('events'));
     }
-
 
     public function createCalendar()
     {
@@ -198,7 +233,7 @@ class CalendarController extends Controller
         $request->setTimeMin($dateMin);
         $request->setTimeMax($dateMax);
         $request->setTimeZone('Asia/Jakarta');
-        
+
         $freebusy = $service->freebusy->query($request);
 
         $count = 0;
@@ -246,7 +281,6 @@ class CalendarController extends Controller
         printf('<br>Conference created: %s', $event->hangoutLink);
     }
 
-    // DEBUG
     public function getPeople()
     {
         $this->client->setAccessToken(Auth::user()->token);

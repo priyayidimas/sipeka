@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -37,7 +38,8 @@ class UserController extends Controller
                 'openid', 'profile', 'email',
                 \Google_Service_PeopleService::CONTACTS_READONLY ,
                 \Google_Service_Calendar::CALENDAR])
-            // ->with(["access_type" => "offline", "prompt" => "consent select_account"])
+            ->with(['prompt' => 'select_account consent'])
+            // ->with(["access_type" => "offline", "prompt" => "select_account consent"])
             ->redirect();
     }
 
@@ -123,11 +125,11 @@ class UserController extends Controller
             $data->fullname = $user->name;
             $data->email = !empty($user->email) ? $user->email : '';
             $data->google_id = $user->id;
-            $data->avatar = $user->avatar;
             $data->level = (session('akses') == 'dosen') ? '1' : '0';
         }
 
 
+        $data->avatar = $user->avatar;
         $data->token = json_encode($google_client_token);
         $data->calendar_id = $this->findOrCreateCalendar($google_client_token);
         $data->save();
@@ -162,5 +164,26 @@ class UserController extends Controller
 
         $calendar = new \Google_Service_Calendar($client);
         dd($calendar);
+    }
+
+    public function mail(){
+        $akses = 'Memposting, menyunting, dan menghapus materi, serta memberikan tugas, me-review dan menilai tugas mahasiswa';
+
+        $to_name = 'Dimas Anom Priyayi';
+        $to_email = 'priyayidimas@upi.edu';
+
+        $data = [
+            'receiver' => 'Meggy Nurdyansyah',
+            'senderName' => 'Dimas Anom Priyayi',
+            'senderUniv' => 'Universitas Pendidikan Indonesia',
+            'kelasName' => 'Pemrograman Perangkat Bergerak',
+            'link' => 'www.google.com',
+            'akses' => $akses
+        ];
+
+        Mail::send('emails.template2', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)->subject('Undangan Kontribusi Kelas');
+            $message->from('rektor.sipeka@gmail.com','Rektor SiPeka');
+        });
     }
 }
