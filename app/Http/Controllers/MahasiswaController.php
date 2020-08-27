@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Model\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Model\Kelas;
 
 class MahasiswaController extends Controller
 {
     public function index()
     {
-        return view('dosen.home');
+        return view('mhs.home');
     }
 
     public function biodataAwal()
@@ -29,5 +30,13 @@ class MahasiswaController extends Controller
        $mhs->save();
 
        return redirect('/mhs')->with(['msg' => 'Selamat Datang!', 'color' => 'success']);
+    }
+
+    public function joinkelas()
+    {
+        $userJoin = Auth::user()->join;
+        foreach ($userJoin as $join) {
+            dd($join);
+        }
     }
 }

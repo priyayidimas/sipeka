@@ -37,7 +37,8 @@ class UserController extends Controller
                 'openid', 'profile', 'email',
                 \Google_Service_PeopleService::CONTACTS_READONLY ,
                 \Google_Service_Calendar::CALENDAR])
-            // ->with(["access_type" => "offline", "prompt" => "consent select_account"])
+            ->with(['prompt' => 'select_account consent'])
+            // ->with(["access_type" => "offline", "prompt" => "select_account consent"])
             ->redirect();
     }
 

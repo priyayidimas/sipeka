@@ -91,4 +91,6 @@ Route::post('debug/kategori', 'KategoriController@insertKategori');
 Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');
 
 Route::get('calendars', 'CalendarController@calendars');
+Route::get('joinkelas', 'MahasiswaController@joinkelas');
+
 

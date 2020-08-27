@@ -20,4 +20,19 @@ class Event extends Model
     {
         return $this->belongsTo('App\Kelas','id_kelas');
     }
+
+    public function joinEvent()
+    {
+        $pivot = [
+            'id', 'approval',
+            'created_at','updated_at'
+        ];
+        return $this->belongsToMany(
+            'App\Model\KelasJoin',              // Model Target
+            'kelas_event_join',                 // Table Inter name
+            'id_event',                         // Foreign Key -> Current Model
+            'id_joinkelas')                     // Foreign Key -> Target Model
+            ->using('App\Model\JoinEvent')
+            ->withPivot($pivot);
+    }
 }

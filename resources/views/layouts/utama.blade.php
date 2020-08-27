@@ -48,15 +48,15 @@
       <!-- Nav Item - Dashboard -->
       <div class="group-nav-item">
         <li class="nav-item {{ (request()->is('dosen') || request()->is('mhs')) ? 'active' : '' }}">
-          <a class="nav-link" href="index.html">
-            <div class="c{{ (request()->is('dosen') || request()->is('mhs')) ? 'c-active' : '' }}">
+          <a class="nav-link" href="{{url(''.session('akses'))}}">
+            <div class="c{{ (request()->is('dosen/') || request()->is('mhs')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </div>
           </a>
         </li>
         <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'active' : '' }}">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="{{url(''.session('akses').'/kelas')}}">
             <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-users"></i>
               <span>Kelas</span>
@@ -64,7 +64,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="{{url(''.session('akses').'/perpustakaan')}}">
             <div class="c">
               <i class="fas fa-fw fa-book"></i>
               <span>Perpustakaan</span>
@@ -139,7 +139,7 @@
 
           <!-- Page Heading -->
           @yield('heading')
-          @if(Session::get('msg'))
+          @if(Session::has('msg'))
               <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
               {!! Session::get('msg') !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">

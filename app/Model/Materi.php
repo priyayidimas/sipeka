@@ -23,6 +23,18 @@ class Materi extends Model
     //Many Many Child
     public function jawaban()
     {
-        return $this->belongsToMany('App\Model\KelasJoin')->using('App\Model\Jawaban');
+        $pivot = [
+            'id', 'jawaban_text', 'jawaban_file',
+            'review', 'grade', 'reviewer_id',
+            'submitted_at', 'reviewed_at',
+            'created_at','updated_at'
+        ];
+        return $this->belongsToMany(
+            'App\Model\KelasJoin',          // Model Target
+            'jawaban',                      // Table Inter name
+            'id_materi',                    // Foreign Key -> Current Model
+            'id_joinkelas')                 // Foreitn Key -> Target Model
+            ->using('App\Model\Jawaban')
+            ->withPivot($pivot);
     }
 }

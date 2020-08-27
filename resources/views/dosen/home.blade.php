@@ -65,7 +65,7 @@
                   <div class="kartu-icon">
                     <i class="fas fa-users"></i>
                   </div>
-                  <h class="kartu-category">Kelas Dibuat</h>
+                  <p class="kartu-category">Kelas Dibuat</p>
                   <h3 class="kartu-title">20
                     <small>Kelas</small>
                   </h3>
@@ -122,46 +122,46 @@
           <div class="row">
 
             <!-- Area Chart -->
+
+
             <div class="col-lg-12 col-md-12">
-              <div class="kartu">
-                <div class="kartu-header kartu-header-warning">
-                  <h4 class="kartu-title">Acara</h4>
-                  <p class="kartu-category">Acara-acara yang akan dilaksanakan oleh kelas</p>
-                </div>
-                <div class="kartu-body table-responsive">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                        Jadwalkan Pertemuan
-                    </button>
-                  <table class="table table-hover" style="margin-top:10px;">
-                    <thead class="text-warning">
-                      <th>No</th>
-                      <th>Nama Acara</th>
-                      <th>Nama Kelas</th>
-                      <th>Tanggal</th>
-                      <th>Waktu</th>
-                      <th>Action</th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Alur Framework Code Igniter</td>
-                        <td>CodeIgniter</td>
-                        <td>4 Agustus 2020</td>
-                        <td>14.00 WIB</td>
-                        <td>
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-kdevent="idevent" data-namaevent="NAMA EVENT" data-kelas="KELAS" data-descevent="DESC EVENT" data-waktuevent="WAKTU EVENT" data-target="#editPertemuan">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusPertemuan">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="kartu">
+                  <div class="kartu-header kartu-header-warning">
+                    <h4 class="kartu-title">Acara</h4>
+                    <p class="kartu-category">Acara-acara yang akan dilaksanakan oleh kelas</p>
+                  </div>
+                  <div class="kartu-body table-responsive">
+                    <table class="table table-hover">
+                      <thead class="text-warning">
+                        <th>No</th>
+                        <th>Nama Acara</th>
+                        <th>Nama Kelas</th>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Action</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Alur Framework Code Igniter</td>
+                          <td>CodeIgniter</td>
+                          <td>4 Agustus 2020</td>
+                          <td>14.00 WIB</td>
+                          <td><a href="" class="btn btn-dark">Go Meet</a></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Full Stack Developer</td>
+                          <td>Web Learning</td>
+                          <td>3 Agustus 2020</td>
+                          <td>15.00 WIB</td>
+                          <td><a href="" class="btn btn-dark">Go Meet</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
 
           </div>
 
