@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class Jawaban extends Pivot
 {
     protected $table = 'jawaban';
-    protected $incrementing = true;
+    public $incrementing = true;
 
 }

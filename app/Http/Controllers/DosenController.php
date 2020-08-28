@@ -185,4 +185,9 @@ class DosenController extends Controller
         $mt->delete();
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil menghapus materi kelas!', 'color' => 'success']);
     }
+
+    public function listSub($id)
+    {
+        return view('dosen.kelas.materisubmis');
+    }
 }

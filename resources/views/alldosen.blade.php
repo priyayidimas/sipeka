@@ -66,11 +66,10 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
-
-          <li><a href="">Tentang</a></li>
-          <li><a href="">Fitur</a></li>
-          <li><a href="">Daftar Kelas</a></li>
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/daftar-kelas">Daftar Kelas</a></li>
+          <li><a href="">Daftar Dosen</a></li>
+          <li><a href="/perpustakaan">Perpustakaan</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 

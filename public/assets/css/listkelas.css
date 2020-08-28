@@ -262,6 +262,10 @@ a.article:hover {
       transform: rotate(180deg);
   } 
 
+.btndaftar:hover{
+    color:white;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */

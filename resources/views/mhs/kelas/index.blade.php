@@ -56,14 +56,14 @@
                             </div>
                         </div>
                     </div> -->
-                    @foreach($kls->join as $k)
+                    @foreach($kls as $k)
                     <div class="col-md-4">
                         <div class="card itemkelas">
                             <div class="card-body">
-                                <p class="kelas-detailkategori"></p>
-                                <h5 class="card-title">Website Apotik dengan CodeIgniter</h5>
-                                <p class="card-text"><i class="fa fa-clipboard"></i> 30 Materi &nbsp;&nbsp;<i class="fa fa-chart-bar"></i> 100% | <span class="statustuntas">Tuntas</span></p>
-                                <br><a href="#" class="btn btn-primary" style="margin-left:10px;">Lihat Kelas</a><a href="#" class="btn btn-success"><i class="fa fa-download"></i> Sertifikat</a>
+                                <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>
+                                <h5 class="card-title">{{$k->kelas_nama}}</h5>
+                                <p class="card-text"><i class="fa fa-clipboard"></i> {{$k->materi()->count()}} Materi &nbsp;&nbsp;<i class="fa fa-chart-bar"></i> {{$k->pivot->progress}}% | @if($k->pivot->progress == 100)<span class="statustuntas">Tuntas</span>@else<span class="statusbelumtuntas">Belum Tuntas </span>@endif</p>
+                                <br><a href="{{route('lihat-kelas',$k->kelas_kode)}}" class="btn btn-primary" style="margin-left:10px;">Lihat Kelas</a>@if($k->pivot->progress == 100)<a href="#" class="btn btn-success"><i class="fa fa-download"></i> Sertifikat</a>@endif
                             </div>
                         </div>
                     </div>

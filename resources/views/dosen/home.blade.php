@@ -49,14 +49,6 @@
 @endsection
 
 @section('content')
-@if(Session::get('msg'))
-    <div class="alert alert-{!! Session::get('color') !!} alert-dismissible fade show" role="alert">
-    {!! Session::get('msg') !!}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-@endif
 <!-- Content Row -->
 <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12">
@@ -120,10 +112,6 @@
 
 
           <div class="row">
-
-            <!-- Area Chart -->
-
-
             <div class="col-lg-12 col-md-12">
                 <div class="kartu">
                   <div class="kartu-header kartu-header-warning">
