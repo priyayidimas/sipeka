@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix' => 'legals'], function () {
+    Route::view('privacy-policy', 'legal.privacy_policy');
+    Route::view('terms-of-service', 'legal.terms_of_service');
+});
 
 Route::get('dashboard', 'UserController@index');
 
