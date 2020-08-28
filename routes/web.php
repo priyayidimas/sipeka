@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix' => 'legals'], function () {
+    Route::view('privacy-policy', 'legal.privacy_policy');
+    Route::view('terms-of-service', 'legal.terms_of_service');
+});
 
 Route::get('dashboard', 'UserController@index');
 
@@ -103,7 +107,7 @@ Route::get('detail-list-dosen', function () {
 });
 
 Route::get('debug', function () {
-    return view('emails.template2');
+    return view('layouts.sertifikat');
 });
 Route::post('debug/kategori', 'KategoriController@insertKategori');
 Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');

@@ -38,7 +38,7 @@
       <div class="logo mr-auto">
         <!-- <img src="sipeka.png" width="509px" height="339px" alt=""> -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="assets/img/sipeka.png" width="82px" height="55px" alt="" class="img-fluid"></a>
+        <a href="#hero"><img src="assets/img/sipeka.png" width="82px" height="55px" alt="" class="img-fluid"></a>
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
@@ -95,12 +95,12 @@
   <main id="main">
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="" class="about">
       <div class="container review" data-aos="fade-up" style="border-radius: 10px;">
         <br>
         <img src="assets/img/Capture.PNG" class="img-fluid" width="1109px" height="538" alt="">
       </div>
-      <div class="tentang">
+      <div class="tentang" id="about">
         <h1 class="text-center"><b>Tentang</b></h1>
         <div class="container">
           <div class="row">
@@ -168,6 +168,10 @@
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>SiPeka</span></strong>. All Rights Reserved
+        <span class="float-right">
+            <a style="color: rgb(40, 75, 99)" href="{{url('legals/privacy-policy')}}">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a style="color: rgb(40, 75, 99)" href="{{url('legals/terms-of-service')}}">Terms of Service</a>
+        </span>
       </div>
     </div>
   </footer><!-- End Footer -->
