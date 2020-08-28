@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Google_Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -16,7 +15,7 @@ class CalendarController extends Controller
     private $cilent;
 
     public function __construct() {
-        $this->client = new Google_Client();
+        $this->client = new \Google_Client();
         $this->client->setApplicationName(env('APP_TITLE'));
         $this->client->setDeveloperKey(env('GOOGLE_SERVER_KEY'));
     }
@@ -77,7 +76,6 @@ class CalendarController extends Controller
         ));
 
         // Invite Others
-
         $event->setAttendees([
             ['email' => 'priyayidimas@gmail.com'],
         ]);
@@ -108,9 +106,113 @@ class CalendarController extends Controller
         $dbEvent->waktu_mulai = $mulai->format('Y-m-d H:i:s');
         $dbEvent->waktu_selesai = $selesai->format('Y-m-d H:i:s');
         $dbEvent->id_kelas = $req->id_kelas;
+        $dbEvent->google_event_id = $event->id;
         $dbEvent->link = $event->hangoutLink;
         $dbEvent->save();
         printf("DB Event Stored");
+    }
+
+    public function deleteEvent($id){
+        // Init
+        $this->client->setAccessToken(Auth::user()->token);
+        $service = new \Google_Service_Calendar($this->client);
+
+        // Get Data
+        // $dbEvent = Event::find($req->id);
+        $dbEvent = Event::find($id);
+        
+        // Select Calendar Id
+        $calendarId = Auth::user()->calendar_id;
+        $gEventId = $dbEvent->google_event_id;
+
+        $service->events->delete($calendarId, $gEventId, ['sendUpdates' => 'all']);
+        printf('Event Deleted');
+
+        $dbEvent->delete();
+        printf("DB Event Deleted");
+    }
+
+    public function patchEvent(Request $req){
+        // Init
+        $this->client->setAccessToken(Auth::user()->token);
+        $service = new \Google_Service_Calendar($this->client);
+
+        // Get Data
+        $dbEvent = Event::find($req->id);
+        
+        // Select Calendar Id
+        $calendarId = Auth::user()->calendar_id;
+        $gEventId = $dbEvent->google_event_id;
+
+        // Delete Dulu yah
+        $service->events->delete($calendarId, $gEventId);
+
+        // Create Date From Formatted String
+        $mulai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_mulai, 'Asia/Jakarta');
+        $selesai = Carbon::createFromFormat('d F Y @ H:i', $req->waktu_selesai, 'Asia/Jakarta');
+
+        // Bentrok Handler
+        $cek = $this->bentrokHandler($mulai, $selesai);
+        if(!$cek) return "Bentrok";
+
+        // Init Event
+        $event = new \Google_Service_Calendar_Event(array(
+            'summary' => $req->title,
+            'location' => 'SiPeka',
+            'description' => $req->desc,
+            'start' => array(
+                'dateTime' => $mulai->format('c'),
+                'timeZone' => 'Asia/Jakarta'
+            ),
+            'end' => array(
+                'dateTime' => $selesai->format('c'),
+                'timeZone' => 'Asia/Jakarta'
+            ),
+        ));
+
+        // Invite
+        $event->setAttendees([
+            ['email' => 'priyayidimas@gmail.com'],
+        ]);
+
+        // Set Hangout Link From Earlier
+        $event->setHangoutLink($dbEvent->link);
+        	
+        // Patch Event
+        $event = $service->events->insert($calendarId, $event, ['sendUpdates' => 'all']);
+        printf('Event Updated: %s', $event->htmlLink);
+
+
+        // Store To Sipeka DB
+        $dbEvent->fill($req->all());
+        $dbEvent->waktu_mulai = $mulai->format('Y-m-d H:i:s');
+        $dbEvent->waktu_selesai = $selesai->format('Y-m-d H:i:s');
+        $dbEvent->google_event_id = $event->id;
+        $dbEvent->link = $event->hangoutLink;
+        $dbEvent->save();
+        printf("DB Event Stored");
+    }
+
+    public function getEvents(){
+        $dbEvent = Event::find(9);
+
+        $mulai = Carbon::createFromFormat('d F Y @ H:i', '04 September 2020 @ 11:00', 'Asia/Jakarta');
+        $selesai = Carbon::createFromFormat('d F Y @ H:i', '04 September 2020 @ 15:00', 'Asia/Jakarta');
+
+        $waktu_mulai = Carbon::createFromFormat('Y-m-d H:i:s',$dbEvent->waktu_mulai,'Asia/Jakarta');
+        $waktu_selesai = Carbon::createFromFormat('Y-m-d H:i:s',$dbEvent->waktu_selesai,'Asia/Jakarta');
+
+        $betweenMulai = ($mulai >= $waktu_mulai) && ($mulai <= $waktu_selesai);
+        $betweenSelesai = ($selesai >= $waktu_mulai) && ($selesai <= $waktu_selesai);
+        
+        // Bentrok Handler
+        // if(!($betweenSelesai || $betweenMulai)){
+        //     $cek = $this->bentrokHandler($mulai, $selesai);
+        //     if(!$cek) return "Bentrok";
+        // }
+        // dd($betweenMulai, $betweenSelesai, !($betweenMulai && $betweenSelesai));
+
+        dd(date_diff($waktu_mulai, $mulai));
     }
 
     // DEBUG
@@ -134,7 +236,7 @@ class CalendarController extends Controller
         }
     }
 
-    public function getEvents(){
+    public function getEventsA(){
         $mulai = Carbon::parse('2020-09-01 07:00:00')->addMinutes(-30);
         $akhir = Carbon::parse('2020-09-01 07:00:00')->addHour()->addMinutes(30);
 
