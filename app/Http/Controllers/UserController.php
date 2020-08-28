@@ -38,7 +38,7 @@ class UserController extends Controller
                 'openid', 'profile', 'email',
                 \Google_Service_PeopleService::CONTACTS_READONLY ,
                 \Google_Service_Calendar::CALENDAR])
-            ->with(['prompt' => 'select_account consent'])
+            ->with(['prompt' => 'select_account'])
             // ->with(["access_type" => "offline", "prompt" => "select_account consent"])
             ->redirect();
     }
@@ -185,5 +185,12 @@ class UserController extends Controller
             $message->to($to_email, $to_name)->subject('Undangan Kontribusi Kelas');
             $message->from('rektor.sipeka@gmail.com','Rektor SiPeka');
         });
+    }
+
+    public function invite($kelas_id,$akses,$user_id){
+        $kelas = Kelas::find($kelas_id);
+        $user = User::find($user_id);
+
+        $kelas->kolab()->attach($user->id, ['akses' => $akses, 'status' => '1']);
     }
 }

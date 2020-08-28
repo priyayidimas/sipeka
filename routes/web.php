@@ -62,6 +62,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'events'], function () {
             Route::post('store', 'CalendarController@storeEvent');
+            Route::post('patch', 'CalendarController@patchEvent');
+            Route::get('delete/{id}', 'CalendarController@deleteEvent');
         });
     });
 
@@ -116,4 +118,7 @@ Route::post('debug/dkategori', 'KategoriController@insertDetailKategori');
 Route::get('calendars', 'CalendarController@calendars');
 Route::get('joinkelas', 'MahasiswaController@joinkelas');
 Route::get('mail', 'UserController@mail');
+
+Route::get('invitation/token/{kelas_id}/{akses}/{user_id}', 'UserController@invite');
+
 

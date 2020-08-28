@@ -52,28 +52,27 @@
             modal.find('.modal-body #idm').val(idmateri);
         });
 
-        $('#datetimepicker1').datetimepicker({
-            format: 'DD MMMM YYYY @ HH:mm'
+        $('.datetimepicker').datetimepicker({
+            format: 'DD MMMM YYYY @ HH:mm',
+            minDate: moment()
         });
-        $('#datetimepicker2').datetimepicker({
-            format: 'DD MMMM YYYY @ HH:mm'
-        });
+
         $('.js-example-basic-single').select2();
 
-        $('#editPertemuan').on('show.bs.modal', function (event) {
+        $('#updateEvent').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var namaacara = button.data('namaevent');
-            var descacara = button.data('descevent');
-            var waktu = button.data('waktuevent');
-            var kelas = button.data('kelas');
-            var idevent = button.data('kdevent');
+            var title = button.data('title');
+            var desc = button.data('desc');
+            var mulai = button.data('mulai');
+            var selesai = button.data('selesai');
+            var id = button.data('id');
 
             var modal = $(this);
-            modal.find('.modal-body #namaevent').val(namaacara);
-            modal.find('.modal-body #descevent').val(descacara);
-            modal.find('.modal-body .waktuevent').val(waktu);
-            modal.find('.modal-body #kelas').val(kelas);
-            modal.find('.modal-body #kdevent').val(idevent);
+            modal.find('.modal-body #title').val(title);
+            modal.find('.modal-body #desc').val(desc);
+            modal.find('.modal-body #mulai').val(mulai);
+            modal.find('.modal-body #selesai').val(selesai);
+            modal.find('.modal-body #id').val(id);
         });
     });
 </script>
@@ -173,21 +172,19 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createEvent">
                     Jadwalkan Pertemuan
                 </button>
-                @foreach($kls->materi as $m)
+                @foreach($kls->event as $event)
                 <div class="card itemmateri" style="margin-top:10px;">
                     <div class="card-body">
-                        <h5 class="card-title">{{$m->judul}}</h5>
-                            <div class="card-text">
-                            <i class="fab fa-youtube" style="color:red;"></i> @if($m->idytb != NULL)<a href="https://www.youtube.com/watch?v={{$m->idytb}}">Lihat Video</a> @else Tidak Tersedia @endif &nbsp;
-                            <i class="fa fa-file-alt" style="color:grey"></i> @if($m->filemodul != NULL)<a href="/">Download Modul</a> @else Tidak Tersedia @endif &nbsp;
-                            <i class="fa fa-lock" style="color:grey;"></i> @if($m->statusfile == 0) Public @else Private @endif &nbsp;
-                            <i class="fa fa-info-circle" style="color:grey;"></i> @if($m->jenis == 0) Materi @elseif($m->jenis==1) Pertanyaan @elseif($m->jenis==2) Materi dan Pertanyaan @else Private @endif
-                        </div>
+                        <h5 class="card-title">{{$event->title}}</h5>
                         <p class="card-text">
-                            {{$m->desc}}
+                            {{$event->desc}}
                         </p>
+                        <div class="card-text">
+                            <p>{{$mulai = Carbon::parse($event->waktu_mulai)->format('d F Y @ H:i')}}</p>
+                            <p>{{$selesai = Carbon::parse($event->waktu_selesai)->format('d F Y @ H:i')}}</p>
+                        </div>
                         <br>
-                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateMateri" data-idmateri="{{$m->id}}" data-judul="{{$m->judul}}" data-jenis="{{$m->jenis}}" data-judulmodul="{{$m->judul_modul}}" data-statusfile="{{$m->statusfile}}" data-desc="{{$m->desc}}" data-idytb="{{$m->idytb}}">
+                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateEvent" data-id="{{$event->id}}" data-title="{{$event->title}}" data-desc="{{$event->desc}}" data-mulai="{{$mulai}}" data-selesai="{{$selesai}}">
                             Edit
                         </button>
                         <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteMateri" data-idmateri="{{$m->id}}">
@@ -398,11 +395,11 @@
             </div>
             <div class="form-group">
                 <label for="">Tanggal dan Waktu Acara -> Mulai</label>
-                <input type='text' class="form-control" id='datetimepicker1' name="waktu_mulai" placeholder="Tanggal dan Waktu Mulai Acara" />
+                <input type='text' class="form-control datetimepicker" id='' name="waktu_mulai" placeholder="Tanggal dan Waktu Mulai Acara" />
             </div>
             <div class="form-group">
                 <label for="">Tanggal dan Waktu Acara -> Selesai</label>
-                <input type='text' class="form-control" id='datetimepicker2' name="waktu_selesai" placeholder="Tanggal dan Waktu Selesai Acara" />
+                <input type='text' class="form-control datetimepicker" id='' name="waktu_selesai" placeholder="Tanggal dan Waktu Selesai Acara" />
             </div>
         </form>
         </div>
@@ -412,5 +409,49 @@
         </div>
     </div>
   </div>
+</div>
+<div class="modal fade" id="updateEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Jadwalkan Pertemuan Daring</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{{url('dosen/events/patch')}}" class="form-group" id="updateEventForm">
+              @csrf
+              <input type="hidden" name="id" id='id'>
+              <div class="form-group">
+                  <label for="">Nama Acara</label>
+                  <input type='text' class="form-control" id='title' name="title" placeholder="Masukkan Nama Acara"/>
+              </div>
+              <div class="form-group">
+                  <label for="">Deskripsi Acara</label>
+                  <input type='text' class="form-control" id='desc' name="desc" placeholder="Masukkan Deskripsi Acara"/>
+              </div>
+              <div class="form-group">
+                  <label for="">Kelas</label>
+                  <select name="id_kelas" id='id_kelas' class="form-control js-example-basic-single">
+                      <option value="1">Nama Kelas</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="">Tanggal dan Waktu Acara -> Mulai</label>
+                  <input type='text' class="form-control datetimepicker" id='mulai' name="waktu_mulai" placeholder="Tanggal dan Waktu Mulai Acara" />
+              </div>
+              <div class="form-group">
+                  <label for="">Tanggal dan Waktu Acara -> Selesai</label>
+                  <input type='text' class="form-control datetimepicker" id='selesai' name="waktu_selesai" placeholder="Tanggal dan Waktu Selesai Acara" />
+              </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" onclick="event.preventDefault(); document.getElementById('updateEventForm').submit();" class="btn btn-primary">Submit</button>
+          </div>
+      </div>
+    </div>
 </div>
 @endsection

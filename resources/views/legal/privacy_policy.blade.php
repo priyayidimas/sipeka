@@ -85,7 +85,7 @@
 
                     <p>The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.</p>
                     <p>If you contact us directly, we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide.</p>
-                    <p>When you register for an Account, we may ask for your contact information, including items such as name, company name, address, email address, and telephone number.</p>
+                    <p>When you register for an Account, we may ask for your contact information, including items such as name, company name, address, email address, and telephone number. Part of them are provided by users' Gmail Account that linked with SiPeka. We also will use https://www.googleapis.com/auth/calendar to create [SiPeka] calendar for managing users events while using our platform, such as creating conference using Google Meet, and send email notification regarding the event, so that users can manage their schedules through SiPeka and sync the changes with their Google calendar.</p>
 
                     <h2>How we use your information</h2>
 
