@@ -51,6 +51,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
             Route::post('delete', 'DosenController@deleteKelas')->name('hapuskelas');
 
             Route::get('submission/{id}', 'DosenController@listSub')->name('listsubmis');
+            Route::get('list-submission/{id}', 'DosenController@listMateriSub')->name('listmhssubmis');
         });
 
         Route::group(['prefix' => 'materi'], function () {

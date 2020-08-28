@@ -1,4 +1,12 @@
 @extends('layouts.utama')
+@section('heading')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a></i> Kelas</a></li>
+        </ol>
+    </nav>
+@endsection
 
 @section('content')
 <div class="row">

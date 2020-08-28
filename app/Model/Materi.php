@@ -11,7 +11,8 @@ class Materi extends Model
     protected $fillable = [
         'judul', 'desc',
         'jenis', 'idytb',
-        'filemodul', 'statusfile'
+        'filemodul', 'statusfile',
+        'judul_modul'
     ];
 
     //Parent

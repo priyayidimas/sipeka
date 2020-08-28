@@ -1,5 +1,13 @@
 @extends('layouts.utama')
-
+@section('heading')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="/dosen/kelas"></i> Kelas</a></li>
+            <li class="breadcrumb-item"><a></i> Lihat Kelas - {{$kls->kelas_nama}}</a></li>
+        </ol>
+    </nav>
+@endsection
 @section('js')
 <script>
     $("#search").on("keyup", function() {
@@ -28,50 +36,19 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
+                    @foreach($kls->materi as $k)
                     <div class="col-md-6" style="margin-top:10px;">
                         <div class="card">
                             <div class="card-body">
-                                <h5>Nama Materi</h5>
+                                <h5>{{$k->judul}}</h5>
                                 <div class="card-text" style="font-size:12px;color:grey;">
                                     <i class="fa fa-clipboard"></i> 9 Submissions
                                 </div>
-                                <a href="" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
+                                <a href="{{route('listmhssubmis',$k->id)}}" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6" style="margin-top:10px;">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Nama Materi</h5>
-                                <div class="card-text" style="font-size:12px;color:grey;">
-                                    <i class="fa fa-clipboard"></i> 9 Submissions
-                                </div>
-                                <a href="" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="margin-top:10px;">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Nama Materi</h5>
-                                <div class="card-text" style="font-size:12px;color:grey;">
-                                    <i class="fa fa-clipboard"></i> 9 Submissions
-                                </div>
-                                <a href="" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="margin-top:10px;">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Nama Materi</h5>
-                                <div class="card-text" style="font-size:12px;color:grey;">
-                                    <i class="fa fa-clipboard"></i> 9 Submissions
-                                </div>
-                                <a href="" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <br>
             </div>

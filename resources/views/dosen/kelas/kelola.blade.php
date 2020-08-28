@@ -1,5 +1,15 @@
 @extends('layouts.utama')
 
+@section('heading')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="/dosen/kelas"></i> Kelas</a></li>
+            <li class="breadcrumb-item"><a></i> Kelola Kelas - {{$kls->kelas_nama}}</a></li>
+        </ol>
+    </nav>
+@endsection
+
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css">
@@ -23,12 +33,14 @@
             var statusfile = button.data('statusfile');
             var jenis = button.data('jenis');
             var idmateri = button.data('idmateri');
+            var judulmodul = button.data('judulmodul');
 
             var modal = $(this);
             modal.find('.modal-body #judul').val(judul);
             modal.find('.modal-body #desc').val(desc);
             modal.find('.modal-body #idytb').val(idytb);
             modal.find('.modal-body #idmateri').val(idmateri);
+            modal.find('.modal-body #judulmodul').val(judulmodul);
             if (jenis == '0') {document.getElementById("mt").selected = true;}else if(jenis == '1'){document.getElementById("pt").selected = true;}else if(jenis == '2'){document.getElementById("mpt").selected = true;}
             if (statusfile == '0') {document.getElementById("pb").selected = true;}else if(statusfile == '1'){document.getElementById("pr").selected = true;}
         });
@@ -146,7 +158,7 @@
                             {{$m->desc}}
                         </p>
                         <br>
-                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateMateri" data-idmateri="{{$m->id}}" data-judul="{{$m->judul}}" data-jenis="{{$m->jenis}}" data-statusfile="{{$m->statusfile}}" data-desc="{{$m->desc}}" data-idytb="{{$m->idytb}}">
+                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateMateri" data-idmateri="{{$m->id}}" data-judul="{{$m->judul}}" data-jenis="{{$m->jenis}}" data-judulmodul="{{$m->judul_modul}}" data-statusfile="{{$m->statusfile}}" data-desc="{{$m->desc}}" data-idytb="{{$m->idytb}}">
                             Edit
                         </button>
                         <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteMateri" data-idmateri="{{$m->id}}">
@@ -175,7 +187,7 @@
                             {{$m->desc}}
                         </p>
                         <br>
-                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateMateri" data-idmateri="{{$m->id}}" data-judul="{{$m->judul}}" data-jenis="{{$m->jenis}}" data-statusfile="{{$m->statusfile}}" data-desc="{{$m->desc}}" data-idytb="{{$m->idytb}}">
+                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateMateri" data-idmateri="{{$m->id}}" data-judul="{{$m->judul}}" data-jenis="{{$m->jenis}}" data-judulmodul="{{$m->judul_modul}}" data-statusfile="{{$m->statusfile}}" data-desc="{{$m->desc}}" data-idytb="{{$m->idytb}}">
                             Edit
                         </button>
                         <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteMateri" data-idmateri="{{$m->id}}">
@@ -242,8 +254,12 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="">Judul Modul</label>
+                <input name="judul_modul" placeholder="Judul Modul ..." type="text" class="form-control">
+            </div>
+            <div class="form-group">
                 <label for="">Modul Materi</label>
-                <input name="filemodul" placeholder="Pertanyaan ..." type="file" class="form-control-file">
+                <input name="filemodul" type="file" class="form-control-file">
             </div>
             <div class="form-group">
                 <label for="">ID Video Youtube</label>
@@ -252,7 +268,7 @@
             </div>
             <div class="form-group">
                 <label for="">Status Modul</label>
-                <select name="statusfile" id="" class="form-control" required>
+                <select name="statusfile" id="" class="form-control">
                     <option value="" disabled>Pilih Status Modul</option>
                     <option value="0">Public</option>
                     <option value="1">Private</option>
@@ -300,6 +316,10 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="">Judul Modul</label>
+                <input name="judul_modul" id="judulmodul" placeholder="Judul Modul ..." type="text" class="form-control">
+            </div>
+            <div class="form-group">
                 <label for="">Modul Materi</label>
                 <input name="filemodul" placeholder="Pertanyaan ..." type="file" class="form-control-file">
             </div>
@@ -310,7 +330,7 @@
             </div>
             <div class="form-group">
                 <label for="">Status Modul</label>
-                <select name="statusfile" class="form-control" required>
+                <select name="statusfile" class="form-control">
                     <option value="" disabled>Pilih Status Modul</option>
                     <option value="0" id="pb">Public</option>
                     <option value="1" id="pr">Private</option>

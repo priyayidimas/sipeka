@@ -87,21 +87,27 @@
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="position-relative form-group">
+                                                            <label for="">Judul Modul Materi</label>
+                                                            <input name="judul_modul[]" placeholder="Judul Modul ..." type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="position-relative form-group">
                                                             <label for="">Modul Materi</label>
-                                                            <input name="filemodul[]" placeholder="Pertanyaan ..." type="file" class="form-control-file">
+                                                            <input name="filemodul[]" type="file" class="form-control-file">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="position-relative form-group">
                                                             <label for="">ID Video Youtube</label>
-                                                            <input name="idytb[]" placeholder="Masukkan ID YouTube ..." type="text" class="form-control" required>
+                                                            <input name="idytb[]" placeholder="Masukkan ID YouTube ..." type="text" class="form-control">
                                                             <i style="font-size:12px;">https://www.youtube.com/watch?v=<b style="color:blue;">idyoutube</b></i>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-5">
                                                         <div class="position-relative form-group">
                                                             <label for="">Status Modul</label>
-                                                            <select name="statusfile[]" id="" class="form-control" required>
+                                                            <select name="statusfile[]" id="" class="form-control">
                                                                 <option value="">Pilih Status Modul</option>
                                                                 <option value="0">Public</option>
                                                                 <option value="1">Private</option>

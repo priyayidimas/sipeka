@@ -65,7 +65,7 @@ class DosenController extends Controller
 
         $cek_kode = DB::table('kelas')->where('kelas_kode',$cd)->value('id');
 
-        $jdl = $req->judul; $dsc = $req->desc_materi; $jns = $req->jenis; $file = $req->filemodul; $idytb = $req->idytb; $sts = $req->statusfile;
+        $jdl = $req->judul; $dsc = $req->desc_materi; $jns = $req->jenis; $file = $req->filemodul; $idytb = $req->idytb; $sts = $req->statusfile;$jdlmodul = $req->judul_modul;
         for ($i=0; $i < count($jdl) ; $i++) {
             if(!isset($file[$i])){
                 $filename = null;
@@ -73,7 +73,7 @@ class DosenController extends Controller
                 $filename = date("YmdHis").'.'.$file[$i]->getClientOriginalName();
             }
             $data = array(
-                'id_kelas' => $cek_kode,'judul' => $jdl[$i],'desc' => $dsc[$i],'jenis' => $jns[$i],'idytb' => $idytb[$i],'filemodul' => $filename,'statusfile' => $sts[$i]
+                'id_kelas' => $cek_kode,'judul' => $jdl[$i],'desc' => $dsc[$i],'jenis' => $jns[$i],'idytb' => $idytb[$i],'filemodul' => $filename,'statusfile' => $sts[$i],'judul_modul' => $jdlmodul[$i]
             );
             if(isset($file[$i])){
                 $namefile=date("YmdHis").'_'.$file[$i]->getClientOriginalName();
@@ -188,6 +188,13 @@ class DosenController extends Controller
 
     public function listSub($id)
     {
-        return view('dosen.kelas.materisubmis');
+        $kls = Kelas::find($id);
+        return view('dosen.kelas.materisubmis',compact('kls'));
+    }
+
+    public function listMateriSub($id)
+    {
+        $mt = Materi::find($id);
+        return view('dosen.kelas.listsubmis',compact('mt'));
     }
 }
