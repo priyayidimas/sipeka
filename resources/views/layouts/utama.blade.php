@@ -49,15 +49,15 @@
       <div class="group-nav-item">
         <li class="nav-item {{ (request()->is('dosen') || request()->is('mhs')) ? 'active' : '' }}">
           <a class="nav-link" href="{{url(''.session('akses'))}}">
-            <div class="c{{ (request()->is('dosen/') || request()->is('mhs')) ? 'c-active' : '' }}">
+            <div class="c {{ (request()->is('dosen') || request()->is('mhs')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </div>
           </a>
         </li>
-        <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'active' : '' }}">
+        <li class="nav-item {{ (request()->is('dosen/kelas*') || request()->is('mhs/kelas*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{url(''.session('akses').'/kelas')}}">
-            <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs')) ? 'c-active' : '' }}">
+            <div class="c {{ (request()->is('dosen/kelas*') || request()->is('mhs/kelas*')) ? 'c-active' : '' }}">
               <i class="fas fa-fw fa-users"></i>
               <span>Kelas</span>
             </div>

@@ -49,6 +49,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
             Route::get('kelola/{id}', 'DosenController@editKelas')->name('editkelas');
             Route::put('update/{id}', 'DosenController@updateKelas')->name('updatekelas');
             Route::post('delete', 'DosenController@deleteKelas')->name('hapuskelas');
+
+            Route::get('submission/{id}', 'DosenController@listSub')->name('listsubmis');
         });
 
         Route::group(['prefix' => 'materi'], function () {
@@ -71,6 +73,15 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
     Route::get('pelengkapan-data', 'MahasiswaController@biodataAwal');
     Route::post('pelengkapan-data', 'MahasiswaController@insertBiodataAwal');
 
+    Route::group(['prefix' => 'kelas'], function () {
+        Route::get('/', 'MahasiswaController@indexKelas');
+        Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
+        Route::get('/lihat-kelas/{id}', 'MahasiswaController@lihatKelas')->name('lihat-kelas');
+        Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
+
+        Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
+    });
+
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');
     });
@@ -86,9 +97,9 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['auth','admin']], function (
     });
 });
 
-Route::get('list-kelas', function () {
-    return view('allclass');
-});
+// Public View
+Route::get('daftar-kelas', 'PublicController@semuaKelas')->name('ikelas');
+Route::get('perpustakaan', 'PublicController@library')->name('library');
 
 Route::get('list-dosen', function () {
     return view('alldosen');

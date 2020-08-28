@@ -45,7 +45,7 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
+                            <li class="nav-item">
                                 @if(Auth::check())
                                 <a class="nav-link" href="{{url(''.session('akses'))}}">Home</a>
                                 @else
@@ -56,7 +56,7 @@
                                 @if(Auth::check())
                                 <a class="nav-link" href="{{url(''.session('akses').'/kelas')}}">Kelas</a>
                                 @else
-                                <a class="nav-link" href="/perpustakaan">Perpustakaan</a>
+                                <a class="nav-link" href="/daftar-kelas">Kelas</a>
                                 @endif
                             </li>
                         </ul>
@@ -77,8 +77,8 @@
                 <div class="col-sm-12">
                   <div class="card text-white kelasheader">
                     <div class="card-body">
-                      <h3 class="card-title" style="font-weight:700;">Daftar Kelas</h3>
-                      <p class="card-text text-white">Kelas-kelas yang tersedia dapat diikuti oleh setiap mahasiswa dengan beberapa kategori kelas yang tersedia</p>
+                      <h3 class="card-title" style="font-weight:700;">Perpustakaan</h3>
+                      <p class="card-text text-white">Perpustakaan ini menjadi tempat terkumpulnya modul-modul yang dibuat atau disediakan untuk mendukung proses belajar.</p>
                     </div>
                   </div>
                 </div>
@@ -131,24 +131,17 @@
                     </div>
                   </div>
                   <div class="row allclass">
-                    @foreach($kls as $k)
-                    <div class="col-md-6 card-kelas dkat{{$k->detail_kategori->id}}">
+                    @foreach($m as $k)
+                    <div class="col-md-6 card-kelas dkat{{$k->kelas->detail_kategori->id}}">
                       <div class="card">
                         <div class="card-body cekcik">
-                          <h6 class="card-subtitle mb-2 text-muted kat">{{$k->detail_kategori->dkat_nama}}</h6>
-                          <h6 class="card-title">{{$k->kelas_nama}}</h6>
-                          <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;{{$k->materi()->count()}} Materi</p>
-                          <p class="desckelas">{{$k->desc}}</p>
-                          <form action="{{route('jkelas')}}" method="post" class="form-group" id="j-kelas">
-                              @csrf
-                              <input type="hidden" name="idkelas" value="{{$k->id}}">
-                          </form>
-                          <div class="text-right card-footer" style="background:none;">
-                            @if(Auth::check())
-                            <a href="" onclick="event.preventDefault(); document.getElementById('j-kelas').submit();" class="btndaftar">Daftar Kelas</a>
-                            @else
-                            <a href="/login/mhs" class="btndaftar">Login untuk daftar kelas</a>
-                            @endif
+                          <h6 class="card-subtitle mb-2 text-muted kat">{{$k->kelas->detail_kategori->dkat_nama}}</h6>
+                          <h6 class="card-title">{{$k->judul_modul}}</h6>
+                          <p class="infokelas"><i class="fa fa-user"></i>&nbsp;Nama Dosen</p>
+                          <div class="text-right">
+                          
+                            <a href="/storage/modul/{{$k->filemodul}}" class="btndaftar" target="blank">Lihat Modul</a>
+                          
                             <!-- Sudah Bergabung -->
                           </div>
                         </div>

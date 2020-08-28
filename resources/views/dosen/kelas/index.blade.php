@@ -5,9 +5,9 @@
   <div class="col-sm-12">
     <div class="card text-white kelasheader">
       <div class="card-body">
-        <h3 class="card-title" style="font-weight:700;">Daftar Kelas yang Diikuti</h3>
-        <p class="card-text">Di bawah ini kelas-kelas yang sedang anda ikut. Ingin gabung kelas lain?</p>
-        <a href="#" class="btn btn-join">Gabung Sekarang</a>
+        <h3 class="card-title" style="font-weight:700;">Daftar kelas yang dibuat</h3>
+        <p class="card-text">Di bawah ini kelas-kelas yang sedang anda ikut. Lihat kelas lain?</p>
+        <a href="{{url('mhs/kelas/daftar-kelas')}}" class="btn btn-join">Lihat Daftar Kelas</a>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
                                 <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
                                     Delete
                                 </button>
-                                <a href="#" class="btn btn-primary" style="margin-left:5px;">Lihat Kelas</a>
+                                <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Lihat Kelas</a>
                             </div>
                         </div>
                     </div>

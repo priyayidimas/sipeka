@@ -41,7 +41,7 @@ class DosenController extends Controller
 
     public function indexKelas()
     {
-        $kelas = Kelas::all();
+        $kelas = Kelas::where('dosen_id',Auth::user()->id)->get();
         return view('dosen.kelas.index',compact('kelas'));
     }
 
@@ -184,5 +184,10 @@ class DosenController extends Controller
         }
         $mt->delete();
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil menghapus materi kelas!', 'color' => 'success']);
+    }
+
+    public function listSub($id)
+    {
+        return view('dosen.kelas.materisubmis');
     }
 }

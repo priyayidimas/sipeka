@@ -43,11 +43,10 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#hero">Home</a></li>
-
-          <li><a href="#about">Tentang</a></li>
-          <li><a href="#cta">Fitur</a></li>
-          {{-- <li><a href="">Daftar Kelas</a></li> --}}
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/daftar-kelas">Daftar Kelas</a></li>
+          <li><a href="">Daftar Dosen</a></li>
+          <li><a href="/perpustakaan">Perpustakaan</a></li>
           @if (Auth::check())
           @auth
           <li><a href={{url(session('akses'))}}>{{Auth::user()->fullname}}</a></li>

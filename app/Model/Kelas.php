@@ -43,6 +43,11 @@ class Kelas extends Model
         return $this->hasMany('App\Model\Event','id_kelas');
     }
 
+    public function kelas()
+    {
+        return $this->hasMany('App\Model\KelasJoin', 'id_kelas');
+    }
+
     // Many To Many Child
     public function join()
     {
