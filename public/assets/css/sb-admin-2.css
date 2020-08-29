@@ -12133,3 +12133,33 @@ border-radius: 5px;
 ::-webkit-scrollbar-thumb:hover {
   background: #284B63; 
 }
+
+.card-periksa h5{
+  font-family: Montserrat;
+  color:black;
+  font-weight: bold;
+  line-height: 29px;
+  font-style: bold;
+}
+
+.card-periksa .nama-univ{
+  font-family: Montserrat;font-style: normal;font-weight: 500;font-size: 14px;line-height: 22px;color:black;
+}
+
+.jawab-file{
+  background: #284B63;
+  border-radius: 5px;
+  color:white;
+  padding: 0px 5px;
+  font-size:14px;
+}
+
+.jawab-file:hover{
+  color:white;
+  text-decoration:none;
+}
+
+.reviewer-periksa{
+  max-height: 200px;
+  overflow-y:scroll;
+}

@@ -197,4 +197,9 @@ class DosenController extends Controller
         $mt = Materi::find($id);
         return view('dosen.kelas.listsubmis',compact('mt'));
     }
+
+    public function periksa($id)
+    {
+        return view('dosen.kelas.periksa');
+    }
 }

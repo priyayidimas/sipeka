@@ -52,6 +52,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
             Route::get('submission/{id}', 'DosenController@listSub')->name('listsubmis');
             Route::get('list-submission/{id}', 'DosenController@listMateriSub')->name('listmhssubmis');
+            Route::get('periksa/{id}', 'DosenController@periksa')->name('periksa');
         });
 
         Route::group(['prefix' => 'materi'], function () {

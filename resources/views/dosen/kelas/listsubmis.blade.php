@@ -12,6 +12,17 @@
 </script>
 @endsection
 
+@section('heading')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="/dosen/kelas"></i> Kelas</a></li>
+            <li class="breadcrumb-item"><a href="{{route('listsubmis',$mt->kelas->id)}}"></i> Lihat Detail Kelas</a></li>
+            <li class="breadcrumb-item"><a></i> Submission Materi - {{$mt->judul}}</a></li>
+        </ol>
+    </nav>
+@endsection
+
 @section('content')
 <div class="row">
   <div class="col-sm-12">
@@ -38,7 +49,8 @@
                                     </div>
                                     <div class="col-md-10">
                                         <h5 class="card-title" style="color:black;"> Nama Mahasiswa</h5>
-                                        <h6>Nama Universitas</h6>
+                                        <h6 style="margin-top:-10px;">Nama Universitas</h6>
+                                        <a href="{{route('periksa',1)}}" class="btn btn-primary" style="padding:0px 5px;">Periksa Kerjaan</a>
                                     </div>
                                 </div>
                                 
