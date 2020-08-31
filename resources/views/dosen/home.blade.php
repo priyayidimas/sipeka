@@ -50,7 +50,7 @@
 
 @section('content')
 <!-- Content Row -->
-<div class="row">
+          <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12">
               <div class="kartu kartu-stats">
                 <div class="kartu-header kartu-header-rose kelasdiikuti kartu-header-icon">
@@ -58,13 +58,13 @@
                     <i class="fas fa-users"></i>
                   </div>
                   <p class="kartu-category">Kelas Dibuat</p>
-                  <h3 class="kartu-title">20
+                  <h3 class="kartu-title">{{$cKelas}}
                     <small>Kelas</small>
                   </h3>
                 </div>
                 <div class="kartu-footer">
                   <div class="stats">
-                    <a href="javascript:;">Lihat Detail</a>
+                    <a href="{{url('dosen/kelas')}}">Lihat Detail</a>
                   </div>
                 </div>
               </div>
@@ -76,13 +76,13 @@
                     <i class="fas fa-file"></i>
                   </div>
                   <p class="kartu-category">Modul Publik</p>
-                  <h3 class="kartu-title">5
-                    <small>Kelas</small>
+                  <h3 class="kartu-title">{{$cPublik}}
+                    <small>Modul</small>
                   </h3>
                 </div>
                 <div class="kartu-footer">
                   <div class="stats">
-                    <a href="javascript:;">Lihat Detail</a>
+                    <a href="{{url('dosen/kelas')}}">Lihat Detail</a>
                   </div>
                 </div>
               </div>
@@ -94,13 +94,13 @@
                     <i class="fas fa-file-archive"></i>
                   </div>
                   <p class="kartu-category">Modul Private</p>
-                  <h3 class="kartu-title">15
-                    <small>Kelas</small>
+                  <h3 class="kartu-title">{{$cPrivate}}
+                    <small>Modul</small>
                   </h3>
                 </div>
                 <div class="kartu-footer">
                   <div class="stats">
-                    <a href="javascript:;">Lihat Detail</a>
+                    <a href="{{url('dosen/kelas')}}">Lihat Detail</a>
                   </div>
                 </div>
               </div>
@@ -114,37 +114,29 @@
           <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="kartu">
-                  <div class="kartu-header kartu-header-warning">
+                  <div class="kartu-header kartu-header-info">
                     <h4 class="kartu-title">Acara</h4>
                     <p class="kartu-category">Acara-acara yang akan dilaksanakan oleh kelas</p>
                   </div>
                   <div class="kartu-body table-responsive">
                     <table class="table table-hover">
-                      <thead class="text-warning">
-                        <th>No</th>
+                      <thead class="text-info">
                         <th>Nama Acara</th>
                         <th>Nama Kelas</th>
-                        <th>Tanggal</th>
-                        <th>Waktu</th>
+                        <th>Mulai</th>
+                        <th>Selesai</th>
                         <th>Action</th>
                       </thead>
                       <tbody>
+                        @foreach ($events as $event)
                         <tr>
-                          <td>1</td>
-                          <td>Alur Framework Code Igniter</td>
-                          <td>CodeIgniter</td>
-                          <td>4 Agustus 2020</td>
-                          <td>14.00 WIB</td>
-                          <td><a href="" class="btn btn-dark">Go Meet</a></td>
+                          <td>{{$event->title}}</td>
+                          <td>{{$event->kelas->kelas_nama}}</td>
+                          <td>{{Carbon::parse($event->waktu_mulai)->format('d F Y @ H:i')}}</td>
+                          <td>{{Carbon::parse($event->waktu_selesai)->format('d F Y @ H:i')}}</td>
+                          <td><a href="{!! $event->link !!}" class="btn btn-dark">Go Meet</a></td>
                         </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Full Stack Developer</td>
-                          <td>Web Learning</td>
-                          <td>3 Agustus 2020</td>
-                          <td>15.00 WIB</td>
-                          <td><a href="" class="btn btn-dark">Go Meet</a></td>
-                        </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -159,30 +151,29 @@
             <div class="col-lg-12 col-md-12">
               <div class="kartu">
                 <div class="kartu-header kartu-header-warning">
-                  <h4 class="kartu-title">Permintaan Kolaborasi</h4>
-                  <p class="kartu-category">Permintaan kolaborasi di kelas yang Anda buat</p>
+                  <h4 class="kartu-title">Undangan Kolaborasi</h4>
+                  <p class="kartu-category">Status undangan yang anda kirimkan</p>
                 </div>
                 <div class="kartu-body table-responsive">
                   <table class="table table-hover">
                     <thead class="text-warning">
-                      <th>No</th>
-                      <th>Nama Dosen</th>
+                      <th>Nama</th>
                       <th>Nama Kelas</th>
-                      <th>Action</th>
+                      <th>Akses</th>
+                      <th>Status</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Rifqi Subagja</td>
-                        <td>Alur Framework Code Igniter</td>
-                        <td><a href="" class="btn btn-success">Terima</a> &nbsp; <a href="" class="btn btn-danger">Tolak</a></td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Meggy Nurdyansah</td>
-                        <td>Full Stack Developer</td>
-                        <td><a href="" class="btn btn-success">Terima</a> &nbsp; <a href="" class="btn btn-danger">Tolak</a></td>
-                      </tr>
+                    @foreach ($kelas as $kls)
+                    @foreach ($kls->kolab()->where('status','0')->get() as $invitation)
+                    <tr>
+                        <td>{{$invitation->fullname}}</td>
+                        <td>{{$kls->kelas_nama}}</td>
+                        <td>{{($invitation->pivot->akses == 1)
+                               ? "Kolaborator" : "Reviewer"}}</td>
+                        <td>Menunggu Persetujuan</td>
+                    </tr>
+                    @endforeach
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -201,7 +192,7 @@
         </button>
       </div>
       <div class="modal-body">
-          <form method="POST" action="{{url('dosen/events/store')}}" class="form-group" id="tambahevent">
+          <form method="POST" action="{{route('storeEvent')}}" class="form-group" id="tambahevent">
             @csrf
             {{-- <input type="hidden" name="id_kelas" value="1"> --}}
             <div class="form-group">

@@ -88,6 +88,7 @@ class User extends Authenticatable
         );
     }
 
+
     public function event()
     {
         return $this->hasManyThrough(

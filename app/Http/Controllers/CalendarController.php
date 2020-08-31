@@ -120,7 +120,7 @@ class CalendarController extends Controller
         // Get Data
         // $dbEvent = Event::find($req->id);
         $dbEvent = Event::find($id);
-        
+
         // Select Calendar Id
         $calendarId = Auth::user()->calendar_id;
         $gEventId = $dbEvent->google_event_id;
@@ -139,7 +139,7 @@ class CalendarController extends Controller
 
         // Get Data
         $dbEvent = Event::find($req->id);
-        
+
         // Select Calendar Id
         $calendarId = Auth::user()->calendar_id;
         $gEventId = $dbEvent->google_event_id;
@@ -177,7 +177,7 @@ class CalendarController extends Controller
 
         // Set Hangout Link From Earlier
         $event->setHangoutLink($dbEvent->link);
-        	
+
         // Patch Event
         $event = $service->events->insert($calendarId, $event, ['sendUpdates' => 'all']);
         printf('Event Updated: %s', $event->htmlLink);
@@ -193,27 +193,6 @@ class CalendarController extends Controller
         printf("DB Event Stored");
     }
 
-    public function getEvents(){
-        $dbEvent = Event::find(9);
-
-        $mulai = Carbon::createFromFormat('d F Y @ H:i', '04 September 2020 @ 11:00', 'Asia/Jakarta');
-        $selesai = Carbon::createFromFormat('d F Y @ H:i', '04 September 2020 @ 15:00', 'Asia/Jakarta');
-
-        $waktu_mulai = Carbon::createFromFormat('Y-m-d H:i:s',$dbEvent->waktu_mulai,'Asia/Jakarta');
-        $waktu_selesai = Carbon::createFromFormat('Y-m-d H:i:s',$dbEvent->waktu_selesai,'Asia/Jakarta');
-
-        $betweenMulai = ($mulai >= $waktu_mulai) && ($mulai <= $waktu_selesai);
-        $betweenSelesai = ($selesai >= $waktu_mulai) && ($selesai <= $waktu_selesai);
-        
-        // Bentrok Handler
-        // if(!($betweenSelesai || $betweenMulai)){
-        //     $cek = $this->bentrokHandler($mulai, $selesai);
-        //     if(!$cek) return "Bentrok";
-        // }
-        // dd($betweenMulai, $betweenSelesai, !($betweenMulai && $betweenSelesai));
-
-        dd(date_diff($waktu_mulai, $mulai));
-    }
 
     // DEBUG
     public function calendars(){
@@ -234,43 +213,6 @@ class CalendarController extends Controller
         }else{
             echo "GAK ADA WOY";
         }
-    }
-
-    public function getEventsA(){
-        $mulai = Carbon::parse('2020-09-01 07:00:00')->addMinutes(-30);
-        $akhir = Carbon::parse('2020-09-01 07:00:00')->addHour()->addMinutes(30);
-
-        $mulai_data = Carbon::parse('2020-09-01 08:00:00');
-        $akhir_data = Carbon::parse('2020-09-01 09:00:00');
-
-        $kelasEvent = [];
-        $kelas = Auth::user()->join;
-        foreach($kelas as $kel){
-            $event = $kel->event()
-            ->whereBetween('waktu_mulai',[$mulai, $mulai_data])
-            ->orWhereBetween('waktu_selesai', [$mulai_data,$akhir_data])
-            ->get();
-            array_push($kelasEvent, $event);
-        }
-        $count = [];
-        foreach($kelasEvent as $events){
-            foreach($events as $event){
-                $joinEvent = $event->joinEvent;
-                array_push($count, count($joinEvent));
-            }
-        }
-
-        $cek = (array_sum($count) == 0) ? true : false;
-        return $cek;
-    }
-
-    public function getEventsB(){
-        $mulai = Carbon::parse('2020-09-01 07:00:00')->addMinutes(-30);
-        $akhir = Carbon::parse('2020-09-01 07:00:00')->addHour()->addMinutes(30);
-
-        $kelas = Kelas::find(1);
-        $events = $kelas->event()->whereBetween('waktu_mulai',[$mulai, $akhir])->get();
-        dd($mulai,$akhir,$events);
     }
 
     public function getEventsCalendar()

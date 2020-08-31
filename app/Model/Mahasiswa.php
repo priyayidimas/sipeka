@@ -23,19 +23,18 @@ class Mahasiswa extends Model
         return $this->belongsTo('App\User','id_user');
     }
 
-    //Child
     public function minat_1()
     {
-        return $this->hasOne('App\Model\DetailKategori','peminatan1');
+        return $this->belongsTo('App\Model\DetailKategori','id_peminatan1');
     }
 
     public function minat_2()
     {
-        return $this->hasOne('App\Model\DetailKategori','peminatan2');
+        return $this->belongsTo('App\Model\DetailKategori','id_peminatan2');
     }
 
     public function minat_3()
     {
-        return $this->hasOne('App\Model\DetailKategori','peminatan3');
+        return $this->belongsTo('App\Model\DetailKategori','id_peminatan3');
     }
 }
