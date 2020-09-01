@@ -142,13 +142,13 @@
                           <h6 class="card-title">{{$k->kelas_nama}}</h6>
                           <p class="infokelas"><i class="fa fa-clipboard"></i>&nbsp;{{$k->materi()->count()}} Materi</p>
                           <p class="desckelas">{{$k->desc}}</p>
-                          <form action="{{route('jkelas')}}" method="post" class="form-group" id="j-kelas">
+                          <form action="{{route('jkelas')}}" method="post" class="form-group" id="j-kelas{{$k->id}}">
                               @csrf
                               <input type="hidden" name="idkelas" value="{{$k->id}}">
                           </form>
                           <div class="text-right card-footer" style="background:none;">
                             @if(Auth::check())
-                            <a href="" onclick="event.preventDefault(); document.getElementById('j-kelas').submit();" class="btndaftar">Daftar Kelas</a>
+                            <a href="" onclick="event.preventDefault(); document.getElementById('j-kelas{{$k->id}}').submit();" class="btndaftar">Daftar Kelas</a>
                             @else
                             <a href="/login/mhs" class="btndaftar">Login untuk daftar kelas</a>
                             @endif

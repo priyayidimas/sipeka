@@ -27,7 +27,8 @@ class MahasiswaMiddleware
 
         if($user->mahasiswa()->count() == 0)
             return redirect('mhs/pelengkapan-data');
-
+        
+        session(['akses' => 'mhs']);
         return $next($request);
     }
 }
