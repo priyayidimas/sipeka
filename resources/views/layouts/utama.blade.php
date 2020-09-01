@@ -15,6 +15,7 @@
   <meta name="author" content="">
 
   <title>@yield('title')</title>
+  <link href="{{url('assets/img/sipekawarna.png')}}" rel="icon">
 
   <!-- Custom fonts for this template-->
   <link href="{{url('/assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">

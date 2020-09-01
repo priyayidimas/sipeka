@@ -1,4 +1,9 @@
 @extends('layouts.utama')
+
+@section('title')
+Dosen &middot; Periksa Pekerjaan
+@endsection
+
 @section('heading')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Kelas;
 use App\Model\Kategori;
-use App\Model\library;
+use App\Model\Library;
 use App\User;
 
 class PublicController extends Controller

@@ -1,5 +1,9 @@
 @extends('layouts.utama')
 
+@section('title')
+Dosen &middot; Submission Mahasiswa
+@endsection
+
 @section('js')
 <script>
     $('.panel-collapse').on('show.bs.collapse', function () {

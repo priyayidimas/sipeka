@@ -1,5 +1,9 @@
 @extends('layouts.utama')
 
+@section('title')
+    Mahasiswa &middot; Kelas
+@endsection
+
 @section('content')
 <div class="row">
   <div class="col-sm-12">

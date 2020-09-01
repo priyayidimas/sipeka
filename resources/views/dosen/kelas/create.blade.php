@@ -1,7 +1,7 @@
 @extends('layouts.utama')
 
 @section('title')
-    Tambah Kelas
+Dosen &middot; Tambah Kelas
 @endsection
 
 @section('css')
