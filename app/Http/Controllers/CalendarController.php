@@ -75,10 +75,15 @@ class CalendarController extends Controller
             ),
         ));
 
+        $kelas = Kelas::find($req->id_kelas);
+        $attendees = [];
+        foreach($kelas->join as $join){
+            $attendee = ['email' => $join->email];
+            array_push($attendees, $attendee);
+        }
+
         // Invite Others
-        $event->setAttendees([
-            ['email' => 'priyayidimas@gmail.com'],
-        ]);
+        $event->setAttendees($attendees);
 
         // Select Calendar Id
         $calendarId = Auth::user()->calendar_id;
@@ -110,6 +115,8 @@ class CalendarController extends Controller
         $dbEvent->link = $event->hangoutLink;
         $dbEvent->save();
         printf("DB Event Stored");
+        return back()->with(['color' => 'success', 'msg' => 'Berhasil Menjadwalkan Pertemuan']);
+
     }
 
     public function deleteEvent($id){
@@ -170,10 +177,12 @@ class CalendarController extends Controller
             ),
         ));
 
-        // Invite
-        $event->setAttendees([
-            ['email' => 'priyayidimas@gmail.com'],
-        ]);
+        $kelas = Kelas::find($req->id_kelas);
+        $attendees = [];
+        foreach($kelas->join as $join){
+            $attendee = ['email' => $join->email];
+            array_push($attendees, $attendee);
+        }
 
         // Set Hangout Link From Earlier
         $event->setHangoutLink($dbEvent->link);

@@ -210,11 +210,6 @@ class DosenController extends Controller
         return view('dosen.kelas.materisubmis',compact('mt'));
     }
 
-    public function periksa($id)
-    {
-        return view('dosen.kelas.periksa');
-    }
-
     public function invite(Request $req)
     {
         $dosen_id = $req->dosen_id;

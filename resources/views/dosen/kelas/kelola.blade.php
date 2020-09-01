@@ -177,7 +177,7 @@
                         <h5 class="card-title">{{$m->judul}}</h5>
                             <div class="card-text">
                             <i class="fab fa-youtube" style="color:red;"></i> @if($m->idytb != NULL)<a href="https://www.youtube.com/watch?v={{$m->idytb}}">Lihat Video</a> @else Tidak Tersedia @endif &nbsp;
-                            <i class="fa fa-file-alt" style="color:grey"></i> @if($m->filemodul != NULL)<a href="/">Download Modul</a> @else Tidak Tersedia @endif &nbsp;
+                            <i class="fa fa-file-alt" style="color:grey"></i> @if($m->filemodul != NULL)<a href="{{url('storage/modul/'.$m->filemodul)}}">Download Modul</a> @else Tidak Tersedia @endif &nbsp;
                             <i class="fa fa-lock" style="color:grey;"></i> @if($m->statusfile == 0) Public @else Private @endif &nbsp;
                             <i class="fa fa-info-circle" style="color:grey;"></i> @if($m->jenis == 0) Materi @elseif($m->jenis==1) Pertanyaan @elseif($m->jenis==2) Materi dan Pertanyaan @else Private @endif
                         </div>
@@ -465,6 +465,7 @@
             <form method="POST" action="{{url('dosen/events/patch')}}" class="form-group" id="updateEventForm">
               @csrf
               <input type="hidden" name="id" id='id'>
+                <input type="hidden" name="id_kelas" value="{{$kls->id}}">
               <div class="form-group">
                   <label for="">Nama Kelas</label>
                   <input type='text' class="form-control" name="" value="{{$kls->kelas_nama}}" disabled/>

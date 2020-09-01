@@ -28,8 +28,6 @@ Route::get('logout', 'UserController@logout');
 
 Route::get('invitation/accepted/{kelas_id}/{akses}/{user_id}', 'UserController@invite');
 
-Route::view('chat', 'layouts.telegram');
-
 Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
     Route::get('pelengkapan-data', 'DosenController@biodataAwal');
@@ -52,7 +50,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
             Route::get('submission/{id}', 'DosenController@listSub')->name('listsubmis');
             Route::get('list-submission/{id}', 'DosenController@listMateriSub')->name('listmhssubmis');
-            Route::get('periksa/{id}', 'DosenController@periksa')->name('periksa');
+            Route::get('periksa/{id}', 'SubmissionController@periksa')->name('periksa');
+            Route::post('review-jawaban', 'SubmissionController@reviewJawaban')->name('reviewJawaban');
         });
 
         Route::group(['prefix' => 'materi'], function () {

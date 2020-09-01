@@ -56,7 +56,7 @@
                                 <p class="card-text">
                                     <i class="fa fa-clipboard"></i> @php $jmlMateri=0 @endphp @foreach($k->materi as $m) @php $jmlMateri += 1 @endphp @endforeach {{$jmlMateri}} Materi &nbsp;&nbsp;
                                     <i class="fa fa-info-circle"></i> <span class="@if($k->status_kelas == 0)statusbelumtuntas @else statustuntas @endif">@if($k->status_kelas == 0) Tidak Aktif @else Aktif @endif</span>&nbsp;&nbsp;
-                                    <i class="fa fa-users"></i> 3.000
+                                    <i class="fa fa-users"></i> {{$k->join()->count()}}
                                 </p>
                                 <br>
                                 <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
@@ -83,7 +83,7 @@
                                 <p class="card-text">
                                     <i class="fa fa-clipboard"></i> @php $jmlMateri=0 @endphp @foreach($k->materi as $m) @php $jmlMateri += 1 @endphp @endforeach {{$jmlMateri}} Materi &nbsp;&nbsp;
                                     <i class="fa fa-info-circle"></i> <span class="@if($k->status_kelas == 0)statusbelumtuntas @else statustuntas @endif">@if($k->status_kelas == 0) Tidak Aktif @else Aktif @endif</span>&nbsp;&nbsp;
-                                    <i class="fa fa-users"></i> 3.000
+                                    <i class="fa fa-users"></i> {{$k->join()->count()}}
                                 </p>
                                 <br>
                                 <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>

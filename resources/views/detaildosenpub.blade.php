@@ -114,7 +114,9 @@
                   <h4 class="text-capitalize">{{$dosen->fullname}}</h4>
                   <span style="color:grey;font-weight: 600;font-size:12px;">{{$dosen->dosen->univ}}</span>
                   <span style="color:grey;font-weight: 600;font-size:12px;">{{$dosen->dosen->prodi}}</span>
+                  @if (Auth::check() && Auth::user()->level > 0)
                   <button class="btn btn-primary" data-toggle="modal" data-target="#inviteKolabModal">Undang</button>
+                  @endif
                 </div>
               </div>
           </div>

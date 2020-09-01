@@ -42,7 +42,7 @@
                             <div class="card-body">
                                 <h5>{{$k->judul}}</h5>
                                 <div class="card-text" style="font-size:12px;color:grey;">
-                                    <i class="fa fa-clipboard"></i> 9 Submissions
+                                    <i class="fa fa-clipboard"></i> {{$kls->join()->count()}} Submissions
                                 </div>
                                 <a href="{{route('listmhssubmis',$k->id)}}" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
                             </div>
