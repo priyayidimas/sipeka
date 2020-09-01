@@ -126,8 +126,12 @@
             @endif
             @if($show->jenis == 1 || $show->jenis == 2)
             <div class="line"></div>
-            @php $jawaban = $show->jawaban()->where('id_mhs',Auth::id());@endphp
-            @if ($jawaban->count() > 0)
+            @php $jawabanData = $show->jawaban()->where('id_mhs',Auth::id());@endphp
+            @if ($jawabanData->count() > 0)
+            @php
+                $jawaban = $jawabanData->first();
+                $status = ($jawaban->pivot->review) ? 'Reviewed' : 'Not Reviewed Yet';
+            @endphp
             <div class="row">
                 <div class="col-12">
                     <h6>Jawaban Anda</h6>
@@ -136,11 +140,21 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <b>Deskripsi:</b>
-                                    <p>{{$jawaban->first()->pivot->jawaban_text}}</p>
+                                    <p>{{$jawaban->pivot->jawaban_text}}</p>
+                                    <a class="btn btn-primary" href="{{url('storage/jawaban/'.$jawaban->pivot->jawaban_file)}}">Lampiran File</a><br><br>
                                     <a href="#jawabEditModal" data-toggle="modal" class="btn btn-warning">Edit Jawaban</a>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
-                                    <a class="btn btn-primary" href="{{url('storage/jawaban/'.$jawaban->first()->pivot->jawaban_file)}}">Lampiran File</a><br><br>
+                                    <h6>Submitted At : {{$jawaban->pivot->updated_at}}</h6>
+                                    <h6>Status : {{$status}}</h6>
+                                    @if ($jawaban->pivot->review)
+                                    <h6>Review: </h6>
+                                    <p>{{$jawaban->pivot->review}}</p>
+                                    <h6>Reviewed by : {{$jawaban->pivot->reviewer->fullname}}</h6>
+                                    @endif
+                                    @if ($jawaban->pivot->grade)
+                                    <h6>Grade : {{$jawaban->pivot->grade}}</h6>
+                                    @endif
                                 </div>
                             </div>
                         </div>

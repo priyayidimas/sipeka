@@ -26,6 +26,7 @@ class Materi extends Model
     {
         $pivot = [
             'id', 'jawaban_text', 'jawaban_file',
+            'review','reviewed_at', 'reviewer_id',
             'submitted_at', 'grade',
             'created_at','updated_at'
         ];

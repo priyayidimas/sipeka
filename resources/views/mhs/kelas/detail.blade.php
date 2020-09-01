@@ -108,7 +108,7 @@
                         <div class="col-md-8">
                             <span style="font-size:14px;"><b>Kategori : </b> {{$kls->detail_kategori->dkat_nama}}</span><br>
                             <span style="font-size:14px;"><b>Jumlah Materi : </b> {{$kls->materi()->count()}} Materi</span><br>
-                            @if($kls->link_tel != NULL)<a href="{{$kls->link_tel}}" class="btn btn-primary" style="padding:2px 5px;"> Join Group</a>@else <span class="alert alert-info" style="padding:1px;">Tidak Ada Group Telegram</span>@endif
+                            @if($kls->link_tel != NULL)<a href="{{$kls->link_tel}}" target="_blank" class="btn btn-primary" style="padding:2px 5px;"> Join Group</a>@else <span class="alert alert-info" style="padding:1px;">Tidak Ada Group Telegram</span>@endif
                         </div>
                     </div>
                 </div>
