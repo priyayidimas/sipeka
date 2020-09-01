@@ -159,7 +159,20 @@
       </div>
     </section><!-- End Team Section -->
 
-    @if (Auth::check() && Auth::user()->level > 0)
+
+  </main><!-- End #main -->
+
+ <!-- ======= Footer ======= -->
+ <footer id="footer">
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>SiPeka</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+@if (Auth::check() && Auth::user()->level > 0)
     <section id="modal-only">
         <div class="modal fade" id="inviteKolabModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -202,17 +215,6 @@
         </div>
     </section>
     @endif
-  </main><!-- End #main -->
-
- <!-- ======= Footer ======= -->
- <footer id="footer">
-
-  <div class="container">
-    <div class="copyright">
-      &copy; Copyright <strong><span>SiPeka</span></strong>. All Rights Reserved
-    </div>
-  </div>
-</footer><!-- End Footer -->
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
