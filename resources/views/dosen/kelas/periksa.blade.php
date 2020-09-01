@@ -14,7 +14,7 @@
             <div class="col-md-12" style="margin-top:10px;">
                 <form action="" class="form-row">
                     <div class="col-md-8" style="margin-top:10px;">
-                        <input type="text" name="" class="form-control" id="" placeholder="Beri tanggapan atau evaluasi terkait kelas">
+                        <textarea type="text" name="" class="form-control" id="" placeholder="Beri tanggapan atau evaluasi terkait kelas"></textarea>
                     </div>
                     <div class="col-md-2" style="margin-top:10px;">
                         <input type="number" min="0" max="100" class="form-control" placeholder="Nilai ...">

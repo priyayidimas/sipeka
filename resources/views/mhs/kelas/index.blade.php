@@ -7,7 +7,7 @@
       <div class="card-body">
         <h3 class="card-title" style="font-weight:700;">Daftar Kelas yang Diikuti</h3>
         <p class="card-text">Di bawah ini kelas-kelas yang sedang anda ikut. Ingin gabung kelas lain?</p>
-        <a href="{{url('mhs/kelas/daftar-kelas')}}" class="btn btn-join">Gabung Sekarang</a>
+        <a href="{{url('daftar-kelas')}}" class="btn btn-join">Gabung Sekarang</a>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <!-- end search -->
-                
+
                 <div class="row" style="margin-top:20px;">
                     <!-- <div class="col-md-4">
                         <div class="card itemkelas">

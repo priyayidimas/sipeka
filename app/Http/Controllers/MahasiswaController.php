@@ -11,12 +11,24 @@ use App\Model\Materi;
 use App\User;
 use App\Model\Jawaban;
 use App\Model\Kategori;
+use App\Model\Event;
+use Carbon\Carbon;
 
 class MahasiswaController extends Controller
 {
     public function index()
     {
-        return view('mhs.home');
+
+        // Cards
+        $cKelas = Auth::user()->join()->count();
+        $cSelesai = Auth::user()->join()->where('progress','100')->count();
+        $cProgress = Auth::user()->join()->where('progress','<','100')->count();
+
+        // Kelas
+        $kelas = Auth::user()->join;
+
+        $bio = Auth::user()->mahasiswa;
+        return view('mhs.home',compact('cKelas','cSelesai','cProgress','kelas','bio'));
     }
 
     public function biodataAwal()
@@ -42,7 +54,7 @@ class MahasiswaController extends Controller
         $kls = Auth::user()->join;
         return view('mhs.kelas.index',compact('kls'));
     }
-    
+
     public function semuaKelas()
     {
         $kls = Kelas::all();
@@ -107,5 +119,47 @@ class MahasiswaController extends Controller
         $nj->save();
 
         return redirect()->back()->with(['msg' => 'Jawaban berhasil disimpan!', 'color' => 'success']);
+    }
+
+    public function joinEvent($event_id, $join_id)
+    {
+        $event = Event::find($event_id);
+        $mulai = Carbon::parse($event->waktu_mulai);
+        $selesai = Carbon::parse($event->waktu_selesai);
+        $cek = $this->cekJoinEvent($mulai, $selesai,$event_id);
+        if($cek){
+            $event->joinEvent()->attach($join_id);
+            return redirect($event->link);
+        }
+        return back()->with(['color' => 'danger', 'msg' => 'Bentrok']);
+    }
+
+    public function cekJoinEvent($mulai_data, $akhir_data,$notId){
+
+        $kelasEvent = [];
+        $kelas = Auth::user()->join;
+        foreach($kelas as $kel){
+            $event = $kel->event()
+            ->where('id','<>',$notId)
+            ->where(function ($query) use ($mulai_data, $akhir_data){
+                $mulai = Carbon::now()->setTimezone('Asia/Jakarta')->addMinutes(-30);
+                $akhir = Carbon::now()->setTimezone('Asia/Jakarta')->addHour()->addMinutes(30);
+
+                $query->whereBetween('waktu_mulai',[$mulai, $mulai_data])
+                      ->orWhereBetween('waktu_selesai', [$mulai_data,$akhir_data]);
+            })
+            ->get();
+            array_push($kelasEvent, $event);
+        }
+        $count = [];
+        foreach($kelasEvent as $events){
+            foreach($events as $event){
+                $joinEvent = $event->joinEvent;
+                array_push($count, count($joinEvent));
+            }
+        }
+
+        $cek = (array_sum($count) == 0) ? true : false;
+        return $cek;
     }
 }

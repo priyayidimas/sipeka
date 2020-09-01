@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/listkelas.css">
+    <link rel="stylesheet" href="{{url('assets/css/listkelas.css')}}">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -125,7 +125,7 @@
                       <form action="">
                         <div class="form-group has-search">
                           <span class="fa fa-search form-control-feedback"></span>
-                          <input type="text" id="search" class="form-control" placeholder="Cari Kelas ...">
+                          <input type="text" id="search" class="form-control" placeholder="Cari Modul ...">
                         </div>
                       </form>
                     </div>
@@ -139,9 +139,9 @@
                           <h6 class="card-title">{{$k->judul_modul}}</h6>
                           <p class="infokelas"><i class="fa fa-user"></i>&nbsp;Nama Dosen</p>
                           <div class="text-right">
-                          
+
                             <a href="/storage/modul/{{$k->filemodul}}" class="btndaftar" target="blank">Lihat Modul</a>
-                          
+
                             <!-- Sudah Bergabung -->
                           </div>
                         </div>
@@ -174,7 +174,7 @@
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
-            
+
             $('.panel-collapse').on('show.bs.collapse', function () {
               $(this).siblings('.panel-heading').addClass('active');
             });

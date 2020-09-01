@@ -378,7 +378,11 @@
       <div class="modal-body">
           <form method="POST" action="{{url('dosen/events/store')}}" class="form-group" id="tambahevent">
             @csrf
-            {{-- <input type="hidden" name="id_kelas" value="1"> --}}
+            <input type="hidden" name="id_kelas" value="{{$kls->id}}">
+            <div class="form-group">
+                <label for="">Nama Kelas</label>
+                <input type='text' class="form-control" name="" value="{{$kls->kelas_nama}}" disabled/>
+            </div>
             <div class="form-group">
                 <label for="">Nama Acara</label>
                 <input type='text' class="form-control" name="title" placeholder="Masukkan Nama Acara"/>
@@ -386,12 +390,6 @@
             <div class="form-group">
                 <label for="">Deskripsi Acara</label>
                 <input type='text' class="form-control" name="desc" placeholder="Masukkan Deskripsi Acara"/>
-            </div>
-            <div class="form-group">
-                <label for="">Kelas</label>
-                <select name="id_kelas" class="form-control js-example-basic-single">
-                    <option value="1">Nama Kelas</option>
-                </select>
             </div>
             <div class="form-group">
                 <label for="">Tanggal dan Waktu Acara -> Mulai</label>
@@ -424,18 +422,16 @@
               @csrf
               <input type="hidden" name="id" id='id'>
               <div class="form-group">
+                  <label for="">Nama Kelas</label>
+                  <input type='text' class="form-control" name="" value="{{$kls->kelas_nama}}" disabled/>
+              </div>
+              <div class="form-group">
                   <label for="">Nama Acara</label>
                   <input type='text' class="form-control" id='title' name="title" placeholder="Masukkan Nama Acara"/>
               </div>
               <div class="form-group">
                   <label for="">Deskripsi Acara</label>
                   <input type='text' class="form-control" id='desc' name="desc" placeholder="Masukkan Deskripsi Acara"/>
-              </div>
-              <div class="form-group">
-                  <label for="">Kelas</label>
-                  <select name="id_kelas" id='id_kelas' class="form-control js-example-basic-single">
-                      <option value="1">Nama Kelas</option>
-                  </select>
               </div>
               <div class="form-group">
                   <label for="">Tanggal dan Waktu Acara -> Mulai</label>

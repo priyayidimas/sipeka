@@ -12,14 +12,25 @@ use App\Model\Materi;
 use App\Model\Jawaban;
 use App\Model\KelasJoin;
 use App\Model\KelasKolab;
+use App\User;
 use DB;
 
 class DosenController extends Controller
 {
-
     public function index()
     {
-        return view('dosen.home');
+        // Cards
+        $cKelas = Auth::user()->kelas()->count();
+        $cPublik = Auth::user()->materi()->where('statusfile','0')->count();
+        $cPrivate = Auth::user()->materi()->where('statusfile','1')->count();
+
+        // Events
+        $events = Auth::user()->event()->get();
+
+        // Invitation
+        $kelas = Auth::user()->kelas;
+
+        return view('dosen.home',compact('cKelas','cPublik','cPrivate','events','kelas'));
     }
 
     public function biodataAwal()
@@ -124,7 +135,7 @@ class DosenController extends Controller
         $mat->save();
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil menambahkan materi!', 'color' => 'success']);
     }
-    
+
     public function updateMateri(Request $req,$id)
     {
         $mat = Materi::find($req->idmateri);
@@ -189,13 +200,13 @@ class DosenController extends Controller
     public function listSub($id)
     {
         $kls = Kelas::find($id);
-        return view('dosen.kelas.materisubmis',compact('kls'));
+        return view('dosen.kelas.listsubmis',compact('kls'));
     }
 
     public function listMateriSub($id)
     {
         $mt = Materi::find($id);
-        return view('dosen.kelas.listsubmis',compact('mt'));
+        return view('dosen.kelas.materisubmis',compact('mt'));
     }
 
     public function periksa($id)

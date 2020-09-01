@@ -10,22 +10,22 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/sipekawarna.png" rel="icon">
+  <link href="{{url('assets/img/sipekawarna.png')}}" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor-utama/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor-utama/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/aos/aos.css" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/icofont/icofont.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/venobox/venobox.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/line-awesome/css/line-awesome.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/aos/aos.css')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="{{url('assets/css/style.css')}}" rel="stylesheet">
   <style>
     #loadMore {
     padding-bottom: 30px;
@@ -70,6 +70,9 @@
           <li><a href="/daftar-kelas">Daftar Kelas</a></li>
           <li><a href="">Daftar Dosen</a></li>
           <li><a href="/perpustakaan">Perpustakaan</a></li>
+          @auth
+          <li><a href="{{url(session('akses'))}}">{{Auth::user()->fullname}}</a></li>
+          @endauth
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -89,7 +92,7 @@
     <section id="breadcrumbs" class="breadcrumbs">
       <div class="container">
         <ol>
-          <li><a href="" style="color:#284B63;">Home</a></li>
+          <li><a href="{{url('')}}" style="color:#284B63;">Home</a></li>
           <li><b>Daftar Dosen</b></li>
         </ol>
       </div>
@@ -104,132 +107,28 @@
             </div>
         </div>
         <div class="row" style="margin-top:20px;">
-
-          <div class="col-lg-3 col-md-12 blogBox moreBox">
+          @php $n = 1; @endphp
+          @foreach ($dosen as $data)
+          <div class="col-lg-3 col-md-12 blogBox moreBox" {!! ($n>4) ? 'style="display: none;"' : '' !!}>
             <div class="member" data-aos="fade-up">
               <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
+                <img src="{{$data->avatar}}" class="img-fluid" alt="">
               </div>
               <div class="member-info">
-                <h4>Dimas Anom Priyayi</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
+                <h4>{{$data->fullname}}</h4>
+                <span>{{$data->dosen->univ}}</span>
+                <a href="{{url('detail-dosen/'.$data->id)}}" class="btn btn-info">Detail Dosen</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Dimas Anom Priyayi</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Dimas Anom Priyayi</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Dimas Anom Priyayi</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox" style="display: none;">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Ini Meggy</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox" style="display: none;">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Ini Meggy</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox" style="display: none;">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Ini Meggy</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox" style="display: none;">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Ini Meggy</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox" style="display: none;">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Ini Meggy</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-12 blogBox moreBox" style="display: none;">
-            <div class="member" data-aos="fade-up">
-              <div class="member-img">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
-              </div>
-              <div class="member-info">
-                <h4>Ini Meggy</h4>
-                <span>Universitas Pendidikan Indonesia</span>
-                <a href="" class="btn btn-info">Detail Dosen</a>
-              </div>
-            </div>
-          </div>
+          @php $n++; @endphp
+          @endforeach
         </div>
-            <div id="loadMore" style="">
-              <a href="#">Load More</a>
-            </div>
-
+        @if ($n > 4)
+        <div id="loadMore" style="">
+            <a href="#">Load More</a>
+        </div>
+        @endif
       </div>
     </section><!-- End Team Section -->
 
@@ -248,25 +147,25 @@
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor-utama/jquery/jquery.min.js"></script>
-  <script src="assets/vendor-utama/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor-utama/jquery.easing/jquery.easing.min.js"></script>
-  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
-  <script src="assets/vendor-utama/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor-utama/counterup/counterup.min.js"></script>
-  <!-- <script src="assets/vendor/venobox/venobox.min.js"></script> -->
-  <script src="assets/vendor-utama/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor-utama/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor-utama/aos/aos.js"></script>
+  <script src="{{url('assets/vendor-utama/jquery/jquery.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/jquery.easing/jquery.easing.min.js')}}"></script>
+  <!-- <script src="{{url('assets/vendor/php-email-form/validate.js')}}"></script> -->
+  <script src="{{url('assets/vendor-utama/waypoints/jquery.waypoints.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/counterup/counterup.min.js')}}"></script>
+  <!-- <script src="{{url('assets/vendor/venobox/venobox.min.js')}}"></script> -->
+  <script src="{{url('assets/vendor-utama/owl.carousel/owl.carousel.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/aos/aos.js')}}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{url('assets/js/main.js')}}"></script>
   <script>
     $( document ).ready(function () {
 		$(".moreBox").slice(0, 4).show();
 		if ($(".blogBox:hidden").length != 0) {
 			$("#loadMore").show();
-		}		
+		}
 		$("#loadMore").on('click', function (e) {
 			e.preventDefault();
 			$(".moreBox:hidden").slice(0, 4).slideDown();
@@ -274,7 +173,7 @@
 				$("#loadMore").fadeOut('slow');
 			}
         });
-        
+
         $("#search").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             $(".blogBox").filter(function() {

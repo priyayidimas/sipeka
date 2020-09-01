@@ -40,8 +40,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
-        Route::get('profile', 'DosenController@profile')->name('profdsn');
-        Route::put('profile-store', 'DosenController@editprofile')->name('storprofdsn');
+        Route::get('daftar-dosen', 'DosenController@dosenList');
 
         // Kelas
         Route::group(['prefix' => 'kelas'], function () {
@@ -64,9 +63,9 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix' => 'events'], function () {
-            Route::post('store', 'CalendarController@storeEvent');
-            Route::post('patch', 'CalendarController@patchEvent');
-            Route::get('delete/{id}', 'CalendarController@deleteEvent');
+            Route::post('store', 'CalendarController@storeEvent')->name('storeEvent');
+            Route::post('patch', 'CalendarController@patchEvent')->name('patchEvent');
+            Route::get('delete/{id}', 'CalendarController@deleteEvent')->name('deleteEvent');
         });
     });
 
@@ -77,20 +76,25 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
     Route::get('pelengkapan-data', 'MahasiswaController@biodataAwal');
     Route::post('pelengkapan-data', 'MahasiswaController@insertBiodataAwal');
 
-    Route::group(['prefix' => 'kelas'], function () {
-        Route::get('/', 'MahasiswaController@indexKelas');
-        Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
-        Route::get('/lihat-kelas/{id}', 'MahasiswaController@lihatKelas')->name('lihat-kelas');
-        Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
-
-        Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
-    });
-
-    Route::get('profile', 'MahasiswaController@profile')->name('profmhs');
-    Route::put('profile-store', 'MahasiswaController@editprofile')->name('storprofmhs');
-
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');
+        Route::get('profile', 'MahasiswaController@profile')->name('profmhs');
+        Route::put('profile-store', 'MahasiswaController@editprofile')->name('storprofmhs');
+
+        Route::get('perpustakaan', function () { return redirect('perpustakaan'); });
+
+        Route::group(['prefix' => 'kelas'], function () {
+            Route::get('/', 'MahasiswaController@indexKelas');
+            Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
+            Route::get('/lihat-kelas/{id}', 'MahasiswaController@lihatKelas')->name('lihat-kelas');
+            Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
+
+            Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
+        });
+
+        Route::group(['prefix' => 'event'], function () {
+            Route::get('{event_id}/join/{join_id}', 'MahasiswaController@joinEvent');
+        });
     });
 
 });
@@ -106,15 +110,13 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['auth','admin']], function (
 
 // Public View
 Route::get('daftar-kelas', 'PublicController@semuaKelas')->name('ikelas');
+Route::get('daftar-dosen', 'PublicController@semuaDosen')->name('idosen');
 Route::get('perpustakaan', 'PublicController@library')->name('library');
+Route::get('detail-dosen/{id}', 'PublicController@detailDosen')->name('detaildosen');
 
-Route::get('list-dosen', function () {
-    return view('alldosen');
-});
-Route::get('detail-list-dosen', function () {
-    return view('detaildosenpub');
-});
 
+
+// Debug
 Route::get('debug', function () {
     return view('layouts.sertifikat');
 });

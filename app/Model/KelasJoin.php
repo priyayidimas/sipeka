@@ -14,8 +14,7 @@ class KelasJoin extends Pivot
     {
         $pivot = [
             'id', 'jawaban_text', 'jawaban_file',
-            'review', 'grade', 'reviewer_id',
-            'submitted_at', 'reviewed_at',
+            'submitted_at', 'grade',
             'created_at','updated_at'
         ];
         return $this->belongsToMany(

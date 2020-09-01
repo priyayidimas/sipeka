@@ -48,9 +48,15 @@ class User extends Authenticatable
         return $this->hasOne('App\Model\Mahasiswa','id_user');
     }
 
+    // Dosen Child
     public function kelas()
     {
         return $this->hasMany('App\Model\Kelas','dosen_id');
+    }
+
+    public function review()
+    {
+        return $this->hasMany('App\Model\Review','reviewer_id');
     }
 
     // Many To Many Child
@@ -87,6 +93,7 @@ class User extends Authenticatable
             'id_kelas',                 // Foreign key on Grand Child Table
         );
     }
+
 
     public function event()
     {

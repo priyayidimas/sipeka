@@ -27,19 +27,8 @@
                 <!-- search form -->
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{url('dosen/kelas/tambah')}}" class="btn btn-tambahkelas">Tambah Kelas</a><br><br>
-                    </div>
-                    <div class="col-md-6">
-                        <form class="">
-                            <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Masukkan Kode Kelas untuk Kolaborasi..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                Kolaborasi Kelas
-                                </button>
-                            </div>
-                            </div>
-                        </form>
+                        <a href="{{url('dosen/kelas/tambah')}}" class="btn btn-tambahkelas">Tambah Kelas</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{{url('daftar-dosen')}}" class="btn btn-primary">Undang Kolaborator</a><br><br>
                     </div>
                     <div class="col-md-6">
                         <form class="">
@@ -55,7 +44,7 @@
                     </div>
                 </div>
                 <!-- end search -->
-                
+
                 <div class="row" style="margin-top:20px;">
                     @foreach($kelas as $k)
                     <div class="col-md-4">
@@ -69,11 +58,11 @@
                                     <i class="fa fa-users"></i> 3.000
                                 </p>
                                 <br>
-                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-warning" style="margin-left:5px;">Kelola</a>
+                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
                                 <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
                                     Delete
                                 </button>
-                                <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Lihat Kelas</a>
+                                <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Submission</a>
                             </div>
                         </div>
                     </div>

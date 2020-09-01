@@ -20,23 +20,23 @@
         </div>
         <div class="content" style="display:flex;">
             <h1 style="font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 24px;
-line-height: 29px;
-text-align: center;
-color: #FFFFFF;width:100%;">Website Apotik dengan CodeIgniter</h1>
-        </div>
-        <div class="content">
-            <div class="tujuan" style="width:100%">
-                <p style="font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 22px;
-text-align: center;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 29px;
+            text-align: center;
+            color: #FFFFFF;width:100%;">Website Apotik dengan CodeIgniter</h1>
+                    </div>
+                    <div class="content">
+                        <div class="tujuan" style="width:100%">
+                            <p style="font-family: Montserrat;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+            text-align: center;
 
-color: #FFFFFF;">Siswa berhasil memperoleh hasil pembelajaran yang sesuai dengan kriteria kelulusan kelas, diberikan kepada : </p>
+            color: #FFFFFF;">Siswa berhasil memperoleh hasil pembelajaran yang sesuai dengan kriteria kelulusan kelas, diberikan kepada : </p>
             </div>
         </div>
         <div class="content">

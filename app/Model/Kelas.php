@@ -65,7 +65,7 @@ class Kelas extends Model
         $pivot = ['id', 'status', 'akses','created_at','updated_at'];
         return $this->belongsToMany(
             'App\User',          // Model Target
-            'kelas_join',               // Table Inter name
+            'kelas_kolab',               // Table Inter name
             'id_kelas',                  // Foreign Key -> Current Model
             'id_user')                 // Foreitn Key -> Target Model
             ->using('App\Model\KelasKolab')
