@@ -193,7 +193,6 @@ class CalendarController extends Controller
         printf("DB Event Stored");
     }
 
-
     // DEBUG
     public function calendars(){
         $this->client->setAccessToken(Auth::user()->token);

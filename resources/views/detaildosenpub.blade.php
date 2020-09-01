@@ -1,3 +1,4 @@
+{{-- TODO Ini Modal Kenapa --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,22 +11,22 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/sipekawarna.png" rel="icon">
+  <link href="{{url('assets/img/sipekawarna.png')}}" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor-utama/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor-utama/line-awesome/css/line-awesome.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor-utama/aos/aos.css" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/icofont/icofont.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/venobox/venobox.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/line-awesome/css/line-awesome.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+  <link href="{{url('assets/vendor-utama/aos/aos.css')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="{{url('assets/css/style.css')}}" rel="stylesheet">
   <style>
     #loadMore {
     padding-bottom: 30px;
@@ -66,11 +67,13 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Home</a></li>
-
-          <li><a href="">Tentang</a></li>
-          <li><a href="">Fitur</a></li>
-          <li><a href="">Daftar Kelas</a></li>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/daftar-kelas">Daftar Kelas</a></li>
+            <li><a href="">Daftar Dosen</a></li>
+            <li><a href="/perpustakaan">Perpustakaan</a></li>
+            @auth
+            <li><a href="{{url(session('akses'))}}">{{Auth::user()->fullname}}</a></li>
+            @endauth
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -79,7 +82,7 @@
 
   <section id="hero" style="height: 400px;">
     <div class="hero-container" data-aos="fade-up">
-      <h1 style="margin-top:100px;">Nama Dosen.S.Pd,. M.T</h1>
+      <h1 class="text-capitalize" style="margin-top:100px;">{{$dosen->fullname}}</h1>
     </div>
   </section><!-- End Hero -->
 
@@ -89,9 +92,9 @@
     <section id="breadcrumbs" class="breadcrumbs">
       <div class="container">
         <ol>
-          <li><a href="" style="color:#284B63;">Home</a></li>
-          <li><a href="" style="color:#284B63;">Daftar Dosen</a></li>
-          <li><b>Dosen - Nama Dosen</b></li>
+          <li><a href="{{url('')}}" style="color:#284B63;">Home</a></li>
+          <li><a href="{{url('daftar-dosen')}}" style="color:#284B63;">Daftar Dosen</a></li>
+          <li class="text-capitalize"><b>Dosen - {{$dosen->fullname}}</b></li>
         </ol>
       </div>
     </section><!-- End Breadcrumbs -->
@@ -105,11 +108,13 @@
               box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
               border-radius: 5px;padding: 10px;" data-aos="fade-up">
                 <div class="member-img" style="border-radius:5px;">
-                  <img src="https://lh3.googleusercontent.com/a-/AOh14GgeayVNAew_t5tPTwvLiptMfVtk3izkynax9qOE" class="img-fluid" alt="">
+                  <img src="{!! $dosen->avatar !!}" class="img-fluid" alt="">
                 </div>
                 <div class="member-info text-center">
-                  <h4>Ini Meggy</h4>
-                  <span style="color:grey;font-weight: 600;font-size:12px;">Universitas Pendidikan Indonesia</span>
+                  <h4 class="text-capitalize">{{$dosen->fullname}}</h4>
+                  <span style="color:grey;font-weight: 600;font-size:12px;">{{$dosen->dosen->univ}}</span>
+                  <span style="color:grey;font-weight: 600;font-size:12px;">{{$dosen->dosen->prodi}}</span>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#inviteKolabModal">Undang</button>
                 </div>
               </div>
           </div>
@@ -121,65 +126,78 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 blogBox moreBox card-kelas" style="margin-top: 20px;">
+            @php $n = 1; @endphp
+            @foreach ($dosen->kelas as $kelas)
+            <div class="col-md-6 blogBox moreBox card-kelas" style="margin-top: 20px;{{($n > 4) ? 'display: none' : ''}} ">
                 <div class="card">
-                  <div class="card-body">
-                    <span style="font-size:12px;color:grey;"><b>Web Programming</b></span>
-                    <div class="card-title"><h5><b>Website Apotik</b></h5></div>
-                    <p style="text-align:justify;font-size:14px;font-weight: 500;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ducimus esse unde aliquam maiores. Iure, quisquam qui. Earum dolores dolor, voluptatibus consectetur porro natus ullam itaque! Quidem suscipit fugit sed.</p>
-                    <a href="" style="float:right" class="btn btn-info">Daftar Kelas</a>
-                  </div>
+                <div class="card-body">
+                    <span style="font-size:12px;color:grey;"><b>{{$kelas->detail_kategori->dkat_nama}}</b></span>
+                    <div class="card-title"><h5><b>{{$kelas->kelas_nama}}</b></h5></div>
+                    <p style="text-align:justify;font-size:14px;font-weight: 500;">{{$kelas->desc}}</p>
+                    @if(Auth::check() && Auth::user()->level == 0)
+                    <form action="{{url('mhs/kelas/join-kelas')}}" method="post" class="form-group" id="j-kelas">
+                        @csrf
+                        <input type="hidden" name="idkelas" value="{{$kelas->id}}">
+                    </form>
+                    <a href onclick="event.preventDefault(); document.getElementById('j-kelas').submit();" style="float:right" class="btn btn-info">Daftar Kelas</a>
+                    @elseif(!Auth::check())
+                    <a href="{{url('login/mhs')}}" style="float:right" class="btn btn-info">Login Untuk Daftar</a>
+                    @endif
                 </div>
-              </div>
-              <div class="col-md-6 blogBox moreBox card-kelas" style="margin-top: 20px;">
-                <div class="card">
-                  <div class="card-body">
-                    <span style="font-size:12px;color:grey;"><b>Web Programming</b></span>
-                    <div class="card-title"><h5><b>Website Biofarma</b></h5></div>
-                    <p style="text-align:justify;font-size:14px;font-weight: 500;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ducimus esse unde aliquam maiores. Iure, quisquam qui. Earum dolores dolor, voluptatibus consectetur porro natus ullam itaque! Quidem suscipit fugit sed.</p>
-                    <a href="" style="float:right" class="btn btn-info">Daftar Kelas</a>
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-6 blogBox moreBox card-kelas" style="margin-top: 20px;">
-                <div class="card">
-                  <div class="card-body">
-                    <span style="font-size:12px;color:grey;"><b>Web Programming</b></span>
-                    <div class="card-title"><h5><b>Website Kimia Farma</b></h5></div>
-                    <p style="text-align:justify;font-size:14px;font-weight: 500;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ducimus esse unde aliquam maiores. Iure, quisquam qui. Earum dolores dolor, voluptatibus consectetur porro natus ullam itaque! Quidem suscipit fugit sed.</p>
-                    <a href="" style="float:right" class="btn btn-info">Daftar Kelas</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 blogBox moreBox card-kelas" style="margin-top: 20px;">
-                <div class="card">
-                  <div class="card-body">
-                    <span style="font-size:12px;color:grey;"><b>Web Programming</b></span>
-                    <div class="card-title"><h5><b>Website UPI</b></h5></div>
-                    <p style="text-align:justify;font-size:14px;font-weight: 500;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ducimus esse unde aliquam maiores. Iure, quisquam qui. Earum dolores dolor, voluptatibus consectetur porro natus ullam itaque! Quidem suscipit fugit sed.</p>
-                    <a href="" style="float:right" class="btn btn-info">Daftar Kelas</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 blogBox moreBox card-kelas" style="margin-top: 20px;display: none;">
-                <div class="card">
-                  <div class="card-body">
-                    <span style="font-size:12px;color:grey;"><b>Web Programming</b></span>
-                    <div class="card-title"><h5><b>Website Unpad</b></h5></div>
-                    <p style="text-align:justify;font-size:14px;font-weight: 500;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis ducimus esse unde aliquam maiores. Iure, quisquam qui. Earum dolores dolor, voluptatibus consectetur porro natus ullam itaque! Quidem suscipit fugit sed.</p>
-                    <a href="" style="float:right" class="btn btn-info">Daftar Kelas</a>
-                  </div>
-                </div>
-              </div>
-              <div id="loadMore" style="">
+            </div>
+            @php $n++; @endphp
+            @endforeach
+            @if ($n > 4)
+            <div id="loadMore" style="">
                 <a href="#">Load More</a>
-              </div>
+            </div>
+            @endif
             </div>
           </div>
         </div>
       </div>
     </section><!-- End Team Section -->
 
+    @if (Auth::check() && Auth::user()->level > 0)
+    <section id="modal-only">
+        <div class="modal fade" id="inviteKolabModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Undang Kolaborator</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{url('dosen/invite/')}}" class="form-group" id="inviteKolab">
+                      @csrf
+                      <input type="hidden" name="dosen_id" value="{{$dosen->id}}">
+                      <div class="form-group">
+                        <label for="">Undang Ke Kelas</label>
+                        <select name="dkat_id" id="" class="form-control js-example-basic-single" required>
+                            <option disabled value="">Pilih Kelas</option>
+                            @foreach(Auth::user()->kelas as $kelas)
+                            <option value="{{$kelas->id}}">{{$kelas->kelas_nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                      <div class="form-group">
+                          <label for="">Untuk Menjadi</label>
+                          <input type='text' class="form-control" name=""/>
+                      </div>
+                  </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" onclick="event.preventDefault(); document.getElementById('inviteKolab').submit();" class="btn btn-primary">Submit</button>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </section>
+    @endif
   </main><!-- End #main -->
 
  <!-- ======= Footer ======= -->
@@ -196,25 +214,25 @@
 
   <!-- Vendor JS Files -->
   <!-- Vendor JS Files -->
-  <script src="assets/vendor-utama/jquery/jquery.min.js"></script>
-  <script src="assets/vendor-utama/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor-utama/jquery.easing/jquery.easing.min.js"></script>
-  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
-  <script src="assets/vendor-utama/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor-utama/counterup/counterup.min.js"></script>
-  <!-- <script src="assets/vendor/venobox/venobox.min.js"></script> -->
-  <script src="assets/vendor-utama/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor-utama/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor-utama/aos/aos.js"></script>
+  <script src="{{url('assets/vendor-utama/jquery/jquery.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/jquery.easing/jquery.easing.min.js')}}"></script>
+  <!-- <script src="{{url('assets/vendor/php-email-form/validate.js')}}"></script> -->
+  <script src="{{url('assets/vendor-utama/waypoints/jquery.waypoints.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/counterup/counterup.min.js')}}"></script>
+  <!-- <script src="{{url('assets/vendor/venobox/venobox.min.js')}}"></script> -->
+  <script src="{{url('assets/vendor-utama/owl.carousel/owl.carousel.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{url('assets/vendor-utama/aos/aos.js')}}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{url('assets/js/main.js')}}"></script>
   <script>
     $( document ).ready(function () {
       $(".moreBox").slice(0, 4).show();
       if ($(".blogBox:hidden").length != 0) {
         $("#loadMore").show();
-      }		
+      }
       $("#loadMore").on('click', function (e) {
         e.preventDefault();
         $(".moreBox:hidden").slice(0, 4).slideDown();

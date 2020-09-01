@@ -3,7 +3,8 @@
 @section('heading')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="{{url('')}}"><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item"><a>Dashboard</a></li>
         </ol>
     </nav>
 @endsection

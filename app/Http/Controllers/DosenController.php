@@ -12,6 +12,7 @@ use App\Model\Materi;
 use App\Model\Jawaban;
 use App\Model\KelasJoin;
 use App\Model\KelasKolab;
+use App\User;
 use DB;
 
 class DosenController extends Controller
@@ -199,13 +200,13 @@ class DosenController extends Controller
     public function listSub($id)
     {
         $kls = Kelas::find($id);
-        return view('dosen.kelas.materisubmis',compact('kls'));
+        return view('dosen.kelas.listsubmis',compact('kls'));
     }
 
     public function listMateriSub($id)
     {
         $mt = Materi::find($id);
-        return view('dosen.kelas.listsubmis',compact('mt'));
+        return view('dosen.kelas.materisubmis',compact('mt'));
     }
 
     public function periksa($id)

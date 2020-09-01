@@ -45,7 +45,7 @@
         <ul>
           <li class="active"><a href="/">Home</a></li>
           <li><a href="/daftar-kelas">Daftar Kelas</a></li>
-          <li><a href="">Daftar Dosen</a></li>
+          <li><a href="/daftar-dosen">Daftar Dosen</a></li>
           <li><a href="/perpustakaan">Perpustakaan</a></li>
           @if (Auth::check())
           @auth

@@ -1,97 +1,88 @@
 @extends('layouts.utama')
-
-@section('js')
-<script>
-    $('.panel-collapse').on('show.bs.collapse', function () {
-              $(this).siblings('.panel-heading').addClass('active');
-            });
-
-            $('.panel-collapse').on('hide.bs.collapse', function () {
-              $(this).siblings('.panel-heading').removeClass('active');
-            });
-</script>
-@endsection
-
 @section('heading')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/"><i aria-hidden="true" class="fa fa-home"></i> Home</a></li>
             <li class="breadcrumb-item"><a href="/dosen/kelas"></i> Kelas</a></li>
-            <li class="breadcrumb-item"><a href="{{route('listsubmis',$mt->kelas->id)}}"></i> Lihat Detail Kelas</a></li>
-            <li class="breadcrumb-item"><a></i> Submission Materi - {{$mt->judul}}</a></li>
+            <li class="breadcrumb-item"><a></i> Lihat Kelas - {{$kls->kelas_nama}}</a></li>
         </ol>
     </nav>
+@endsection
+@section('js')
+<script>
+    $("#search").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".card-mhs").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+</script>
 @endsection
 
 @section('content')
 <div class="row">
-  <div class="col-sm-12">
-    <div class="card text-white kelasheader">
-      <div class="card-body">
-        <h3 class="card-title" style="font-weight:700;">Submission dari materi {{$mt->judul}}</h3>
-        <p class="card-text">Di bawah ini daftar submission dari setiap mahasiswa</p>
-      </div>
+    <div class="col-md-3 mb-3 menu-kelola">
+        <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Submission</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Peserta</a>
+            </li>
+        </ul>
     </div>
-  </div>
-</div>
-<div class="row" style="margin-top:30px;">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row" style="margin-top:20px;">
-                    @for($a=1;$a<=10;$a++)
+    <!-- /.col-md-4 -->
+    <div class="col-md-8 menu-kelola-content">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row">
+                    @foreach($kls->materi as $k)
+                    @php
+
+                    @endphp
                     <div class="col-md-6" style="margin-top:10px;">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="https://randomuser.me/api/portraits/men/14.jpg" class="rounded" width="50" alt="">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <h5 class="card-title" style="color:black;"> Nama Mahasiswa</h5>
-                                        <h6 style="margin-top:-10px;">Nama Universitas</h6>
-                                        <a href="{{route('periksa',1)}}" class="btn btn-primary" style="padding:0px 5px;">Periksa Kerjaan</a>
-                                    </div>
+                                <h5>{{$k->judul}}</h5>
+                                <div class="card-text" style="font-size:12px;color:grey;">
+                                    <i class="fa fa-clipboard"></i> 9 Submissions
                                 </div>
-                                
-                                <p class="card-text">
-                                    <i class="fa fa-star"></i> 90
-                                </p>
-                                <div class="review">
-                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingOne">
-                                                <h4 class="panel-title">
-                                                <a role="button" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);" data-toggle="collapse" data-parent="#accordion" href="#review{{$a}}" aria-expanded="true" aria-controls="collapseOne">
-                                                    Review<i class="fa fa-angle-down"></i>
-                                                </a>
-                                                </h4>
-                                            </div>
-                                            <div id="review{{$a}}" class="panel-collapse collapse in list-review" role="tabpanel" style="margin-top:20px;" aria-labelledby="headingOne">
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        @for($i=1;$i<=10;$i++)
-                                                        <div class="col-md-2">
-                                                            <img src="https://randomuser.me/api/portraits/women/3.jpg" class="rounded" width="50" alt="">
-                                                        </div>
-                                                        <div class="col-md-10 text-justify" style="margin-left:-5px;">
-                                                            <h6 style="color:black;font-weight:700">Reviewer {{$i}}</h6>
-                                                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum officiis nihil similique provident cumque, omnis necessitatibus quas eveniet tempora non facere. Velit optio obcaecati voluptatem tempore porro praesentium cupiditate eos!</p>
-                                                        </div>
-                                                        @endfor
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href="{{route('listmhssubmis',$k->id)}}" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
                             </div>
                         </div>
                     </div>
-                    @endfor
+                    @endforeach
                 </div>
+                <br>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="" id="search" class="form-control" placeholder="Cari Mahasiswa ..." id="">
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach ($kls->join as $mhs)
+                    <div class="col-md-6 card-mhs" style="margin-top:10px;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>{{$mhs->fullname}}</h5>
+                                <div class="card-text" style="font-size:12px;color:grey;">
+                                    {{$mhs->mahasiswa->univ}} <br>
+                                    <i class="fa fa-chart-bar"></i> {{$mhs->pivot->progress}}% |
+                                    <span style="background:#55DE6B;padding:0px 10px;color:white;border-radius:2px;">Tuntas</span>
+                                </div>
+                                <a href="" class="btn btn-primary" style="float:right;padding:0px 8px;margin-left:5px;">Lihat Submission</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+                <br>
             </div>
         </div>
     </div>
-</div>
+    <!-- /.col-md-8 -->
+  </div>
 @endsection

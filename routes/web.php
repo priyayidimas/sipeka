@@ -40,6 +40,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
+        Route::get('daftar-dosen', 'DosenController@dosenList');
 
         // Kelas
         Route::group(['prefix' => 'kelas'], function () {
@@ -78,6 +79,9 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');
 
+        Route::get('perpustakaan', function () { return redirect('perpustakaan'); });
+
+
         Route::group(['prefix' => 'kelas'], function () {
             Route::get('/', 'MahasiswaController@indexKelas');
             Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
@@ -105,14 +109,9 @@ Route::group(['prefix' => 'admin' ,'middleware' => ['auth','admin']], function (
 
 // Public View
 Route::get('daftar-kelas', 'PublicController@semuaKelas')->name('ikelas');
+Route::get('daftar-dosen', 'PublicController@semuaDosen')->name('idosen');
 Route::get('perpustakaan', 'PublicController@library')->name('library');
-
-Route::get('list-dosen', function () {
-    return view('alldosen');
-});
-Route::get('detail-list-dosen', function () {
-    return view('detaildosenpub');
-});
+Route::get('detail-dosen/{id}', 'PublicController@detailDosen')->name('detaildosen');
 
 
 
