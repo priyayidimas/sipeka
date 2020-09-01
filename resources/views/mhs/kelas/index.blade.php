@@ -25,18 +25,6 @@
                     <div class="col-md-6">
                         <form class="">
                             <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Masukkan Kode Kelas..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                Gabung Kelas
-                                </button>
-                            </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
-                        <form class="">
-                            <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Cari kelas yang pernah diikuti ..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">

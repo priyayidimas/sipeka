@@ -27,7 +27,7 @@ Dosen &middot; Detail Kelas
     <div class="col-md-3 mb-3 menu-kelola">
         <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Submission</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Tugas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Peserta</a>
@@ -39,7 +39,7 @@ Dosen &middot; Detail Kelas
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
-                    @foreach($kls->materi as $k)
+                    @foreach($kls->materi()->where('jenis','<>','0')->get() as $k)
                     <div class="col-md-6" style="margin-top:10px;">
                         <div class="card">
                             <div class="card-body">

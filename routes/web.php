@@ -70,7 +70,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
         Route::group(['prefix' => 'events'], function () {
             Route::post('store', 'CalendarController@storeEvent')->name('storeEvent');
             Route::post('patch', 'CalendarController@patchEvent')->name('patchEvent');
-            Route::get('delete/{id}', 'CalendarController@deleteEvent')->name('deleteEvent');
+            Route::post('delete', 'CalendarController@deleteEvent')->name('delete-event');
         });
     });
 

@@ -135,6 +135,11 @@ class DosenController extends Controller
         }
         $mat->id_kelas = $id;
         $mat->save();
+        if($mat->statusfile == 0){
+            $lib = new Library();
+            $lib->judul = $mat->judul_modul;
+            $lib->
+        }
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil menambahkan materi!', 'color' => 'success']);
     }
 

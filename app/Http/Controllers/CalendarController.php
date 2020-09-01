@@ -119,14 +119,15 @@ class CalendarController extends Controller
 
     }
 
-    public function deleteEvent($id){
+    public function deleteEvent(Request $req){
+
         // Init
         $this->client->setAccessToken(Auth::user()->token);
         $service = new \Google_Service_Calendar($this->client);
 
         // Get Data
         // $dbEvent = Event::find($req->id);
-        $dbEvent = Event::find($id);
+        $dbEvent = Event::find($req->idEvent);
 
         // Select Calendar Id
         $calendarId = Auth::user()->calendar_id;
@@ -137,6 +138,8 @@ class CalendarController extends Controller
 
         $dbEvent->delete();
         printf("DB Event Deleted");
+        return back()->with(['color' => 'success', 'msg' => 'Berhasil Menmbatalkan Pertemuan']);
+
     }
 
     public function patchEvent(Request $req){
@@ -200,6 +203,8 @@ class CalendarController extends Controller
         $dbEvent->link = $event->hangoutLink;
         $dbEvent->save();
         printf("DB Event Stored");
+        return back()->with(['color' => 'success', 'msg' => 'Berhasil Mengganti Jadwal Pertemuan']);
+
     }
 
     // DEBUG
