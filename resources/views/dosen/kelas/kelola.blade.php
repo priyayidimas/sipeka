@@ -59,6 +59,34 @@
 
         $('.js-example-basic-single').select2();
 
+        $('.jenisMateriCreate').change(function () {
+            const selected = $('.jenisMateriCreate').val();
+            console.log(selected);
+            if(selected == '1'){
+                $('.judulModul').hide();
+                $('.statusModul').hide();
+                $('.linkYoutube').hide();
+            }else{
+                $('.judulModul').show();
+                $('.statusModul').show();
+                $('.linkYoutube').show();
+            }
+        });
+
+        $('.jenisMateriUpdate').change(function () {
+            const selected = $('.jenisMateriUpdate').val();
+            console.log(selected);
+            if(selected == '1'){
+                $('.judulModul').hide();
+                $('.statusModul').hide();
+                $('.linkYoutube').hide();
+            }else{
+                $('.judulModul').show();
+                $('.statusModul').show();
+                $('.linkYoutube').show();
+            }
+        });
+
         $('#updateEvent').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var title = button.data('title');
@@ -197,15 +225,31 @@
             </div>
             <div class="tab-pane fade" id="kolaborasi" role="tabpanel" aria-labelledby="kolaborasi-tab">
                 <h2>Kolaborasi</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                <table class="table">
+                    <thead>
+                        <th colspan="2">Kolaborator</th>
+                        <th>Akses</th>
+                    </thead>
+                    @forelse ($kls->kolab as $kolab)
+                        <tr>
+                            <td><img class="rounded" src="{!! $kolab->avatar !!}" alt="" width="50"></td>
+                            <td>{{$kolab->fullname}}</td>
+                            <td>{{($kolab->pivot->akses == 1) ? 'Dosen Pendamping' : 'Reviewer'}}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">Data Kosong</td>
+                        </tr>
+                    @endforelse
+                </table>
             </div>
             <div class="tab-pane fade" id="mhs" role="tabpanel" aria-labelledby="mhs-tab">
                 <table class="table">
-                    <tr>
-                        <td colspan="2">Mahasiswa</td>
-                        <td>Progress</td>
-                        <td>Aksi</td>
-                    </tr>
+                    <thead>
+                        <th colspan="2">Mahasiswa</th>
+                        <th>Progress</th>
+                        <th>Aksi</th>
+                    </thead>
                     @foreach ($kls->join as $mhs)
                         <tr>
                             <td><img class="rounded" src="{!! $mhs->avatar !!}" alt="" width="50"></td>
@@ -243,32 +287,32 @@
             </div>
             <div class="form-group">
                 <label for="">Jenis Materi</label>
-                <select name="jenis" id="" class="form-control" required>
+                <select name="jenis" class="form-control jenisMateriCreate" required>
                     <option value="" disabled>Pilih Jenis Materi</option>
                     <option value="0">Materi</option>
                     <option value="1">Pertanyaan</option>
                     <option value="2">Materi dan Pertanyaan</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group judulModul">
                 <label for="">Judul Modul</label>
                 <input name="judul_modul" placeholder="Judul Modul ..." type="text" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group fileModul">
                 <label for="">Modul Materi</label>
                 <input name="filemodul" type="file" class="form-control-file">
             </div>
-            <div class="form-group">
+            <div class="form-group linkYoutube">
                 <label for="">ID Video Youtube</label>
                 <input name="idytb" placeholder="Masukkan ID YouTube ..." type="text" class="form-control">
                 <i style="font-size:12px;">https://www.youtube.com/watch?v=<b style="color:blue;">idyoutube</b></i>
             </div>
-            <div class="form-group">
+            <div class="form-group statusModul">
                 <label for="">Status Modul</label>
                 <select name="statusfile" id="" class="form-control">
-                    <option value="" disabled>Pilih Status Modul</option>
-                    <option value="0">Public</option>
+                    <option value="" disabled selected>Pilih Status Modul</option>
                     <option value="1">Private</option>
+                    <option value="0">Public</option>
                 </select>
                 <i style="font-size:12px;"><b>Public</b> akan tersedia di perpustakaan, <b>Private</b> hanya untuk materi di kelas</i>
             </div>
@@ -305,32 +349,32 @@
             </div>
             <div class="form-group">
                 <label for="">Jenis Materi</label>
-                <select name="jenis" class="form-control" required>
+                <select id="" name="jenis" class="form-control jenisMateriUpdate" required>
                     <option value="" disabled>Pilih Jenis Materi</option>
                     <option value="0" id="mt">Materi</option>
                     <option value="1" id="pt">Pertanyaan</option>
                     <option value="2" id="mpt">Materi dan Pertanyaan</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group judulModul">
                 <label for="">Judul Modul</label>
                 <input name="judul_modul" id="judulmodul" placeholder="Judul Modul ..." type="text" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group fileModul">
                 <label for="">Modul Materi</label>
                 <input name="filemodul" placeholder="Pertanyaan ..." type="file" class="form-control-file">
             </div>
-            <div class="form-group">
+            <div class="form-group linkYoutube">
                 <label for="">ID Video Youtube</label>
                 <input name="idytb" id="idytb" value="" placeholder="Masukkan ID YouTube ..." type="text" class="form-control">
                 <i style="font-size:12px;">https://www.youtube.com/watch?v=<b style="color:blue;">idyoutube</b></i>
             </div>
-            <div class="form-group">
+            <div class="form-group statusModul">
                 <label for="">Status Modul</label>
                 <select name="statusfile" class="form-control">
                     <option value="" disabled>Pilih Status Modul</option>
-                    <option value="0" id="pb">Public</option>
                     <option value="1" id="pr">Private</option>
+                    <option value="0" id="pb">Public</option>
                 </select>
                 <i style="font-size:12px;"><b>Public</b> akan tersedia di perpustakaan, <b>Private</b> hanya untuk materi di kelas</i>
             </div>

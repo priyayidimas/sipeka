@@ -9,8 +9,8 @@ class Jawaban extends Pivot
     protected $table = 'jawaban';
     public $incrementing = true;
 
-    public function review()
+    public function reviewer()
     {
-        return $this->hasMany('App\Model\Review','jwb_id');
+        return $this->belongsTo('App\User', 'reviewer_id');
     }
 }

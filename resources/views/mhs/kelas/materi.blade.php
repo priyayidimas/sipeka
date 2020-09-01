@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>Kelas - {{$kls->kelas_nama}}</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -126,6 +126,43 @@
             @endif
             @if($show->jenis == 1 || $show->jenis == 2)
             <div class="line"></div>
+            @php $jawabanData = $show->jawaban()->where('id_mhs',Auth::id());@endphp
+            @if ($jawabanData->count() > 0)
+            @php
+                $jawaban = $jawabanData->first();
+                $status = ($jawaban->pivot->review) ? 'Reviewed' : 'Not Reviewed Yet';
+            @endphp
+            <div class="row">
+                <div class="col-12">
+                    <h6>Jawaban Anda</h6>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    <b>Deskripsi:</b>
+                                    <p>{{$jawaban->pivot->jawaban_text}}</p>
+                                    <a class="btn btn-primary" href="{{url('storage/jawaban/'.$jawaban->pivot->jawaban_file)}}">Lampiran File</a><br><br>
+                                    <a href="#jawabEditModal" data-toggle="modal" class="btn btn-warning">Edit Jawaban</a>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <h6>Submitted At : {{$jawaban->pivot->updated_at}}</h6>
+                                    <h6>Status : {{$status}}</h6>
+                                    @if ($jawaban->pivot->review)
+                                    <h6>Review: </h6>
+                                    <p>{{$jawaban->pivot->review}}</p>
+                                    <h6>Reviewed by : {{$jawaban->pivot->reviewer->fullname}}</h6>
+                                    @endif
+                                    @if ($jawaban->pivot->grade)
+                                    <h6>Grade : {{$jawaban->pivot->grade}}</h6>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @else
             <div class="row">
                 <div class="col-md-12">
                     <form action="{{route('jmateri',$kls->id)}}" method="POST" enctype="multipart/form-data">
@@ -146,6 +183,40 @@
                 </div>
             </div>
             @endif
+            @endif
+        </div>
+    </div>
+
+    <div class="modal-only">
+        <div class="modal fade" id="jawabEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Ubah Jawaban</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{route('jedit')}}" class="form-group" id="jawabEdit" enctype="multipart/form-data">
+                      @csrf
+                      <input type="hidden" name="idm" value="{{$show->id}}">
+                      <div class="form-group">
+                          <label for="">Jawaban</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" name="jawab_text" rows="4"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleFormControlFile1">File Jawaban</label>
+                          <input type="file" class="form-control-file" name="jawab_file" id="exampleFormControlFile1">
+                      </div>
+                  </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" onclick="event.preventDefault(); document.getElementById('jawabEdit').submit();" class="btn btn-primary">Submit</button>
+                  </div>
+              </div>
+            </div>
         </div>
     </div>
 

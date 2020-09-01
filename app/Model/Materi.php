@@ -26,14 +26,15 @@ class Materi extends Model
     {
         $pivot = [
             'id', 'jawaban_text', 'jawaban_file',
+            'review','reviewed_at', 'reviewer_id',
             'submitted_at', 'grade',
             'created_at','updated_at'
         ];
         return $this->belongsToMany(
-            'App\Model\KelasJoin',          // Model Target
+            'App\User',          // Model Target
             'jawaban',                      // Table Inter name
             'id_materi',                    // Foreign Key -> Current Model
-            'id_joinkelas')                 // Foreitn Key -> Target Model
+            'id_mhs')                 // Foreitn Key -> Target Model
             ->using('App\Model\Jawaban')
             ->withPivot($pivot);
     }

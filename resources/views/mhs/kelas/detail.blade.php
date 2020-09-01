@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>Kelas - {{$kls->kelas_nama}}</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -91,7 +91,7 @@
                     <h6 class="text-center">Informasi Dosen</h6>
                     <div class="row">
                         <div class="col-md-2">
-                            <i class="fa fa-user" style="font-size:50px;"></i>
+                            <img src="{{$kls->dosen->avatar}}" class="rounded-circle" width="50" height="50" alt="">
                         </div>
                         <div class="col-md-8">
                             <h6><b>{{$kls->dosen->fullname}}</b></h6>
@@ -108,9 +108,44 @@
                         <div class="col-md-8">
                             <span style="font-size:14px;"><b>Kategori : </b> {{$kls->detail_kategori->dkat_nama}}</span><br>
                             <span style="font-size:14px;"><b>Jumlah Materi : </b> {{$kls->materi()->count()}} Materi</span><br>
-                            @if($kls->link_tel != NULL)<a href="" class="btn btn-primary" style="padding:2px 5px;"> Join Group</a>@else <span class="alert alert-info" style="padding:1px;">Tidak Ada Group Telegram</span>@endif
+                            @if($kls->link_tel != NULL)<a href="{{$kls->link_tel}}" target="_blank" class="btn btn-primary" style="padding:2px 5px;"> Join Group</a>@else <span class="alert alert-info" style="padding:1px;">Tidak Ada Group Telegram</span>@endif
                         </div>
                     </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    @if ($kls->kolab()->where('akses','1')->count() > 0)
+                    <h6 class="text-center">Dosen Pendamping</h6>
+                    @foreach ($kls->kolab()->where('akses','1')->get() as $kolab)
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{$kolab->avatar}}" class="rounded-circle" width="50" height="50" alt="">
+                        </div>
+                        <div class="col-md-8">
+                            <h6><b>{{$kolab->fullname}}</b></h6>
+                            <p>{{$kolab->dosen->univ}}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                    @endif
+                </div>
+                <div class="col-md-6" style="border-left: 1px solid grey;">
+                    @if ($kls->kolab()->where('akses','0')->count() > 0)
+                    <h6 class="text-center">Reviewer</h6>
+                    @foreach ($kls->kolab()->where('akses','0')->get() as $kolab)
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{$kolab->avatar}}" class="rounded-circle" width="50" height="50" alt="">
+                        </div>
+                        <div class="col-md-8">
+                            <h6><b>{{$kolab->fullname}}</b></h6>
+                            <p>{{$kolab->dosen->univ}}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                    @endif
                 </div>
             </div>
         </div>

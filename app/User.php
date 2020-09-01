@@ -64,6 +64,38 @@ class User extends Authenticatable
         return $this->hasMany('App\Model\Review','reviewer_id');
     }
 
+    // Mahasiswa Child
+    public function jawaban()
+    {
+        $pivot = [
+            'id', 'jawaban_text', 'jawaban_file',
+            'review','grade',
+            'submitted_at', 'reviewed_at',
+            'created_at','updated_at'
+        ];
+        return $this->belongsToMany(
+            'App\Model\Materi',             // Model Target
+            'jawaban',                      // Table Inter name
+            'id_mhs',                      // Foreign Key -> Current Model
+            'id_materi')                    // Foreitn Key -> Target Model
+            ->using('App\Model\Jawaban')
+            ->withPivot($pivot);
+    }
+    public function joinEvent()
+    {
+        $pivot = [
+            'id', 'approval',
+            'created_at','updated_at'
+        ];
+        return $this->belongsToMany(
+            'App\Model\Event',              // Model Target
+            'kelas_event_join',             // Table Inter name
+            'id_mhs',                 // Foreign Key -> Current Model
+            'id_event')                     // Foreitn Key -> Target Model
+            ->using('App\Model\JoinEvent')
+            ->withPivot($pivot);
+    }
+
     // Many To Many Child
     public function join()
     {
@@ -81,7 +113,7 @@ class User extends Authenticatable
         $pivot = ['id', 'status', 'akses','created_at','updated_at'];
         return $this->belongsToMany(
             'App\Model\Kelas',          // Model Target
-            'kelas_join',               // Table Inter name
+            'kelas_kolab',               // Table Inter name
             'id_user',                  // Foreign Key -> Current Model
             'id_kelas')                 // Foreitn Key -> Target Model
             ->using('App\Model\KelasKolab')

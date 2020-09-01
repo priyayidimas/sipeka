@@ -34,6 +34,7 @@
                 </div>
                 <!-- end search -->
 
+                <br><h5>Kelas Yang Anda Ampu</h5>
                 <div class="row" style="margin-top:20px;">
                     @foreach($kelas as $k)
                     <div class="col-md-4">
@@ -57,6 +58,34 @@
                     </div>
                     @endforeach
                 </div>
+
+                @if (Auth::user()->kolab()->count() > 0)
+
+                <br><h5>Anda Mendampingi Kelas</h5>
+                <div class="row" style="margin-top:20px;">
+                    @foreach(Auth::user()->kolab as $k)
+                    <div class="col-md-4">
+                        <div class="card itemkelas">
+                            <div class="card-body">
+                                <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>
+                                <h5 class="card-title">{{$k->kelas_nama}}</h5>
+                                <p class="card-text">
+                                    <i class="fa fa-clipboard"></i> @php $jmlMateri=0 @endphp @foreach($k->materi as $m) @php $jmlMateri += 1 @endphp @endforeach {{$jmlMateri}} Materi &nbsp;&nbsp;
+                                    <i class="fa fa-info-circle"></i> <span class="@if($k->status_kelas == 0)statusbelumtuntas @else statustuntas @endif">@if($k->status_kelas == 0) Tidak Aktif @else Aktif @endif</span>&nbsp;&nbsp;
+                                    <i class="fa fa-users"></i> 3.000
+                                </p>
+                                <br>
+                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
+                                <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
+                                    Delete
+                                </button>
+                                <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Submission</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
             </div>
         </div>
     </div>
