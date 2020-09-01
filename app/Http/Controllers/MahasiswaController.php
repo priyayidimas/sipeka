@@ -14,6 +14,7 @@ use App\Model\Kategori;
 use App\Model\Event;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MahasiswaController extends Controller
 {
@@ -185,5 +186,15 @@ class MahasiswaController extends Controller
         $bio->id_peminatan3 = $pem[2];
         $bio->save();
         return redirect()->back()->with(['msg' => 'Berhasil menupdate profile!', 'color' => 'success']);
+    }
+
+    public function cetakSertifikat()
+    {
+        $user = Auth::user();
+        $kelas = Kelas::find(23);
+
+        $pdf = PDF::loadView('layouts.sertifikat', compact('user','kelas'))
+                    ->setPaper('a4', 'landscape');
+        return $pdf->download('Sertifikat_'.$kelas->kelas_kode.'_'.$user->fullname.'.pdf');
     }
 }

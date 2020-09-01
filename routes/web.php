@@ -96,6 +96,9 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
             Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
             Route::get('/lihat-kelas/{id}', 'MahasiswaController@lihatKelas')->name('lihat-kelas');
             Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
+            Route::get('/sertifikat/{id_kelas}', 'MahasiswaController@cetakSertifikat')->name('cetakSertifikat');
+
+
 
             Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
             Route::post('jawaban/edit/', 'MahasiswaController@jawabEdit')->name('jedit');

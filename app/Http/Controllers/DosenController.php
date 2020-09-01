@@ -152,6 +152,9 @@ class DosenController extends Controller
     {
         $mat = Materi::find($req->idmateri);
         $oldback = $mat->filemodul;
+
+        $lib = Library::findOrNew(['judul' => $mat->judul_modul, 'filename' => $oldback]);
+
         $mat->fill($req->all());
         if ($req->hasFile('filemodul')) {
             $namefile=date("YmdHis").'_'.$req->filemodul->getClientOriginalName();
@@ -164,6 +167,13 @@ class DosenController extends Controller
             $mat->filemodul = $oldback;
         }
         $mat->save();
+        if ($mat->statusfile == 0) {
+            $lib->judul = $mat->judul_modul;
+            $lib->filename = $mat->filemodul;
+            $lib->dosen_id = $mat->kelas->dosen->id;
+            $lib->kategori_id = $mat->kelas->dkat_id;
+            $lib->save();
+        }
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil merubah materi kelas!', 'color' => 'success']);
     }
 
@@ -202,6 +212,10 @@ class DosenController extends Controller
         }
 
         $mt = Materi::find($req->idmateri);
+        if ($mt->statusfile == 0) {
+            Library::where('judul',$mt->judul_modul)->where('filename',$mt->filemodul)->delete();
+        }
+
         if ($mt->filemodul != NULL) {
             Storage::delete('public/modul/'.$mt->filemodul);
         }
