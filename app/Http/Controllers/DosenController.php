@@ -14,6 +14,7 @@ use App\Model\KelasJoin;
 use App\Model\KelasKolab;
 use App\User;
 use DB;
+use Illuminate\Support\Facades\Mail;
 
 class DosenController extends Controller
 {
@@ -212,5 +213,42 @@ class DosenController extends Controller
     public function periksa($id)
     {
         return view('dosen.kelas.periksa');
+    }
+
+    public function invite(Request $req)
+    {
+        $dosen_id = $req->dosen_id;
+        $kelas_id = $req->kelas_id;
+
+        $cek = KelasKolab::where('id_user',$dosen_id)
+                         ->where('id_kelas',$kelas_id)
+                         ->count();
+        if($cek > 0) return redirect('dosen/kelas')->with(['msg' => 'Undangan telah dikirimkan sebelumnya', 'color' => 'danger']);
+
+        $akses = $req->akses;
+        $url = 'invitation/accepted/'.$kelas_id.'/'.$akses.'/'.$dosen_id;
+        $uraian = ($akses == 1)
+            ? 'Memposting, menyunting, dan menghapus materi, serta memberikan tugas, me-review dan menilai tugas mahasiswa'
+            : 'Me-review tugas mahasiswa untuk dilaporkan kepada dosen pengampu';
+
+        $to = User::find($dosen_id);
+        $to_name = $to->fullname;
+        $to_email = $to->email;
+
+        $data = [
+            'receiver' => $to->fullname,
+            'senderName' => Auth::user()->fullname,
+            'senderUniv' => Auth::user()->dosen->univ,
+            'kelasName' => Kelas::find($kelas_id)->kelas_nama,
+            'link' => url($url),
+            'akses' => $uraian
+        ];
+
+        Mail::send('emails.template2', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)->subject('Undangan Kontribusi Kelas');
+            $message->from('rektor.sipeka@gmail.com','Rektor SiPeka');
+        });
+
+        return redirect('dosen/kelas')->with(['msg' => 'Undangan Berhasil Dikirimkan', 'color' => 'success']);
     }
 }

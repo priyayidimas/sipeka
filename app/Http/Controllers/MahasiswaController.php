@@ -13,6 +13,7 @@ use App\Model\Jawaban;
 use App\Model\Kategori;
 use App\Model\Event;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -101,14 +102,14 @@ class MahasiswaController extends Controller
 
     public function jawabMateri(Request $req,$id)
     {
-        $join = KelasJoin::where('id_kelas',$id)->where('id_user', Auth::user()->id)->first();
-        if ($n = Jawaban::where('id_joinkelas',$join->id)->count() > 0) {
-            if($n->jawaban_file)
-                Storage::delete('public/jawaban/'.$n->jawaban_file);
-            $n->delete();
+        $user = Auth::id();
+        $n = Jawaban::where('id_mhs',$user);
+        if ($n->count() > 0) {
+            if($n->first()->jawaban_file)
+                Storage::delete('public/jawaban/'.$n->first()->jawaban_file);
         }
-        $nj = new Jawaban();
-        $nj->id_joinkelas = $join->id;
+        $nj = Jawaban::firstOrNew(['id_mhs' => $user, 'id_materi' => $req->idm]);
+        $nj->id_mhs = $user;
         $nj->id_materi = $req->idm;
         $nj->jawaban_text = $req->jawab_text;
         if($req->hasFile('jawab_file')){
@@ -121,20 +122,20 @@ class MahasiswaController extends Controller
         return redirect()->back()->with(['msg' => 'Jawaban berhasil disimpan!', 'color' => 'success']);
     }
 
-    public function joinEvent($event_id, $join_id)
+    public function joinEvent($event_id, $mhs_id)
     {
         $event = Event::find($event_id);
         $mulai = Carbon::parse($event->waktu_mulai);
         $selesai = Carbon::parse($event->waktu_selesai);
         $cek = $this->cekJoinEvent($mulai, $selesai,$event_id);
         if($cek){
-            $event->joinEvent()->attach($join_id);
+            $event->joinEvent()->attach($mhs_id);
             return redirect($event->link);
         }
-        return back()->with(['color' => 'danger', 'msg' => 'Bentrok']);
+        return back()->with(['color' => 'danger', 'msg' => 'Bentrok Dengan Jadwal lain']);
     }
 
-    public function cekJoinEvent($mulai_data, $akhir_data,$notId){
+    public function cekJoinEvent($mulai_data, $akhir_data, $notId){
 
         $kelasEvent = [];
         $kelas = Auth::user()->join;
@@ -143,7 +144,6 @@ class MahasiswaController extends Controller
             ->where('id','<>',$notId)
             ->where(function ($query) use ($mulai_data, $akhir_data){
                 $mulai = Carbon::now()->setTimezone('Asia/Jakarta')->addMinutes(-30);
-                $akhir = Carbon::now()->setTimezone('Asia/Jakarta')->addHour()->addMinutes(30);
 
                 $query->whereBetween('waktu_mulai',[$mulai, $mulai_data])
                       ->orWhereBetween('waktu_selesai', [$mulai_data,$akhir_data]);

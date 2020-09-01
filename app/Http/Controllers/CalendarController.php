@@ -58,7 +58,7 @@ class CalendarController extends Controller
 
         // Bentrok Handler
         $cek = $this->bentrokHandler($mulai, $selesai);
-        if(!$cek) return "Bentrok";
+        if(!$cek) return back()->with(['color' => 'danger', 'msg' => 'Bentrok Dengan Jadwal lain']);
 
         // Init Event
         $event = new \Google_Service_Calendar_Event(array(
@@ -153,7 +153,7 @@ class CalendarController extends Controller
 
         // Bentrok Handler
         $cek = $this->bentrokHandler($mulai, $selesai);
-        if(!$cek) return "Bentrok";
+        if(!$cek) return back()->with(['color' => 'danger', 'msg' => 'Bentrok Dengan Jadwal lain']);
 
         // Init Event
         $event = new \Google_Service_Calendar_Event(array(

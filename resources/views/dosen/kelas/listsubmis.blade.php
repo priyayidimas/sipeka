@@ -37,9 +37,6 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
                     @foreach($kls->materi as $k)
-                    @php
-
-                    @endphp
                     <div class="col-md-6" style="margin-top:10px;">
                         <div class="card">
                             <div class="card-body">

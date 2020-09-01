@@ -102,7 +102,7 @@
                       <td>{{$event->kelas->kelas_nama}}</td>
                       <td>{{Carbon::parse($event->waktu_mulai)->format('d F Y @ H:i')}}</td>
                       <td>{{Carbon::parse($event->waktu_selesai)->format('d F Y @ H:i')}}</td>
-                      <td><a href="{{url('mhs/event/'.$event->id.'/join/'.$kls->pivot->id)}}" class="btn btn-dark">Go Meet</a></td>
+                      <td><a href="{{url('mhs/event/'.$event->id.'/join/'.Auth::id())}}" class="btn btn-dark">Go Meet</a></td>
                     </tr>
                     @endforeach
                     @endforeach

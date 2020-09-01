@@ -39,8 +39,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-top:20px;">
-                    @foreach($mt->kelas->join as $mhs)
                     @php $a = 0; @endphp
+                    @foreach($mt->kelas->join as $mhs)
 
                     <div class="col-md-6" style="margin-top:10px;">
                         <div class="card">

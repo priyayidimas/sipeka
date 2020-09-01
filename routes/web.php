@@ -22,16 +22,13 @@ Route::group(['prefix' => 'legals'], function () {
 Route::get('dashboard', 'UserController@index');
 
 Route::get('login/{akses}', 'UserController@redirectToProvider');
-
 Route::get('glogin', 'UserController@handleProviderCallback');
 
 Route::get('logout', 'UserController@logout');
 
-Route::get('calendar', 'CalendarController@calendar');
-Route::get('events', 'CalendarController@getEvents');
-Route::get('people', 'CalendarController@getPeople');
+Route::get('invitation/accepted/{kelas_id}/{akses}/{user_id}', 'UserController@invite');
 
-Route::get('meet', 'CalendarController@createEventConference');
+Route::view('chat', 'layouts.telegram');
 
 Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
@@ -41,6 +38,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
         Route::get('daftar-dosen', 'DosenController@dosenList');
+
+        Route::post('invite', 'DosenController@invite');
 
         // Kelas
         Route::group(['prefix' => 'kelas'], function () {
@@ -90,6 +89,7 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
             Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
 
             Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
+            Route::post('jawaban/edit/', 'MahasiswaController@jawabEdit')->name('jedit');
         });
 
         Route::group(['prefix' => 'event'], function () {
@@ -127,6 +127,9 @@ Route::get('calendars', 'CalendarController@calendars');
 Route::get('joinkelas', 'MahasiswaController@joinkelas');
 Route::get('mail', 'UserController@mail');
 
-Route::get('invitation/token/{kelas_id}/{akses}/{user_id}', 'UserController@invite');
 
+Route::get('calendar', 'CalendarController@calendar');
+Route::get('events', 'CalendarController@getEvents');
+Route::get('people', 'CalendarController@getPeople');
 
+Route::get('meet', 'CalendarController@createEventConference');

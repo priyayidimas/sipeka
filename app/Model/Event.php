@@ -28,7 +28,7 @@ class Event extends Model
             'created_at','updated_at'
         ];
         return $this->belongsToMany(
-            'App\Model\KelasJoin',              // Model Target
+            'App\User',              // Model Target
             'kelas_event_join',                 // Table Inter name
             'id_event',                         // Foreign Key -> Current Model
             'id_joinkelas')                     // Foreign Key -> Target Model

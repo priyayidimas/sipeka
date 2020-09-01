@@ -71,6 +71,14 @@
             </div>
           </a>
         </li>
+        {{-- <li class="nav-item">
+          <a class="nav-link" href="{{url('chat')}}">
+            <div class="c">
+              <i class="fas fa-fw fa-comments"></i>
+              <span>Group Chat</span>
+            </div>
+          </a>
+        </li> --}}
       </div>
 
       <!-- Divider -->
