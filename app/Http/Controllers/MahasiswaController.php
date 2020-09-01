@@ -162,4 +162,28 @@ class MahasiswaController extends Controller
         $cek = (array_sum($count) == 0) ? true : false;
         return $cek;
     }
+
+    public function profile()
+    {
+        $usr = User::find(Auth::user()->id);
+        $kat = Kategori::all();
+        return view('profileuser',compact('usr','kat'));
+    }
+
+    public function editprofile(Request $req)
+    {
+        $usr = User::find($req->usr);
+        $usr->fullname = $req->nama;
+        $usr->save();
+        $bio = Mahasiswa::where('id_user',$req->usr)->first();
+        $bio->prodi = $req->prodi;
+        $bio->nim = $req->nim;
+        $bio->univ = $req->univ;
+        $pem = $req->peminatan;
+        $bio->id_peminatan1 = $pem[0];
+        $bio->id_peminatan2 = $pem[1];
+        $bio->id_peminatan3 = $pem[2];
+        $bio->save();
+        return redirect()->back()->with(['msg' => 'Berhasil menupdate profile!', 'color' => 'success']);
+    }
 }

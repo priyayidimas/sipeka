@@ -12,6 +12,7 @@ use App\Model\Materi;
 use App\Model\Jawaban;
 use App\Model\KelasJoin;
 use App\Model\KelasKolab;
+use App\Model\Library;
 use App\User;
 use DB;
 
@@ -213,4 +214,47 @@ class DosenController extends Controller
     {
         return view('dosen.kelas.periksa');
     }
+
+    public function profile()
+    {
+        $usr = User::find(Auth::user()->id);
+        return view('profileuser',compact('usr'));
+    }
+
+    public function editprofile(Request $req)
+    {
+        $usr = User::find($req->usr);
+        $usr->fullname = $req->nama;
+        $usr->save();
+        $bio = Dosen::where('id_user',$req->usr)->first();
+        $bio->prodi = $req->prodi;
+        $bio->nidn = $req->nidn;
+        $bio->univ = $req->univ;
+        $bio->save();
+        return redirect()->back()->with(['msg' => 'Berhasil menupdate profile!', 'color' => 'success']);
+    }
+
+    public function library()
+    {
+        $lb = Library::all();
+        $dk = DetailKategori::all();
+        return view('dosen.perpustakaan.index',compact('lb','dk'));
+    }
+
+    public function storemodul(Request $req)
+    {
+        $lb = new Library();
+        $lb->judul = $req->judul;
+        $lb->kategori_id = $req->kategori_id;
+        if($req->hasFile('namafile')){
+            $namefile=date("YmdHis").'_'.$req->namafile->getClientOriginalName();
+            $req->namafile->storeAs('public/modul',$namefile);
+            $lb->filename = $namefile;
+        }
+        $lb->dosen_id = Auth::user()->id;
+        $lb->save();
+        return redirect()->back()->with(['msg' => 'Berhasil menambahkan modul!', 'color' => 'success']);
+    }
+
+
 }

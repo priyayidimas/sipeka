@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Model\Kelas','dosen_id');
     }
 
+    public function library()
+    {
+        return $this->hasMany('App\Model\Library','dosen_id');
+    }
+
     public function review()
     {
         return $this->hasMany('App\Model\Review','reviewer_id');
