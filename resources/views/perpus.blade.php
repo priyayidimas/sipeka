@@ -132,15 +132,15 @@
                   </div>
                   <div class="row allclass">
                     @foreach($m as $k)
-                    <div class="col-md-6 card-kelas dkat{{$k->kelas->detail_kategori->id}}">
+                    <div class="col-md-6 card-kelas dkat{{$k->detail_kategori->id}}">
                       <div class="card">
                         <div class="card-body cekcik">
-                          <h6 class="card-subtitle mb-2 text-muted kat">{{$k->kelas->detail_kategori->dkat_nama}}</h6>
-                          <h6 class="card-title">{{$k->judul_modul}}</h6>
-                          <p class="infokelas"><i class="fa fa-user"></i>&nbsp;Nama Dosen</p>
+                          <h6 class="card-subtitle mb-2 text-muted kat">{{$k->detail_kategori->dkat_nama}}</h6>
+                          <h6 class="card-title">{{$k->judul}}</h6>
+                          <p class="infokelas"><i class="fa fa-user"></i>&nbsp;{{$k->dosen->fullname}}</p>
                           <div class="text-right">
 
-                            <a href="/storage/modul/{{$k->filemodul}}" class="btndaftar" target="blank">Lihat Modul</a>
+                            <a href="/storage/modul/{{$k->filename}}" class="btndaftar" target="blank">Lihat Modul</a>
 
                             <!-- Sudah Bergabung -->
                           </div>

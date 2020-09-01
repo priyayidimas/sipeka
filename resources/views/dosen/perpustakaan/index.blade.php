@@ -16,8 +16,10 @@
                 <!-- search form -->
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{url('dosen/kelas/tambah')}}" class="btn btn-tambahkelas">Tambah Kelas</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="{{url('daftar-dosen')}}" class="btn btn-primary">Undang Kolaborator</a><br><br>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodul">
+                            Tambah Modul
+                        </button>
+                        <br><br>
                     </div>
                     <div class="col-md-6">
                         <form class="">
@@ -25,7 +27,7 @@
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Cari kelas yang pernah diikuti ..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
-                                Cari Kelas
+                                Cari Modul
                                 </button>
                             </div>
                             </div>
@@ -34,61 +36,63 @@
                 </div>
                 <!-- end search -->
 
-                <br><h5>Kelas Yang Anda Ampu</h5>
                 <div class="row" style="margin-top:20px;">
-                    @foreach($kelas as $k)
+                    @foreach($lb as $k)
                     <div class="col-md-4">
                         <div class="card itemkelas">
                             <div class="card-body">
                                 <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>
-                                <h5 class="card-title">{{$k->kelas_nama}}</h5>
-                                <p class="card-text">
-                                    <i class="fa fa-clipboard"></i> @php $jmlMateri=0 @endphp @foreach($k->materi as $m) @php $jmlMateri += 1 @endphp @endforeach {{$jmlMateri}} Materi &nbsp;&nbsp;
-                                    <i class="fa fa-info-circle"></i> <span class="@if($k->status_kelas == 0)statusbelumtuntas @else statustuntas @endif">@if($k->status_kelas == 0) Tidak Aktif @else Aktif @endif</span>&nbsp;&nbsp;
-                                    <i class="fa fa-users"></i> {{$k->join()->count()}}
-                                </p>
-                                <br>
-                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
+                                <h5 class="card-title">{{$k->judul}}</h5>
+                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Update</a>
                                 <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
                                     Delete
                                 </button>
-                                <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Submission</a>
                             </div>
                         </div>
                     </div>
                     @endforeach
                 </div>
-
-                @if (Auth::user()->kolab()->count() > 0)
-
-                <br><h5>Anda Mendampingi Kelas</h5>
-                <div class="row" style="margin-top:20px;">
-                    @foreach(Auth::user()->kolab as $k)
-                    <div class="col-md-4">
-                        <div class="card itemkelas">
-                            <div class="card-body">
-                                <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>
-                                <h5 class="card-title">{{$k->kelas_nama}}</h5>
-                                <p class="card-text">
-                                    <i class="fa fa-clipboard"></i> @php $jmlMateri=0 @endphp @foreach($k->materi as $m) @php $jmlMateri += 1 @endphp @endforeach {{$jmlMateri}} Materi &nbsp;&nbsp;
-                                    <i class="fa fa-info-circle"></i> <span class="@if($k->status_kelas == 0)statusbelumtuntas @else statustuntas @endif">@if($k->status_kelas == 0) Tidak Aktif @else Aktif @endif</span>&nbsp;&nbsp;
-                                    <i class="fa fa-users"></i> {{$k->join()->count()}}
-                                </p>
-                                <br>
-                                <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
-                                <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
-                                    Delete
-                                </button>
-                                <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Submission</a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-                @endif
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="tambahmodul" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Tambah Modul</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form action="{{route('storemod')}}" method="post" class="form-group" id="t-modul" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="">Judul Modul</label>
+                    <input type="text" name="judul" class="form-control" placeholder="Judul Modul" id="" required>
+                </div>
+                <div class="form-group">
+                    <label for="">File Modul</label>
+                    <input type="file" name="namafile" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Kategori</label>
+                    <select name="kategori_id" class="form-control" id="" required>
+                        <option value="" disabled>Pilih Kategori</option>
+                        @foreach($dk as $k)
+                        <option value="{{$k->id}}">{{$k->dkat_nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" onclick="event.preventDefault(); document.getElementById('t-modul').submit();" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+  </div>
 </div>
 <div class="modal fade" id="deleteKelas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">

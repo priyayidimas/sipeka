@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Kelas;
 use App\Model\Kategori;
-use App\Model\Materi;
+use App\Model\library;
 use App\User;
 
 class PublicController extends Controller
@@ -33,7 +33,7 @@ class PublicController extends Controller
 
     public function library()
     {
-        $m = Materi::where('statusfile','0')->get();
+        $m = Library::all();
         $kat = Kategori::all();
         return view('perpus',compact('m','kat'));
     }

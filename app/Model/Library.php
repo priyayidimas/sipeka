@@ -13,4 +13,9 @@ class Library extends Model
     {
         return $this->belongsTo('App\Model\DetailKategori','kategori_id');
     }
+
+    public function dosen()
+    {
+        return $this->belongsTo('App\User','dosen_id');
+    }
 }

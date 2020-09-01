@@ -37,6 +37,13 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
         Route::get('/', 'DosenController@index');
         Route::get('daftar-dosen', 'DosenController@dosenList');
 
+        Route::get('profile', 'DosenController@profile')->name('profdsn');
+        Route::put('profile-store', 'DosenController@editprofile')->name('storprofdsn');
+
+        Route::group(['prefix' => 'perpustakaan'], function () {
+            Route::get('/', 'DosenController@library')->name('library');
+            Route::post('/store', 'DosenController@storemodul')->name('storemod');
+        });
         Route::post('invite', 'DosenController@invite');
 
         // Kelas
