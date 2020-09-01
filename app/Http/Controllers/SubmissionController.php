@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Jawaban;
 use App\User;
+use Auth;
 
 class SubmissionController extends Controller
 {
@@ -12,6 +13,7 @@ class SubmissionController extends Controller
     {
         $jawaban = Jawaban::find($req->jawaban_id);
         $jawaban->fill($req->all());
+        $jawaban->reviewer_id = Auth::id();
         $jawaban->save();
 
         return redirect(route('periksa',$req->jawaban_id))->with(['color' => 'success', 'msg' => 'Berhasil Review Jawaban']);

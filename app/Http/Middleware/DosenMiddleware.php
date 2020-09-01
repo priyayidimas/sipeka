@@ -27,6 +27,7 @@ class DosenMiddleware
         if($user->dosen()->count() == 0)
             return redirect('dosen/pelengkapan-data');
 
+        session(['akses' => 'dosen']);
         return $next($request);
     }
 }
