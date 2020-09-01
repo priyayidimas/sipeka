@@ -135,10 +135,15 @@ class DosenController extends Controller
         }
         $mat->id_kelas = $id;
         $mat->save();
+
+        $kelas = Kelas::find($id);
         if($mat->statusfile == 0){
             $lib = new Library();
             $lib->judul = $mat->judul_modul;
-            $lib->
+            $lib->filename = $mat->filemodul;
+            $lib->dosen_id = $kelas->dosen->id;
+            $lib->kategori_id = $kelas->dkat_id;
+            $lib->save();
         }
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil menambahkan materi!', 'color' => 'success']);
     }
