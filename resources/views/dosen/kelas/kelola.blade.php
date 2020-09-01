@@ -190,6 +190,7 @@ Dosen &middot; Kelola Kelas
                     </div>
                     <div class="form-group text-right">
                         <input type="submit" value="Submit" class="btn btn-primary">
+                        <a href="{{url('dosen/kelas/selesai/'.$kls->id)}}" class="btn btn-success">Akhiri Kelas</a>
                     </div>
                 </form>
             </div>

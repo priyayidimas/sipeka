@@ -60,6 +60,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
             Route::get('list-submission/{id}', 'DosenController@listMateriSub')->name('listmhssubmis');
             Route::get('periksa/{id}', 'SubmissionController@periksa')->name('periksa');
             Route::post('review-jawaban', 'SubmissionController@reviewJawaban')->name('reviewJawaban');
+
+            Route::get('selesai/{id}', 'SubmissionController@akhiriKelas');
         });
 
         Route::group(['prefix' => 'materi'], function () {
