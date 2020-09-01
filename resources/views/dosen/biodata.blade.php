@@ -4,7 +4,7 @@
             <meta charset='utf-8'>
             <meta name='viewport' content='width=device-width, initial-scale=1'>
             <title>Pelengkapan Biodata Dosen</title>
-            <link href="{{url('assets/img/sipekawarna.png')}}" rel="icon">
+            <link href="{{url('assets/img/sipekawarna-min.png')}}" rel="icon">
 
 
             <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
@@ -27,7 +27,7 @@
                         <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img src="/assets/img/sipekawarna.png" width="135px" height="90px" alt="">
+                                    <img src="/assets/img/sipekawarna-min.png" width="135px" height="90px" alt="">
                                     <h2><strong>Pelengkapan Data Dosen</strong></h2>
                                 </div>
                             </div>

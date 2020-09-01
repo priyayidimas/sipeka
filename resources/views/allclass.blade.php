@@ -8,7 +8,7 @@
 
     <title>SiPeka - Sistem Pembelajaran Merdeka</title>
 
-    <link href="{{url('assets/img/sipekawarna.png')}}" rel="icon">
+    <link href="{{url('assets/img/sipekawarna-min.png')}}" rel="icon">
 
 
     <!-- Bootstrap CSS CDN -->

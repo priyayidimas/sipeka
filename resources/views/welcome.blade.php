@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/sipekawarna.png" rel="icon">
+  <link href="assets/img/sipekawarna-min.png" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -110,7 +110,7 @@
               </p>
             </div>
             <div class="col-md-6">
-              <img src="assets/img/sipekawarna.png" class="logosipeka" width="539px" height="359px" alt="">
+              <img src="assets/img/sipekawarna-min.png" class="logosipeka" width="539px" height="359px" alt="">
             </div>
           </div>
         </div>

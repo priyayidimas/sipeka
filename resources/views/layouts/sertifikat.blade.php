@@ -9,10 +9,10 @@
     <!-- <link href="/assets/css/sb-admin-2.css" rel="stylesheet"> -->
 </head>
 <body>
-    <div style="width:1122px; height:770px; text-align:center; background:url('/assets/img/bck-sertif.png');background-size:cover;">
+    <div style="width:1024px; height:680px; text-align:center; background:url('/assets/img/bck-sertif.png');background-size:cover;">
         <div class="content" style="display:flex;">
             <div style="width:117px;height:118px;background:white;border-radius:50%;float:left;margin:50px 50px;box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
-                <img src="{{url('/assets/img/sipekawarna.png')}}" style="margin-top:20px;margin-left:-7px;width:134px;height:89px;" alt="">
+                <img src="{{ public_path().'/storage/sipekawarna-min.png' }}" style="margin-top:20px;margin-left:-7px;width:134px;height:89px;" alt="">
             </div>
             <div style="width:100%;text-align:left;">
                 <h1 style="font-family: Lucida Bright;font-style: normal;font-weight: 600;font-size: 48px;line-height: 56px;color:white;letter-spacing: 0.18em;margin-left:150px;margin-top:70px;">SERTIFIKAT</h1>
@@ -26,6 +26,15 @@
             line-height: 29px;
             text-align: center;
             color: #FFFFFF;width:100%;">{{$kelas->kelas_nama}}</h1>
+                    </div>
+        <div class="content" style="display:flex;">
+            <h2 style="font-family: Montserrat;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 29px;
+            text-align: center;
+            color: #FFFFFF;width:100%;">Yang diampu oleh {{$kelas->dosen->fullname}}</h2>
                     </div>
                     <div class="content">
                         <div class="tujuan" style="width:100%">
@@ -50,13 +59,25 @@
         <div class="content">
             <div class="tujuan" style="width:100%">
                 <p style="font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 22px;
-text-align: center;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
 
-color: #FFFFFF;">Sertifikat dibuat pada tanggal {{Carbon::now()}}</p>
+                    color: #FFFFFF;">Mahasiswa lulus dengan nilai 100.00 mutu A</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tujuan" style="width:100%">
+                <p style="font-family: Montserrat;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
+
+                    color: #FFFFFF;">Sertifikat dibuat pada tanggal {{Carbon::now()}}</p>
             </div>
         </div>
     </div>
