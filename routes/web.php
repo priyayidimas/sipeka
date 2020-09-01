@@ -40,6 +40,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['dosen']], function () {
         Route::get('/', 'DosenController@index');
+        Route::get('profile', 'DosenController@profile')->name('profdsn');
+        Route::put('profile-store', 'DosenController@editprofile')->name('storprofdsn');
 
         // Kelas
         Route::group(['prefix' => 'kelas'], function () {
@@ -83,6 +85,9 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
 
         Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
     });
+
+    Route::get('profile', 'MahasiswaController@profile')->name('profmhs');
+    Route::put('profile-store', 'MahasiswaController@editprofile')->name('storprofmhs');
 
     Route::group(['middleware' => ['mahasiswa']], function () {
         Route::get('/', 'MahasiswaController@index');

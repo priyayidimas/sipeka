@@ -21,4 +21,9 @@ class DetailKategori extends Model
     {
         return $this->hasMany('App\Model\Kelas','dkat_id');
     }
+
+    public function library()
+    {
+        return $this->hasMany('App\Model\Library','kategori_id');
+    }
 }
