@@ -26,6 +26,7 @@ Route::get('glogin', 'UserController@handleProviderCallback');
 
 Route::get('logout', 'UserController@logout');
 
+Route::get('invitation/accepted/{kolab_id}', 'UserController@inviteAccept');
 Route::get('invitation/accepted/{kelas_id}/{akses}/{user_id}', 'UserController@invite');
 
 Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {

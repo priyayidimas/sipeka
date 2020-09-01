@@ -279,10 +279,20 @@ class DosenController extends Controller
         if($cek > 0) return redirect('dosen/kelas')->with(['msg' => 'Undangan telah dikirimkan sebelumnya', 'color' => 'danger']);
 
         $akses = $req->akses;
-        $url = 'invitation/accepted/'.$kelas_id.'/'.$akses.'/'.$dosen_id;
+
         $uraian = ($akses == 1)
             ? 'Memposting, menyunting, dan menghapus materi, serta memberikan tugas, me-review dan menilai tugas mahasiswa'
             : 'Me-review tugas mahasiswa untuk dilaporkan kepada dosen pengampu';
+
+        $kolab = new KelasKolab();
+        $kolab->id_user = $dosen_id;
+        $kolab->id_kelas = $kelas_id;
+        $kolab->status = '0';
+        $kolab->akses = $akses;
+        $kolab->save();
+
+        $url = 'invitation/accepted/'.$kolab->id;
+
 
         $to = User::find($dosen_id);
         $to_name = $to->fullname;

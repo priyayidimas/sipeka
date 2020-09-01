@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Mail;
 use App\Model\Kelas;
+use App\Model\KelasKolab;
 
 class UserController extends Controller
 {
@@ -193,6 +194,12 @@ class UserController extends Controller
         $user = User::find($user_id);
 
         $kelas->kolab()->attach($user->id, ['akses' => $akses, 'status' => '1']);
+        return redirect('/')->with(['msg' => 'Join Kolaborator', 'color' => 'success']);
+    }
+    public function inviteAccept($kolab_id){
+        $kolab = KelasKolab::find($kolab_id);
+        $kolab->status = '1';
+        $kolab->save();
         return redirect('/')->with(['msg' => 'Join Kolaborator', 'color' => 'success']);
     }
 }
