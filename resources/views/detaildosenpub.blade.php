@@ -171,21 +171,25 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{url('dosen/invite/')}}" class="form-group" id="inviteKolab">
+                    <form method="POST" action="{{url('dosen/invite')}}" class="form-group" id="inviteKolab">
                       @csrf
                       <input type="hidden" name="dosen_id" value="{{$dosen->id}}">
                       <div class="form-group">
                         <label for="">Undang Ke Kelas</label>
-                        <select name="dkat_id" id="" class="form-control js-example-basic-single" required>
+                        <select name="kelas_id" id="" class="form-control js-example-basic-single" required>
                             <option disabled value="">Pilih Kelas</option>
                             @foreach(Auth::user()->kelas as $kelas)
                             <option value="{{$kelas->id}}">{{$kelas->kelas_nama}}</option>
                             @endforeach
                         </select>
-                    </div>
+                      </div>
                       <div class="form-group">
-                          <label for="">Untuk Menjadi</label>
-                          <input type='text' class="form-control" name=""/>
+                        <label for="">Untuk Menjadi</label>
+                        <select name="akses" id="" class="form-control js-example-basic-single" required>
+                            <option disabled value="">Pilih Akses</option>
+                            <option value="0">Reviewer</option>
+                            <option value="1">Dosen Pendamping</option>
+                        </select>
                       </div>
                   </form>
                   </div>
