@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Jawaban;
+use App\Model\Kelas;
 use App\User;
 use Auth;
 
@@ -22,5 +23,10 @@ class SubmissionController extends Controller
     {
         $jawaban = Jawaban::find($id);
         return view('dosen.kelas.periksa',compact('jawaban'));
+    }
+    public function akhiriKelas($id)
+    {
+        $kls = Kelas::find($id);
+        return view('dosen.kelas.selesai',compact('kls'));
     }
 }

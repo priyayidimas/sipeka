@@ -107,7 +107,7 @@ Dosen &middot; Kelola Kelas
             modal.find('.modal-body #id').val(id);
         });
 
-        $('#deleteEvent').on('show.bs.mo`al', function (event) {
+        $('#deleteEvent').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var idEvent = button.data('id');
 
