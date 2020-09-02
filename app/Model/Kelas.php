@@ -51,7 +51,7 @@ class Kelas extends Model
     // Many To Many Child
     public function join()
     {
-        $pivot = ['id','progress','created_at','updated_at'];
+        $pivot = ['id','progress', 'grade', 'created_at','updated_at'];
         return $this->belongsToMany(
             'App\User',          // Model Target
             'kelas_join',               // Table Inter name

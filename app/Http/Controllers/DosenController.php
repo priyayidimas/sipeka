@@ -14,7 +14,7 @@ use App\Model\KelasJoin;
 use App\Model\KelasKolab;
 use App\Model\Library;
 use App\User;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class DosenController extends Controller

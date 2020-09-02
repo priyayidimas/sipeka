@@ -1,7 +1,10 @@
 @php
     $kelas = $jawaban->materi->kelas;
-    $akses = Auth::user()->kolab()->where('id_kelas',$kelas->id)->first()->pivot->akses;
-    $isGrader = $akses == 1 || (Auth::id() == $kelas->dosen_id);
+    $akses = 1;
+    if(Auth::id() != $kelas->dosen_id){
+        $akses = Auth::user()->kolab()->where('id_kelas',$kelas->id)->first()->pivot->akses;
+    }
+    $isGrader = ($akses == 1) || (Auth::id() == $kelas->dosen_id);
 @endphp
 @extends('layouts.utama')
 

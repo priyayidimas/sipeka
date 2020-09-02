@@ -281,6 +281,7 @@ Dosen &middot; Kelola Kelas
                     <thead>
                         <th colspan="2">Mahasiswa</th>
                         <th>Progress</th>
+                        <th>Nilai Akhir</th>
                         <th>Aksi</th>
                     </thead>
                     @foreach ($kls->join as $mhs)
@@ -288,6 +289,7 @@ Dosen &middot; Kelola Kelas
                             <td><img class="rounded" src="{!! $mhs->avatar !!}" alt="" width="50"></td>
                             <td>{{ $mhs->fullname }}</td>
                             <td>{{ $mhs->pivot->progress }}</td>
+                            <td>{{ ($mhs->pivot->grade) ?? 'Belum Ada' }}</td>
                             <td>
                                 <a class="btn btn-sm btn-success text-white" >Detail</a>
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#inviteKolabModal" data-id={{$mhs->id}}>Undang</button>

@@ -62,6 +62,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
             Route::post('review-jawaban', 'SubmissionController@reviewJawaban')->name('reviewJawaban');
 
             Route::get('selesai/{id}', 'SubmissionController@akhiriKelas');
+            Route::post('selesai', 'SubmissionController@gradeKelas');
         });
 
         Route::group(['prefix' => 'materi'], function () {

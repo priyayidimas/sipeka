@@ -34,7 +34,8 @@ Dosen &middot; Akhiri Kelas
         <h5>List Tugas</h5>
         <form action="{{url('dosen/kelas/selesai')}}" method="POST" id="akhirKelas">
             @csrf
-            <input type="hidden" name="jmlTugas" value="{{$kls->materi()->where('jenis','<>','0')->count()}}">
+            <input type="hidden" name="idKelas" value="{{$kls->id}}">
+            {{-- <input type="hidden" name="jmlTugas" value="{{$kls->materi()->where('jenis','<>','0')->count()}}"> --}}
             <table class="table">
                 <thead>
                     <th>Nama Materi</th>
