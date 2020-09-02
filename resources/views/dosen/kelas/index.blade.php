@@ -68,7 +68,7 @@ Dosen &middot; Kelas
 
                 @if (Auth::user()->kolab()->count() > 0)
 
-                <br><h5>Anda Mendampingi Kelas</h5>
+                <br><h5>Anda Berkontribusi dalam Kelas</h5>
                 <div class="row" style="margin-top:20px;">
                     @foreach(Auth::user()->kolab as $k)
                     <div class="col-md-4">
@@ -82,10 +82,12 @@ Dosen &middot; Kelas
                                     <i class="fa fa-users"></i> {{$k->join()->count()}}
                                 </p>
                                 <br>
+                                @if ($k->pivot->akses == 1)
                                 <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
                                 <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
                                     Delete
                                 </button>
+                                @endif
                                 <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Submission</a>
                             </div>
                         </div>

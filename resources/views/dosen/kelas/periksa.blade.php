@@ -1,3 +1,8 @@
+@php
+    $kelas = $jawaban->materi->kelas;
+    $akses = Auth::user()->kolab()->where('id_kelas',$kelas->id)->first()->pivot->akses;
+    $isGrader = $akses == 1 || (Auth::id() == $kelas->dosen_id);
+@endphp
 @extends('layouts.utama')
 
 @section('title')
@@ -56,9 +61,11 @@ Dosen &middot; Periksa Pekerjaan
             <div class="col-md-8">
                 <textarea type="text" name="review" class="form-control" placeholder="Tulis review atau komentar ..." id=""></textarea>
             </div>
+            @if ($isGrader)
             <div class="col-md-2">
                 <input type="number" name="grade" min="0" max="100" class="form-control" placeholder="Nilai ..." id="">
             </div>
+            @endif
             <div class="col-md-2">
                 <input type="submit" value="Submit" class="btn btn-primary">
             </div>

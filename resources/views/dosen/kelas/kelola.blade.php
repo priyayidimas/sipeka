@@ -190,7 +190,9 @@ Dosen &middot; Kelola Kelas
                     </div>
                     <div class="form-group text-right">
                         <input type="submit" value="Submit" class="btn btn-primary">
+                        @if ($kls->status_kelas < 2)
                         <a href="{{url('dosen/kelas/selesai/'.$kls->id)}}" class="btn btn-success">Akhiri Kelas</a>
+                        @endif
                     </div>
                 </form>
             </div>

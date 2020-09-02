@@ -132,19 +132,21 @@ class DosenController extends Controller
             $namefile=date("YmdHis").'_'.$req->filemodul->getClientOriginalName();
             $req->filemodul->storeAs('public/modul',$namefile);
             $mat->filemodul = $namefile;
+
+            // Library
+            $kelas = Kelas::find($id);
+            if($mat->statusfile == 0){
+                $lib = new Library();
+                $lib->judul = $req->judul_modul;
+                $lib->filename = $namefile;
+                $lib->dosen_id = $kelas->dosen->id;
+                $lib->kategori_id = $kelas->dkat_id;
+                $lib->save();
+            }
         }
         $mat->id_kelas = $id;
         $mat->save();
 
-        $kelas = Kelas::find($id);
-        if($mat->statusfile == 0){
-            $lib = new Library();
-            $lib->judul = $mat->judul_modul;
-            $lib->filename = $mat->filemodul;
-            $lib->dosen_id = $kelas->dosen->id;
-            $lib->kategori_id = $kelas->dkat_id;
-            $lib->save();
-        }
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil menambahkan materi!', 'color' => 'success']);
     }
 
@@ -153,7 +155,7 @@ class DosenController extends Controller
         $mat = Materi::find($req->idmateri);
         $oldback = $mat->filemodul;
 
-        $lib = Library::findOrNew(['judul' => $mat->judul_modul, 'filename' => $oldback]);
+        $old_lib = Library::where('judul',$mat->judul_modul)->where('filename',$oldback)->first();
 
         $mat->fill($req->all());
         if ($req->hasFile('filemodul')) {
@@ -167,12 +169,15 @@ class DosenController extends Controller
             $mat->filemodul = $oldback;
         }
         $mat->save();
-        if ($mat->statusfile == 0) {
+        if ($req->statusfile == 0) {
+            $lib = ($old_lib == null) ? new Library() : $old_lib;
             $lib->judul = $mat->judul_modul;
             $lib->filename = $mat->filemodul;
             $lib->dosen_id = $mat->kelas->dosen->id;
             $lib->kategori_id = $mat->kelas->dkat_id;
             $lib->save();
+        }else{
+            if($old_lib != null) $old_lib->delete();
         }
         return redirect()->route('editkelas',$id)->with(['msg' => 'Berhasil merubah materi kelas!', 'color' => 'success']);
     }

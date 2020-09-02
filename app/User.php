@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function review()
     {
-        return $this->hasMany('App\Model\Review','reviewer_id');
+        return $this->hasMany('App\Model\Jawaban','reviewer_id');
     }
 
     // Mahasiswa Child
