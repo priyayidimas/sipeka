@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="dicoding:email" content="priyayidimas@upi.edu">
 
   <title>@yield('title')</title>
   <link href="{{url('assets/img/sipekawarna-min.png')}}" rel="icon">

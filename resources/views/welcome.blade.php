@@ -8,6 +8,7 @@
   <title>SiPeka - Sistem Pembelajaran Merdeka</title>
   <meta content="" name="descriptison">
   <meta content="" name="keywords">
+  <meta name="dicoding:email" content="priyayidimas@upi.edu">
 
   <!-- Favicons -->
   <link href="assets/img/sipekawarna-min.png" rel="icon">

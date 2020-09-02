@@ -8,6 +8,7 @@
             <meta charset='utf-8'>
             <meta name='viewport' content='width=device-width, initial-scale=1'>
             <title>Pelengkapan Biodata Mahasiswa</title>
+            <meta name="dicoding:email" content="priyayidimas@upi.edu">
 
             <link href="{{url('assets/img/sipekawarna-min.png')}}" rel="icon">
 

@@ -5,7 +5,7 @@
             <meta name='viewport' content='width=device-width, initial-scale=1'>
             <title>Pelengkapan Biodata Dosen</title>
             <link href="{{url('assets/img/sipekawarna-min.png')}}" rel="icon">
-
+            <meta name="dicoding:email" content="priyayidimas@upi.edu">
 
             <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
             <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
