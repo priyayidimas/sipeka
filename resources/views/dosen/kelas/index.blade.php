@@ -84,9 +84,6 @@ Dosen &middot; Kelas
                                 <br>
                                 @if ($k->pivot->akses == 1)
                                 <a href="{{route('editkelas',$k->id)}}" class="btn btn-success" style="margin-left:5px;">Kelola</a>
-                                <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteKelas" data-idkelas="{{$k->id}}">
-                                    Delete
-                                </button>
                                 @endif
                                 <a href="{{route('listsubmis',$k->id)}}" class="btn btn-primary" style="margin-left:5px;">Submission</a>
                             </div>

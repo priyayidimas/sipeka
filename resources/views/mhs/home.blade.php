@@ -124,28 +124,27 @@
             <div class="col-lg-6 col-md-12">
               <div class="kartu">
                 <div class="kartu-header kartu-header-warning">
-                  <h4 class="kartu-title">Undangan Asisten</h4>
-                  <p class="kartu-category">Undangan menjadi asisten kelas</p>
+                  <h4 class="kartu-title">Undangan Asisten/ Reviewer</h4>
+                  <p class="kartu-category">Undangan menjadi reviewer tugas di kelas</p>
                 </div>
                 <div class="kartu-body table-responsive">
                   <table class="table table-hover">
                     <thead class="text-warning">
-                      <th>No</th>
                       <th>Nama Kelas</th>
                       <th>Action</th>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Alur Framework Code Igniter</td>
-                        <td><a href="" class="btn btn-success">Terima</a></td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Full Stack Developer</td>
-                        <td><a href="" class="btn btn-info">Lihat Kelas</a></td>
-                      </tr>
-                    </tbody>
+                    @foreach (Auth::user()->kolab as $kolab)
+                    <tr>
+                      <td>{{$kolab->kelas_nama}}</td>
+                      <td>
+                          @if ($kolab->pivot->status == 0)
+                              <a class="btn btn-success" href="{{url('invitation/accepted/'.$kolab->pivot->id)}}">Terima</a>
+                          @else
+                              <a class="btn btn-primary" href="{{url('mhs/kelas/submission/'.$kolab->id)}}">Ke Kelas</a>
+                          @endif
+                      </td>
+                    </tr>
+                    @endforeach
                   </table>
                 </div>
               </div>

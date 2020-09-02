@@ -31,7 +31,7 @@ class Event extends Model
             'App\User',              // Model Target
             'kelas_event_join',                 // Table Inter name
             'id_event',                         // Foreign Key -> Current Model
-            'id_joinkelas')                     // Foreign Key -> Target Model
+            'id_mhs')                     // Foreign Key -> Target Model
             ->using('App\Model\JoinEvent')
             ->withPivot($pivot);
     }

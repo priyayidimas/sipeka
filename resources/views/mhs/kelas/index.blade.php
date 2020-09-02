@@ -54,8 +54,11 @@
                             <div class="card-body">
                                 <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>
                                 <h5 class="card-title">{{$k->kelas_nama}}</h5>
-                                <p class="card-text"><i class="fa fa-clipboard"></i> {{$k->materi()->count()}} Materi &nbsp;&nbsp;<i class="fa fa-chart-bar"></i> {{$k->pivot->progress}}% | @if($k->pivot->progress == 100)<span class="statustuntas">Tuntas</span>@else<span class="statusbelumtuntas">Belum Tuntas </span>@endif</p>
-                                <br><a href="{{route('lihat-kelas',$k->kelas_kode)}}" class="btn btn-primary" style="margin-left:10px;">Lihat Kelas</a>@if($k->pivot->progress == 100)<a href="#" class="btn btn-success"><i class="fa fa-download"></i> Sertifikat</a>@endif
+                                <p class="card-text">
+                                    <i class="fa fa-clipboard"></i> {{$k->materi()->count()}} Materi &nbsp;&nbsp;
+                                    {{-- <i class="fa fa-chart-bar"></i> {{$k->pivot->progress}}% |  --}}
+                                    @if($k->status_kelas == 2)<span class="statustuntas">Tuntas</span>@else<span class="statusbelumtuntas">Belum Tuntas </span>@endif</p>
+                                <br><a href="{{route('lihat-kelas',$k->kelas_kode)}}" class="btn btn-primary" style="margin-left:10px;">Lihat Kelas</a>@if($k->status_kelas == 2)<a href="{{route('cetakSertifikat',$k->id)}}" class="btn btn-success"><i class="fa fa-download"></i> Sertifikat</a>@endif
                             </div>
                         </div>
                     </div>

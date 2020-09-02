@@ -63,6 +63,8 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
             Route::get('selesai/{id}', 'SubmissionController@akhiriKelas');
             Route::post('selesai', 'SubmissionController@gradeKelas');
+
+            Route::get('progress/{kelas_id}/{mhs_id}', 'SubmissionController@progress');
         });
 
         Route::group(['prefix' => 'materi'], function () {
@@ -99,10 +101,13 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
             Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
             Route::get('/sertifikat/{id_kelas}', 'MahasiswaController@cetakSertifikat')->name('cetakSertifikat');
 
-
-
             Route::post('jawaban/{id}', 'MahasiswaController@jawabMateri')->name('jmateri');
             Route::post('jawaban/edit/', 'MahasiswaController@jawabEdit')->name('jedit');
+
+            Route::get('submission/{id}', 'MahasiswaController@listSub');
+            Route::get('list-submission/{id}', 'MahasiswaController@listMateriSub');
+            Route::get('periksa/{id}', 'MahasiswaController@periksa');
+            Route::post('review-jawaban', 'SubmissionController@reviewJawaban');
         });
 
         Route::group(['prefix' => 'event'], function () {

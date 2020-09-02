@@ -280,7 +280,7 @@ Dosen &middot; Kelola Kelas
                 <table class="table">
                     <thead>
                         <th colspan="2">Mahasiswa</th>
-                        <th>Progress</th>
+                        {{-- <th>Progress</th> --}}
                         <th>Nilai Akhir</th>
                         <th>Aksi</th>
                     </thead>
@@ -288,10 +288,10 @@ Dosen &middot; Kelola Kelas
                         <tr>
                             <td><img class="rounded" src="{!! $mhs->avatar !!}" alt="" width="50"></td>
                             <td>{{ $mhs->fullname }}</td>
-                            <td>{{ $mhs->pivot->progress }}</td>
+                            {{-- <td>{{ $mhs->pivot->progress }}</td> --}}
                             <td>{{ ($mhs->pivot->grade) ?? 'Belum Ada' }}</td>
                             <td>
-                                <a class="btn btn-sm btn-success text-white" >Detail</a>
+                                <a href="{{url('dosen/kelas/progress/'.$kls->id.'/'.$mhs->id)}}" class="btn btn-sm btn-success text-white" >Detail</a>
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#inviteKolabModal" data-id={{$mhs->id}}>Undang</button>
                             </td>
                         </tr>
@@ -580,7 +580,7 @@ Dosen &middot; Kelola Kelas
                     <label for="">Undang Ke Kelas</label>
                     <select name="kelas_id" id="" class="form-control js-example-basic-single" required>
                         <option disabled value="">Pilih Kelas</option>
-                        @foreach(Auth::user()->kelas as $kelas)
+                        @foreach(Auth::user()->kelas()->where('id','<>',$kls->id)->get() as $kelas)
                         <option value="{{$kelas->id}}">{{$kelas->kelas_nama}}</option>
                         @endforeach
                     </select>

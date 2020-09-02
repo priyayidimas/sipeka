@@ -23,8 +23,8 @@ class MahasiswaController extends Controller
 
         // Cards
         $cKelas = Auth::user()->join()->count();
-        $cSelesai = Auth::user()->join()->where('progress','100')->count();
-        $cProgress = Auth::user()->join()->where('progress','<','100')->count();
+        $cSelesai = Auth::user()->join()->where('status_kelas','2')->count();
+        $cProgress = Auth::user()->join()->where('status_kelas','<>','2')->count();
 
         // Kelas
         $kelas = Auth::user()->join;
@@ -129,8 +129,11 @@ class MahasiswaController extends Controller
         $mulai = Carbon::parse($event->waktu_mulai);
         $selesai = Carbon::parse($event->waktu_selesai);
         $cek = $this->cekJoinEvent($mulai, $selesai,$event_id);
+        $mhs = User::find($mhs_id);
         if($cek){
-            $event->joinEvent()->attach($mhs_id);
+            if (!$event->joinEvent->contains($mhs->id)) {
+                $event->joinEvent()->save($mhs);
+            }
             return redirect($event->link);
         }
         return back()->with(['color' => 'danger', 'msg' => 'Bentrok Dengan Jadwal lain']);
@@ -196,5 +199,23 @@ class MahasiswaController extends Controller
         $pdf = PDF::loadView('layouts.sertifikat', compact('user','kelas'))
                     ->setPaper('a4', 'landscape');
         return $pdf->download('Sertifikat_'.$kelas->kelas_kode.'_'.$user->fullname.'.pdf');
+    }
+
+    public function listSub($id)
+    {
+        $kls = Kelas::find($id);
+        return view('mhs.kelas.listsubmis',compact('kls'));
+    }
+
+    public function listMateriSub($id)
+    {
+        $mt = Materi::find($id);
+        return view('mhs.kelas.materisubmis',compact('mt'));
+    }
+
+    public function periksa($id)
+    {
+        $jawaban = Jawaban::find($id);
+        return view('mhs.kelas.periksa',compact('jawaban'));
     }
 }

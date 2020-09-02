@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Event;
 use Illuminate\Http\Request;
 use App\Model\Jawaban;
 use App\Model\Kelas;
@@ -18,13 +19,21 @@ class SubmissionController extends Controller
         $jawaban->reviewer_id = Auth::id();
         $jawaban->save();
 
-        return redirect(route('periksa',$req->jawaban_id))->with(['color' => 'success', 'msg' => 'Berhasil Review Jawaban']);
+        return back()->with(['color' => 'success', 'msg' => 'Berhasil Review Jawaban']);
     }
 
-    public function periksa($id)
+
+    public function progress($kelas_id, $mhs_id)
     {
-        $jawaban = Jawaban::find($id);
-        return view('dosen.kelas.periksa',compact('jawaban'));
+        $mhs = User::find($mhs_id);
+        $kls = Kelas::find($kelas_id);
+        return view('dosen.kelas.progress', compact('mhs','kls'));
+    }
+
+    public function detailEvent($event_id)
+    {
+        $event = Event::find($event_id);
+        return view('dosen.kelas.selesai',compact('kls'));
     }
 
     public function akhiriKelas($id)
@@ -32,7 +41,6 @@ class SubmissionController extends Controller
         $kls = Kelas::find($id);
         return view('dosen.kelas.selesai',compact('kls'));
     }
-
     public function gradeKelas(Request $req)
     {
         if(array_sum($req['bobot']) != 1.0) return back()->with(['color' => 'danger', 'msg' => 'Jumlah Seluruh Bobot Harus 1']);

@@ -242,7 +242,8 @@ class DosenController extends Controller
 
     public function periksa($id)
     {
-        return view('dosen.kelas.periksa');
+        $jawaban = Jawaban::find($id);
+        return view('dosen.kelas.periksa',compact('jawaban'));
     }
 
     public function profile()
