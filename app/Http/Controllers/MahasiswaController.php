@@ -195,10 +195,30 @@ class MahasiswaController extends Controller
     {
         $user = Auth::user();
         $kelas = Kelas::find(23);
+        $join = KelasJoin::where('id_user',$user->id)->where('id_kelas',$kelas->id)->first();
+        $grade = $join->grade;
+        $mutu = $this->printMutu($grade);
 
-        $pdf = PDF::loadView('layouts.sertifikat', compact('user','kelas'))
+
+        $pdf = PDF::loadView('layouts.sertifikat', compact('user','kelas','grade','mutu'))
                     ->setPaper('a4', 'landscape');
         return $pdf->download('Sertifikat_'.$kelas->kelas_kode.'_'.$user->fullname.'.pdf');
+    }
+
+    public function printMutu($grade)
+    {
+        $mutu = 'E';
+        if($grade >= 80){
+            $mutu = 'A';
+        }elseif($grade >= 70){
+            $mutu = 'B';
+        }elseif($grade >= 60){
+            $mutu = 'C';
+        }elseif($grade >= 50){
+            $mutu = 'D';
+        }
+
+        return $mutu;
     }
 
     public function listSub($id)

@@ -243,12 +243,13 @@ Dosen &middot; Kelola Kelas
                             <p>{{$selesai = Carbon::parse($event->waktu_selesai)->format('d F Y @ H:i')}}</p>
                         </div>
                         <br>
-                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateEvent" data-id="{{$event->id}}" data-title="{{$event->title}}" data-desc="{{$event->desc}}" data-mulai="{{$mulai}}" data-selesai="{{$selesai}}">
-                            Edit
-                        </button>
                         <button type="button" style="margin-left:5px;float:right;" class="btn btn-danger" data-toggle="modal" data-target="#deleteEvent" data-id="{{$event->id}}">
                             Delete
                         </button>
+                        <button type="button" style="margin-left:5px;float:right;" class="btn btn-warning" data-toggle="modal" data-target="#updateEvent" data-id="{{$event->id}}" data-title="{{$event->title}}" data-desc="{{$event->desc}}" data-mulai="{{$mulai}}" data-selesai="{{$selesai}}">
+                            Edit
+                        </button>
+                        <a style="margin-left:5px;float:right;" class="btn btn-info" href="{{url('dosen/events/detail/'.$event->id)}}">Detail</a>
                     </div>
                 </div>
                 <br>

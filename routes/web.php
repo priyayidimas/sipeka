@@ -74,6 +74,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
         });
 
         Route::group(['prefix' => 'events'], function () {
+            Route::get('detail/{id}', 'SubmissionController@detailEvent');
             Route::post('store', 'CalendarController@storeEvent')->name('storeEvent');
             Route::post('patch', 'CalendarController@patchEvent')->name('patchEvent');
             Route::post('delete', 'CalendarController@deleteEvent')->name('delete-event');

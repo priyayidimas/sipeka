@@ -66,7 +66,7 @@
                     line-height: 22px;
                     text-align: center;
 
-                    color: #FFFFFF;">Mahasiswa lulus dengan nilai 100.00 mutu A</p>
+                    color: #FFFFFF;">Mahasiswa lulus dengan nilai {{$grade}} mutu {{$mutu}}</p>
             </div>
         </div>
         <div class="content">

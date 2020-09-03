@@ -30,10 +30,10 @@ class SubmissionController extends Controller
         return view('dosen.kelas.progress', compact('mhs','kls'));
     }
 
-    public function detailEvent($event_id)
+    public function detailEvent($id)
     {
-        $event = Event::find($event_id);
-        return view('dosen.kelas.selesai',compact('kls'));
+        $event = Event::find($id);
+        return view('dosen.kelas.detail_event',compact('event'));
     }
 
     public function akhiriKelas($id)

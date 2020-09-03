@@ -31,23 +31,32 @@ Dosen &middot; Detail Pertemuan
 @section('content')
 <div class="row">
     <div class="col-md-11 menu-kelola-content p-4">
-        <h5>Daftar Kehadiran</h5><br>
+        <h5>Daftar Kehadiran Pertemuan Daring</h5><br>
         <table class="table">
             <thead>
                 <th colspan="2">Nama Mahasiswa</th>
                 <th>Status Kehadiran</th>
             </thead>
-            {{-- @foreach($kls->materi()->where('jenis','<>','0')->get() as $k)
+            @forelse ($event->kelas->join as $join)
+            @php
+                $hadir = $event->joinEvent()->where('id_mhs',$join->id)->first();
+            @endphp
             <tr>
-                <td><a href="{{url('dosen/kelas/list-submission/'.$k->id)}}">{{$k->judul}}</a></td>
-                <td>{{$status}}</td>
+                <td><img class="rounded" src="{!! $join->avatar !!}" alt="" width="50"></td>
+                <td>{{$join->fullname}}</td>
                 <td>
-                    @if ($jawaban)
-                    <a class="btn btn-primary" href="{{url('dosen/kelas/periksa/'.$jawaban->pivot->id)}}">Periksa</a>
-                    @endif
+                    @if($hadir)
+                    <span class="badge badge-success">Hadir</span>
+                    @else
+                    <span class="badge badge-danger">Tidak Hadir</span>
+                    @endif</p>
                 </td>
             </tr>
-            @endforeach --}}
+            @empty
+            <tr>
+                <td colspan="3">Belum Ada Data</td>
+            </tr>
+            @endforelse
         </table>
     </div>
 </div>
