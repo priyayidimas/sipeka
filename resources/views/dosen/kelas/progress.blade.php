@@ -45,15 +45,15 @@ Dosen &middot; Progress Mahasiswa
             @foreach($kls->materi()->where('jenis','<>','0')->get() as $k)
             @php
                 $jawaban = $k->jawaban()->where('id_mhs',$mhs->id)->first();
-                $status = 'Belum Dikerjakan';
+                $status = '<span class="badge badge-danger">Belum Dikerjakan</span>';
                 if($jawaban){
-                    $status = 'Sudah Dikerjakan';
+                    $status = '<span class="badge badge-success">Sudah Dikerjakan</span>';
                     $n++;
                 }
             @endphp
             <tr>
                 <td><a href="{{url('dosen/kelas/list-submission/'.$k->id)}}">{{$k->judul}}</a></td>
-                <td>{{$status}}</td>
+                <td>{!! $status !!}</td>
                 <td>
                     @if ($jawaban)
                     <a class="btn btn-primary" href="{{url('dosen/kelas/periksa/'.$jawaban->pivot->id)}}">Periksa</a>
@@ -63,7 +63,7 @@ Dosen &middot; Progress Mahasiswa
             @endforeach
         </table>
 
-        <h5>Tugas Dikumpulkan : {{$n}} / {{$cAll}} ({{ ($n/$cAll) * 100 }}%) </h5>
+        <h5>Tugas Dikumpulkan : {{$n}} / {{$cAll}} ({{ ($cAll != 0) ? ($n/$cAll) * 100 : '0' }}%) </h5>
     </div>
 </div>
 @endsection

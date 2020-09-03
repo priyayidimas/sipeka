@@ -48,7 +48,7 @@ Dosen &middot; Akhiri Kelas
                 @endphp
                 <tr>
                     <td><a href="{{url('dosen/kelas/list-submission/'.$k->id)}}">{{$k->judul}}</a></td>
-                    <td>{{$cSubs}}</td>
+                    <td>{{$cSubs}}/{{$kls->join->count()}}</td>
                     <td>
                         <input type="number" step="0.05" min="0" max="1" class="form-control" name="bobot[{{$k->id}}]" required>
                     </td>

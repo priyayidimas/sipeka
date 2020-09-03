@@ -463,7 +463,7 @@ Dosen &middot; Kelola Kelas
             </button>
           </div>
           <div class="modal-body">
-              <form method="POST" action="{{url('dosen/events/store')}}" class="form-group" id="tambahevent">
+              <form method="POST" action="{{url('dosen/events/store')}}" class="form-group" id="tambahevent" autocomplete="off">
                 @csrf
                 <input type="hidden" name="id_kelas" value="{{$kls->id}}">
                 <div class="form-group">
@@ -506,7 +506,7 @@ Dosen &middot; Kelola Kelas
               </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{url('dosen/events/patch')}}" class="form-group" id="updateEventForm">
+                <form method="POST" action="{{url('dosen/events/patch')}}" class="form-group" id="updateEventForm" autocomplete="off">
                   @csrf
                   <input type="hidden" name="id" id='id'>
                     <input type="hidden" name="id_kelas" value="{{$kls->id}}">

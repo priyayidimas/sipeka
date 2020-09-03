@@ -40,7 +40,7 @@ Dosen &middot; Kelas
                 <br><h5>Kelas Yang Anda Ampu</h5>
                 <div class="row" style="margin-top:20px;">
                     @foreach($kelas as $k)
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="card itemkelas">
                             <div class="card-body">
                                 <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>
@@ -71,7 +71,7 @@ Dosen &middot; Kelas
                 <br><h5>Anda Berkontribusi dalam Kelas</h5>
                 <div class="row" style="margin-top:20px;">
                     @foreach(Auth::user()->kolab as $k)
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="card itemkelas">
                             <div class="card-body">
                                 <p class="kelas-detailkategori">{{$k->detail_kategori->dkat_nama}}</p>

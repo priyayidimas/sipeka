@@ -62,13 +62,15 @@
       <div class="logo mr-auto">
         <!-- <img src="sipeka.png" width="509px" height="339px" alt=""> -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="sipeka.png" width="82px" height="55px" alt="" class="img-fluid"></a>
+        <a href=""><img src="{{url('/assets/img/sipeka.png')}}" width="82px" height="55px" alt="" class="img-fluid"></a>
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Home</a></li>
+          @if(!Auth::check() || Auth::user()->level == 0)
           <li><a href="/daftar-kelas">Daftar Kelas</a></li>
+          @endif
           <li><a href="">Daftar Dosen</a></li>
           <li><a href="/perpustakaan">Perpustakaan</a></li>
           @auth

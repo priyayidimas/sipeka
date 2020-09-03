@@ -138,7 +138,7 @@ class CalendarController extends Controller
 
         $dbEvent->delete();
         printf("DB Event Deleted");
-        return back()->with(['color' => 'success', 'msg' => 'Berhasil Menmbatalkan Pertemuan']);
+        return back()->with(['color' => 'success', 'msg' => 'Berhasil Membatalkan Pertemuan']);
 
     }
 
@@ -180,6 +180,7 @@ class CalendarController extends Controller
             ),
         ));
 
+        // KelasJoin
         $kelas = Kelas::find($req->id_kelas);
         $attendees = [];
         foreach($kelas->join as $join){
@@ -187,12 +188,28 @@ class CalendarController extends Controller
             array_push($attendees, $attendee);
         }
 
-        // Set Hangout Link From Earlier
-        $event->setHangoutLink($dbEvent->link);
+        // Invite Others
+        $event->setAttendees($attendees);
 
-        // Patch Event
+        // Select Calendar Id
+        $calendarId = Auth::user()->calendar_id;
+
+        // Insert Event
         $event = $service->events->insert($calendarId, $event, ['sendUpdates' => 'all']);
+
         printf('Event Updated: %s', $event->htmlLink);
+
+        // Conference Data
+        $conference = new \Google_Service_Calendar_ConferenceData();
+        $conferenceRequest = new \Google_Service_Calendar_CreateConferenceRequest();
+        $conferenceRequest->setRequestId('IniMeeting');
+        $conference->setCreateRequest($conferenceRequest);
+        $event->setConferenceData($conference);
+
+        // Update Again
+        $event = $service->events->patch($calendarId, $event->id, $event, ['conferenceDataVersion' => 1]);
+
+        printf('<br>Conference created: %s', $event->hangoutLink);
 
 
         // Store To Sipeka DB

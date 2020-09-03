@@ -45,7 +45,9 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Home</a></li>
-          <li><a href="/daftar-kelas">Daftar Kelas</a></li>
+            @if(!Auth::check() || Auth::user()->level == 0)
+            <li><a href="/daftar-kelas">Daftar Kelas</a></li>
+            @endif
           <li><a href="/daftar-dosen">Daftar Dosen</a></li>
           <li><a href="/perpustakaan">Perpustakaan</a></li>
           @if (Auth::check())
