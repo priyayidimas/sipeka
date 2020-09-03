@@ -91,6 +91,13 @@ class MahasiswaController extends Controller
         return view('mhs.kelas.detail',compact('kls','mt'));
     }
 
+    public function progressKelas($id)
+    {
+        $kls = Kelas::where('kelas_kode',$id)->first();
+        $mt = Materi::where('id_kelas',$kls->id)->get();
+        return view('mhs.kelas.progress',compact('kls','mt'));
+    }
+
     public function lihatMateri($idkelas,$id)
     {
         $kls = Kelas::where('kelas_kode',$idkelas)->first();

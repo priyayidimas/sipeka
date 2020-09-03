@@ -58,7 +58,7 @@ Route::group(['prefix' => 'dosen', 'middleware' => ['auth']], function () {
 
             Route::get('submission/{id}', 'DosenController@listSub')->name('listsubmis');
             Route::get('list-submission/{id}', 'DosenController@listMateriSub')->name('listmhssubmis');
-            Route::get('periksa/{id}', 'SubmissionController@periksa')->name('periksa');
+            Route::get('periksa/{id}', 'DosenController@periksa')->name('periksa');
             Route::post('review-jawaban', 'SubmissionController@reviewJawaban')->name('reviewJawaban');
 
             Route::get('selesai/{id}', 'SubmissionController@akhiriKelas');
@@ -99,6 +99,7 @@ Route::group(['prefix' => 'mhs', 'middleware' => ['auth']], function () {
             Route::get('/', 'MahasiswaController@indexKelas');
             Route::post('join-kelas', 'MahasiswaController@joinKelas')->name('jkelas');
             Route::get('/lihat-kelas/{id}', 'MahasiswaController@lihatKelas')->name('lihat-kelas');
+            Route::get('/lihat-kelas/{id}/progress', 'MahasiswaController@progressKelas')->name('progressKelasMhs');
             Route::get('/materi/{idkelas}/{id}', 'MahasiswaController@lihatMateri')->name('lmateri');
             Route::get('/sertifikat/{id_kelas}', 'MahasiswaController@cetakSertifikat')->name('cetakSertifikat');
 

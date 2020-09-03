@@ -34,6 +34,9 @@
                 <li>
                     <a href="{{route('lihat-kelas',$kls->kelas_kode)}}"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;Informasi Kelas</a>
                 </li>
+                <li>
+                    <a href="{{route('progressKelasMhs',$kls->kelas_kode)}}"><i class="fas fa-chart-bar"></i>&nbsp;&nbsp;Progress</a>
+                </li>
             </ul>
             <h6 style="margin:0px 10px;"><b>Materi</b></h6>
             <ul class="list-unstyled components">

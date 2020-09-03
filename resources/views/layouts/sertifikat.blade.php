@@ -35,7 +35,7 @@
             font-size: 24px;
             line-height: 29px;
             text-align: center;
-            color: #FFFFFF;width:100%;">Yang diampu oleh {{$kelas->dosen->fullname}}</h2>
+            color: #FFFFFF;width:100%;">Diampu oleh {{$kelas->dosen->fullname}}</h2>
                     </div>
                     <div class="content">
                         <div class="tujuan" style="width:100%">
@@ -46,7 +46,7 @@
             line-height: 22px;
             text-align: center;
 
-            color: #FFFFFF;">Mahasiswa berhasil memperoleh hasil pembelajaran yang sesuai dengan kriteria kelulusan kelas, diberikan kepada : </p>
+            color: #FFFFFF;">Mahasiswa berhasil memperoleh hasil pembelajaran yang sesuai dengan tingkat kompetensinya, diberikan kepada : </p>
             </div>
         </div>
         <div class="content">
@@ -66,7 +66,7 @@
                     line-height: 22px;
                     text-align: center;
 
-                    color: #FFFFFF;">Mahasiswa lulus dengan nilai {{$grade}} mutu {{$mutu}}</p>
+                    color: #FFFFFF;">Mahasiswa menyelesaikan kelas dengan nilai {{$grade}} mutu {{$mutu}}</p>
             </div>
         </div>
         <div class="content">

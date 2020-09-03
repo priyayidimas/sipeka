@@ -31,10 +31,10 @@
             </div>
 
             <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="{{route('lihat-kelas',$kls->kelas_kode)}}"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;Informasi Kelas</a>
-                </li><br>
                 <li>
+                    <a href="{{route('lihat-kelas',$kls->kelas_kode)}}"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;Informasi Kelas</a>
+                </li>
+                <li class="active">
                     <a href="{{route('progressKelasMhs',$kls->kelas_kode)}}"><i class="fas fa-chart-bar"></i>&nbsp;&nbsp;Progress</a>
                 </li>
             </ul>
@@ -86,69 +86,43 @@
               </div>
             @endif
 
-            <h2>{{$kls->kelas_nama}}</h2>
-            <p class="text-justify">{{$kls->desc}}</p>
+            <h2>Progress Kelas</h2>
 
             <div class="row">
-                <div class="col-md-6">
-                    <h6 class="text-center">Informasi Dosen</h6>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="{{$kls->dosen->avatar}}" class="rounded-circle" width="50" height="50" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <h6><b>{{$kls->dosen->fullname}}</b></h6>
-                            <p>{{$kls->dosen->dosen->univ}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6" style="border-left: 1px solid grey;">
-                    <h6 class="text-center">Informasi Kelas</h6>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <i class="fa fa-clipboard" style="font-size:50px;"></i>
-                        </div>
-                        <div class="col-md-8">
-                            <span style="font-size:14px;"><b>Kategori : </b> {{$kls->detail_kategori->dkat_nama}}</span><br>
-                            <span style="font-size:14px;"><b>Jumlah Materi : </b> {{$kls->materi()->count()}} Materi</span><br>
-                            @if($kls->link_tel != NULL)<a href="{{$kls->link_tel}}" target="_blank" class="btn btn-primary" style="padding:2px 5px;"> Join Group</a>@else <span class="alert alert-info" style="padding:1px;">Tidak Ada Group Telegram</span>@endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    @if ($kls->kolab()->where('akses','1')->count() > 0)
-                    <h6 class="text-center">Dosen Pendamping</h6>
-                    @foreach ($kls->kolab()->where('akses','1')->get() as $kolab)
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="{{$kolab->avatar}}" class="rounded-circle" width="50" height="50" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <h6><b>{{$kolab->fullname}}</b></h6>
-                            <p>{{$kolab->dosen->univ}}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
-                </div>
-                <div class="col-md-6" style="border-left: 1px solid grey;">
-                    @if ($kls->kolab()->where('akses','0')->count() > 0)
-                    <h6 class="text-center">Reviewer</h6>
-                    @foreach ($kls->kolab()->where('akses','0')->get() as $kolab)
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img src="{{$kolab->avatar}}" class="rounded-circle" width="50" height="50" alt="">
-                        </div>
-                        <div class="col-md-8">
-                            <h6><b>{{$kolab->fullname}}</b></h6>
-                            <p>{{$kolab->dosen->univ}}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
+                <div class="col-md-11 menu-kelola-content p-4">
+                    <h5>List Tugas</h5><br>
+                    <table class="table">
+                        <thead>
+                            <th>Nama Materi</th>
+                            <th>Status Submission</th>
+                            <th>Aksi</th>
+                        </thead>
+                        @php
+                            $cAll = $kls->materi()->where('jenis','<>','0')->count();
+                            $n = 0;
+                        @endphp
+                        @foreach($kls->materi()->where('jenis','<>','0')->get() as $k)
+                        @php
+                            $jawaban = $k->jawaban()->where('id_mhs',Auth::id())->first();
+                            $status = '<span class="badge badge-danger">Belum Dikerjakan</span>';
+                            if($jawaban){
+                                $status = '<span class="badge badge-success">Sudah Dikerjakan</span>';
+                                $n++;
+                            }
+                        @endphp
+                        <tr>
+                            <td>{{$k->judul}}</td>
+                            <td>{!! $status !!}</td>
+                            <td>
+                                @if (!$jawaban)
+                                <a class="btn btn-primary" href="{{route('lmateri',['idkelas' => $kls->kelas_kode, 'id' => $k->id])}}">Kerjakan</a>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+
+                    <h5>Tugas Dikumpulkan : {{$n}} / {{$cAll}} ({{ ($cAll != 0) ? ($n/$cAll) * 100 : '0' }}%) </h5>
                 </div>
             </div>
         </div>
